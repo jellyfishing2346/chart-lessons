@@ -30,7 +30,7 @@
 html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 #dash-root{max-width:72rem;margin:0 auto;padding:clamp(1rem,4vw,2.5rem)}
 .dash-skeleton{display:inline-block;min-width:3rem;min-height:1em;border-radius:6px;background:var(--color-border-line)}
-.gv-foot{margin-top:2rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.gv-foot{font-family:var(--font-anthropic-sans);margin-top:2rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
 </style>
 <script src="d3.min.js"></script>
 </head>
@@ -95,9 +95,9 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 .gv-dot{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
 .gv-tools{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);align-items:center;margin-bottom:var(--cds-gap-md)}
 .gv-search{font:inherit;font-size:var(--cds-font-size-caption);padding:var(--cds-pad-xs) var(--cds-pad-sm);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg);min-width:12rem;flex:1;max-width:20rem}
-.gv-tbox{max-height:34rem;overflow:auto}
+.gv-tbox{overflow-x:auto}
 .gv-table{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-caption)}
-.gv-table th{position:sticky;top:0;background:var(--color-panel);text-align:left;font-weight:600;padding:var(--cds-pad-xs) var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line)}
+.gv-table th{background:var(--color-panel);text-align:left;font-weight:600;padding:var(--cds-pad-xs) var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line)}
 .gv-table td{padding:var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line);vertical-align:top;line-height:1.4}
 .gv-table td:first-child{font-weight:600;min-width:9rem}
 .gv-table a{color:inherit}
@@ -250,7 +250,7 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
       <li><b>Decide:</b> is it a good chart, confusing, hiding its point, or misleading?</li>
       <li><b>Fix it:</b> sketch or describe a better version, then share it with the class.</li>
     </ol>
-    <p style="margin:var(--cds-gap-md) 0 0"><a class="gv-btn gv-link" href="worksheet.pdf" target="_blank" rel="noopener">⬇ Download the printable worksheet (PDF)</a></p>
+    <p style="margin:var(--cds-gap-md) 0 0"><a class="gv-btn gv-link" href="worksheet.pdf" target="_blank" rel="noopener">Download the printable worksheet (PDF)</a></p>
   </section>
 
   <section id="catalog" class="gv-card">
@@ -492,7 +492,7 @@ dash.calc('polls_trend', {
     const mn = d3.min(vals), mx = d3.max(vals);
     const y = d3.scaleLinear(bad ? [mn - .3, mx + .3] : [mn - (mx - mn) / 2, mx + .5], [H - 22, 20]);
     const lw = textW(svg, y.ticks(4).map(d => d + '%')) + 8;
-    const rw = bad ? 8 : textW(svg, ['Wrong', 'Right'], 'gv-lbl') + 10;
+    const rw = bad ? 26 : textW(svg, ['Wrong', 'Right'], 'gv-lbl') + 10;
     const x = d3.scaleUtc(d3.extent(polls, p => parse(p.week)), [lw + 4, w - rw]);
     grid(svg, y, lw, w - rw, 4);
     axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(d => d + '%').tickSize(0).tickPadding(6));
@@ -525,24 +525,31 @@ dash.calc('polls_trend', {
   function scatter(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
     const x = d3.scaleLinear([0, d3.max(rows, r => Number(r.aged_65_pct)) * 1.08], [0, 1]).nice();
-    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.pension_pct_gdp)) * 1.1], [H - 34, 10]).nice();
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.pension_pct_gdp)) * 1.1], [H - 34, 26]).nice();
     const lw = textW(svg, y.ticks(4).map(String)) + 8;
     x.range([lw + 4, w - 10]);
     grid(svg, y, lw, w - 10, 4);
     axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
     axis(svg.append('g').attr('transform', `translate(0,${H - 34})`), d3.axisBottom(x).ticks(5).tickSize(0).tickPadding(6));
     svg.append('text').attr('class', 'gv-tick').attr('x', w - 10).attr('y', H - 2).attr('text-anchor', 'end').text('Aged 65+, % of population →');
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ Pensions, % of GDP');
+    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 12).text('↑ Pensions, % of GDP');
     const lab = r => r.labelled === 'yes';
     svg.append('g').selectAll('circle').data(rows).join('circle')
       .attr('cx', r => x(Number(r.aged_65_pct))).attr('cy', r => y(Number(r.pension_pct_gdp))).attr('r', 5)
       .attr('fill', r => bad ? (lab(r) ? C[1] : C[0]) : C[0]).attr('opacity', r => bad ? .9 : (lab(r) ? 1 : .25))
       .on('mousemove', (ev, r) => tt.show(ev, r.country, ['Aged 65+: ' + r.aged_65_pct + '%', 'Pensions: ' + r.pension_pct_gdp + '% of GDP'])).on('mouseleave', () => tt.hide());
-    svg.append('g').selectAll('text').data(rows.filter(lab)).join('text')
-      .attr('class', r => 'gv-lbl' + (!bad && r.focus === 'yes' ? ' strong' : ''))
-      .attr('x', r => x(Number(r.aged_65_pct)) + (x(Number(r.aged_65_pct)) > w * .7 ? -8 : 8))
-      .attr('text-anchor', r => x(Number(r.aged_65_pct)) > w * .7 ? 'end' : 'start')
-      .attr('y', r => y(Number(r.pension_pct_gdp))).attr('dy', '.35em').text(r => r.country);
+    // place labels, nudging any that would overlap another label
+    const L = rows.filter(lab).map(r => {
+      const px = x(Number(r.aged_65_pct)), py = y(Number(r.pension_pct_gdp)), right = px > w * .7;
+      const tw = textW(svg, [r.country], 'gv-lbl') + 4, x0 = right ? px - 8 - tw : px + 8;
+      return {r, px, py, right, x0, x1: x0 + tw, ly: py};
+    }).sort((a, b) => a.py - b.py);
+    L.forEach((b, i) => { for (let k = 0; k < 3; k++) L.slice(0, i).forEach(a => {
+      if (b.x0 < a.x1 && a.x0 < b.x1 && Math.abs(b.ly - a.ly) < 14) b.ly = a.ly + 14; }); });
+    svg.append('g').selectAll('text').data(L).join('text')
+      .attr('class', l => 'gv-lbl' + (!bad && l.r.focus === 'yes' ? ' strong' : ''))
+      .attr('x', l => l.right ? l.px - 8 : l.px + 8).attr('text-anchor', l => l.right ? 'end' : 'start')
+      .attr('y', l => l.ly).attr('dy', '.35em').text(l => l.r.country);
   }
 
   // 5. Pie vs bars
