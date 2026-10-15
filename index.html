@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Charts vs Bad Charts</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<style>
+:root{
+  --font-anthropic-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-anthropic-serif: Georgia, "Times New Roman", serif;
+  --color-fg:#1f1e1c; --color-fg-muted:#6b6862; --color-bg:#ffffff; --color-panel:#f7f6f3; --color-border-line:#e3e0da;
+  --color-ok:#2e7d32; --color-warn:#b26a00; --color-bad:#c62828;
+  --s0:#2f6fdb; --s1:#e07a1f; --s2:#2e9e6b; --s3:#a24fc2; --s4:#d6457a; --s5:#1a9bb3; --s6:#8a7a1f; --s7:#6b6862;
+  --cds-chart-axis:#c9c5bd; --cds-chart-grid:#ebe8e2; --cds-chart-muted:#c3bfb7; --cds-chart-reference:#8f8b84;
+  --cds-surface-popover:#ffffff; --cds-border:#d9d5ce; --cds-shadow-popover:0 4px 14px rgba(0,0,0,.12); --cds-text-secondary:#6b6862;
+  --cds-font-size-caption:.8rem; --cds-font-size-body:.95rem; --cds-font-size-heading:1.1rem; --cds-font-size-title:2rem; --cds-font-weight-medium:600;
+  --cds-gap-xs:.25rem; --cds-gap-sm:.5rem; --cds-gap-md:.9rem; --cds-gap-lg:1.25rem; --cds-gap-xl:2rem;
+  --cds-pad-xs:.25rem; --cds-pad-sm:.5rem; --cds-pad-md:.85rem; --cds-pad-lg:1.25rem; --cds-radius:10px; --cds-dur-slow:.3s;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){:root{
+  color-scheme: dark;
+  --color-fg:#ece9e4; --color-fg-muted:#a8a49d; --color-bg:#1c1b19; --color-panel:#252421; --color-border-line:#3a3834;
+  --color-ok:#66bb6a; --color-warn:#f0a840; --color-bad:#ef6b6b;
+  --s0:#6a9ef0; --s1:#f0a050; --s2:#5cc49a; --s3:#c588e0; --s4:#ef7aa3; --s5:#4fc3d9; --s6:#c9b84a; --s7:#a8a49d;
+  --cds-chart-axis:#55524c; --cds-chart-grid:#33312d; --cds-chart-muted:#5e5b55; --cds-chart-reference:#8f8b84;
+  --cds-surface-popover:#2b2a27; --cds-border:#45423d; --cds-shadow-popover:0 4px 14px rgba(0,0,0,.5); --cds-text-secondary:#a8a49d;
+}}
+html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
+#dash-root{max-width:72rem;margin:0 auto;padding:clamp(1rem,4vw,2.5rem)}
+.dash-skeleton{display:inline-block;min-width:3rem;min-height:1em;border-radius:6px;background:var(--color-border-line)}
+.gv-foot{margin-top:2rem;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+<div id="dash-root">
+<style>
+#dash-root .gv{font-family:var(--font-anthropic-sans);color:var(--color-fg);display:flex;flex-direction:column;gap:var(--cds-gap-xl)}
+.gv-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);margin:0}
+.gv-take{margin:var(--cds-gap-xs) 0 0;color:var(--color-fg-muted);font-size:var(--cds-font-size-body);max-width:52rem}
+.gv-intro{margin:var(--cds-gap-sm) 0 0;font-size:var(--cds-font-size-body);max-width:52rem;line-height:1.5}
+.gv-spot{display:inline-block;margin-top:var(--cds-gap-xs);color:var(--color-fg)}
+.gv-ans{margin-top:var(--cds-gap-sm);font-size:var(--cds-font-size-body)}
+.gv-ans summary{cursor:pointer;color:var(--color-bad);font-weight:600}
+.gv-ans p{margin:var(--cds-gap-xs) 0 0;color:var(--color-fg-muted);line-height:1.45}
+.gv-rule{margin:var(--cds-gap-md) 0 0;font-weight:600}
+.gv-q{margin:0;padding-left:1.4rem;display:flex;flex-direction:column;gap:var(--cds-gap-sm);line-height:1.5}
+.gv-gloss{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--cds-gap-md)}
+.gv-gloss dt{font-weight:600}.gv-gloss dd{margin:2px 0 0;color:var(--color-fg-muted);line-height:1.45}
+.gv-qz-top{display:flex;justify-content:space-between;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-bottom:var(--cds-gap-sm)}
+.gv-qz-q{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0 0 var(--cds-gap-md);line-height:1.4}
+.gv-pick,.gv-btn{font:inherit;font-size:var(--cds-font-size-body);margin-top:var(--cds-gap-sm);width:100%;padding:var(--cds-pad-sm);border-radius:var(--cds-radius);border:1px solid var(--color-border-line);background:var(--color-panel);color:var(--color-fg);cursor:pointer}
+.gv-pick:hover:not(:disabled),.gv-btn:hover{border-color:var(--color-fg)}
+.gv-pick:disabled{cursor:default;opacity:.6}
+.gv-btn{width:auto;padding:var(--cds-pad-sm) var(--cds-pad-lg);font-weight:600}
+.gv-fb{margin-top:var(--cds-gap-md);padding:var(--cds-pad-md);border-radius:var(--cds-radius);border:1px solid var(--color-border-line);background:var(--color-bg);line-height:1.5}
+.gv-fb .ok{color:var(--color-ok);font-weight:700}.gv-fb .no{color:var(--color-bad);font-weight:700}
+.gv-qz-nav{display:flex;justify-content:flex-end}
+.gv-qz-result{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);margin:0 0 var(--cds-gap-xs)}
+.gv-take b,.gv b{font-weight:600;color:var(--color-fg)}
+.gv-nav{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs);margin-top:var(--cds-gap-md)}
+.gv-nav button,.gv-chip{font:inherit;font-size:var(--cds-font-size-caption);background:var(--color-panel);color:var(--color-fg);border:1px solid var(--color-border-line);border-radius:999px;padding:var(--cds-pad-xs) var(--cds-pad-sm);cursor:pointer}
+.gv-chip[aria-pressed=true]{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+.gv-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:var(--cds-gap-md)}
+.gv-tile{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md) var(--cds-pad-lg)}
+.gv-tile-l{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.gv-tile-v{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);font-variant-numeric:tabular-nums;margin-top:var(--cds-gap-xs);min-height:1.2em}
+.gv-tile-v.bad{color:var(--color-bad)}.gv-tile-v.warn{color:var(--color-warn)}
+.gv-h2{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0 0 var(--cds-gap-xs)}
+.gv-sub{margin:0 0 var(--cds-gap-md);color:var(--color-fg-muted);font-size:var(--cds-font-size-body)}
+.gv-pairs{display:flex;flex-direction:column;gap:var(--cds-gap-lg)}
+.gv-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg)}
+.gv-card h3{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0}
+.gv-card .gv-note{margin:var(--cds-gap-xs) 0 var(--cds-gap-md);color:var(--color-fg-muted);font-size:var(--cds-font-size-body)}
+.gv-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:var(--cds-gap-md)}
+.gv-panel{position:relative;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md);background:var(--color-bg)}
+.gv-panel.bad{border-top:3px solid var(--color-bad)}.gv-panel.good{border-top:3px solid var(--color-ok)}
+.gv-badge{font-size:var(--cds-font-size-caption);font-weight:600;letter-spacing:.02em}
+.gv-panel.bad .gv-badge{color:var(--color-bad)}.gv-panel.good .gv-badge{color:var(--color-ok)}
+.gv-chart{min-height:210px;margin-top:var(--cds-gap-sm)}
+.gv-cap{font-size:var(--cds-font-size-body);color:var(--color-fg-muted);margin:var(--cds-gap-sm) 0 0}
+.gv-svg text{font-family:var(--font-anthropic-sans)}
+.gv-tick,.gv-axis text{font-size:var(--cds-font-size-caption);fill:var(--color-fg-muted)}
+.gv-axis line{stroke:var(--cds-chart-axis)}
+.gv-grid line{stroke:var(--cds-chart-grid)}
+.gv-lbl{font-size:var(--cds-font-size-caption);fill:var(--color-fg)}
+.gv-lbl.strong{font-weight:700}
+.gv-tip{position:absolute;display:none;pointer-events:none;z-index:5;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);white-space:nowrap}
+.gv-tip-h{color:var(--cds-text-secondary)}
+.gv-fail{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:inherit;height:100%;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.gv-dot{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.gv-tools{display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm);align-items:center;margin-bottom:var(--cds-gap-md)}
+.gv-search{font:inherit;font-size:var(--cds-font-size-caption);padding:var(--cds-pad-xs) var(--cds-pad-sm);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg);min-width:12rem;flex:1;max-width:20rem}
+.gv-tbox{max-height:34rem;overflow:auto}
+.gv-table{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-caption)}
+.gv-table th{position:sticky;top:0;background:var(--color-panel);text-align:left;font-weight:600;padding:var(--cds-pad-xs) var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line)}
+.gv-table td{padding:var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line);vertical-align:top;line-height:1.4}
+.gv-table td:first-child{font-weight:600;min-width:9rem}
+.gv-table a{color:inherit}
+.gv-pill{display:inline-block;padding:0 .5rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.gv-pill.p-mis{color:var(--color-bad)}.gv-pill.p-con{color:var(--color-warn)}.gv-pill.p-hid{color:var(--color-fg-muted)}
+.gv-num{font-variant-numeric:tabular-nums}
+@media (max-width:640px){.gv-hide-sm{display:none}}
+[data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+[data-dash-source-state=empty]{color:transparent}
+</style>
+<script>
+// Minimal stand-in for the Claude dashboard runtime, so the page works on its own.
+window.DATA = {"catalog":[{"id":"E1","category":"Misleading","mistake":"Cutting off the bottom of a bar chart","why_it_hurts":"When bars don't start at zero, small differences look huge and big ones look small.","the_fix":"Start bars at zero so their lengths can be compared honestly.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E2","category":"Misleading","mistake":"Two y-axes stretched to match","why_it_hurts":"Each axis is stretched until the two lines overlap, so they look linked even when one changed much more.","the_fix":"Put both on one axis, or show them as % change from the same starting point.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E3","category":"Misleading","mistake":"Joining every poll with a line","why_it_hurts":"Polls bounce up and down by chance. Connecting them makes random noise look like real changes.","the_fix":"Show each poll as a dot and draw one smooth trend line through them.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E4","category":"Confusing","mistake":"Two charts squeezed into one","why_it_hurts":"One series goes below zero and the other above, with baselines at opposite edges. Nobody can read it.","the_fix":"Split it into two small charts side by side.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E5","category":"Confusing","mistake":"Colour that suggests a group that isn't there","why_it_hurts":"Readers assume different colours mean different groups. Here it only meant 'this one has a label'.","the_fix":"Use one colour. Make the less important points lighter instead.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E6","category":"Hides the point","mistake":"Too many colours","why_it_hurts":"Ten similar colours make it impossible to find the few things the story is about.","the_fix":"Colour only what matters and group the rest as 'Others' in grey.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E7","category":"Hides the point","mistake":"Too much data in too little space","why_it_hurts":"When everything is crammed in, the reader can't take in anything.","the_fix":"Leave things out, or show one summary number (like an average).","source":"The Economist (Sarah Leo, 2019)"},{"id":"O1","category":"Misleading","mistake":"Upside-down y-axis","why_it_hurts":"If 'up' means less, readers see a fall when there was really a rise.","the_fix":"Keep the normal direction: higher on the chart means more.","source":"Reuters graphic on Florida gun deaths, 2014"},{"id":"O2","category":"Misleading","mistake":"3D pie charts","why_it_hurts":"The tilt makes slices at the front look bigger than equal slices at the back.","the_fix":"Never use 3D. Use a flat bar chart.","source":"Edward Tufte; Claus Wilke"},{"id":"O3","category":"Hides the point","mistake":"Pie chart with lots of slices","why_it_hurts":"People are bad at comparing angles. With many slices, you can't tell which is bigger.","the_fix":"Use bars sorted from biggest to smallest, with labels on them.","source":"FT Visual Vocabulary; Datawrapper blog"},{"id":"O4","category":"Misleading","mistake":"Pictures that grow in two directions","why_it_hurts":"Making a picture twice as tall also makes it twice as wide, so it looks four times bigger.","the_fix":"Use simple bars, or grow the picture's area, not its height.","source":"Edward Tufte"},{"id":"O5","category":"Confusing","mistake":"Rainbow colour scales","why_it_hurts":"Rainbow colours create sharp 'edges' that aren't in the data, and there's no natural order to them.","the_fix":"Use shades of one colour, light for low and dark for high.","source":"Borland & Taylor, 2007"},{"id":"O6","category":"Misleading","mistake":"Maps of totals","why_it_hurts":"A map of total counts mostly just shows where lots of people live.","the_fix":"Map rates instead, like 'per 1,000 people'.","source":"xkcd comic #1138 'Heatmap'"},{"id":"O7","category":"Hides the point","mistake":"Spaghetti chart (too many lines)","why_it_hurts":"When many lines cross each other, you can't follow any of them.","the_fix":"Highlight one or two lines and make the rest grey, or draw several small charts.","source":"Storytelling with Data"},{"id":"O8","category":"Misleading","mistake":"Uneven gaps between dates","why_it_hurts":"If 1990, 2000, 2015 and 2016 are evenly spaced, the speed of change looks wrong.","the_fix":"Space the dates by how much time actually passed.","source":"Alberto Cairo, How Charts Lie"},{"id":"O9","category":"Confusing","mistake":"Red vs green only","why_it_hurts":"Many colour-blind people can't tell red and green apart, so they miss the message.","the_fix":"Use blue and orange, and add labels too.","source":"Datawrapper blog"},{"id":"O10","category":"Misleading","mistake":"Running totals that hide a drop","why_it_hurts":"A running total always goes up, even when each new month is worse than the one before.","the_fix":"Show each month (or quarter) on its own, not the total so far.","source":"Apple iPhone sales chart, 2013"}],"exemplars":[{"name":"Napoleon's march to Moscow","creator":"Charles Joseph Minard","year":1869,"what_it_shows":"An army shrinking as it marches to Moscow and back.","why_it_works":"The band gets thinner as soldiers are lost, so you see the disaster at a glance."},{"name":"Broad Street cholera map","creator":"John Snow","year":1854,"what_it_shows":"Where people died of cholera in one part of London.","why_it_works":"Putting deaths on a map showed they clustered around one water pump."},{"name":"Charts for the 1900 Paris Exposition","creator":"W.E.B. Du Bois and team","year":1900,"what_it_shows":"Life of Black Americans after slavery ended.","why_it_works":"Bold, creative shapes, but each chart still tells one clear story."},{"name":"Gapminder bubble chart","creator":"Hans Rosling","year":2006,"what_it_shows":"How rich and how healthy each country is, moving over time.","why_it_works":"Moving bubbles make 200 years of change easy to follow and remember."},{"name":"Coronavirus trajectory tracker","creator":"John Burn-Murdoch, Financial Times","year":2020,"what_it_shows":"Covid deaths in different countries.","why_it_works":"Every country starts from the same point and is labelled directly, so they're easy to compare."},{"name":"You Draw It","creator":"The New York Times","year":2015,"what_it_shows":"Readers draw their guess first, then see the real line.","why_it_works":"Guessing first makes you remember the real answer."},{"name":"Redesigned Economist charts","creator":"Sarah Leo, The Economist","year":2019,"what_it_shows":"Seven of their own bad charts, each next to a better version.","why_it_works":"Each fix uses the same space, so you can see that design made the difference."}],"resources":[{"name":"Mistakes, we've drawn a few","author":"Sarah Leo, The Economist","kind":"Article","url":"https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368","use_it_for":"Before/after redesigns; your starting point."},{"name":"Visual Vocabulary","author":"Financial Times","kind":"Poster / guide","url":"https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md","use_it_for":"Picking a chart type from the relationship you want to show."},{"name":"Y-axis rules of thumb","author":"Francis Gagnon","kind":"Article","url":"https://www.chezvoila.com/blog/yaxis","use_it_for":"When a non-zero axis is OK and how much space to leave."},{"name":"Fundamentals of Data Visualization","author":"Claus O. Wilke","kind":"Free online book","url":"https://clauswilke.com/dataviz/","use_it_for":"Labelled 'bad', 'ugly' and 'good' figures throughout."},{"name":"Datawrapper blog","author":"Lisa Charlotte Muth and team","kind":"Blog","url":"https://blog.datawrapper.de/","use_it_for":"Practical posts on colour, labels and chart choice."},{"name":"From Data to Viz","author":"Yan Holtz & Conor Healy","kind":"Website","url":"https://www.data-to-viz.com/","use_it_for":"Decision tree plus a 'caveats' page of common mistakes."},{"name":"Junk Charts","author":"Kaiser Fung","kind":"Blog","url":"https://junkcharts.typepad.com/","use_it_for":"Critiques and redesigns of published charts."},{"name":"Storytelling with Data","author":"Cole Nussbaumer Knaflic","kind":"Book / blog","url":"https://www.storytellingwithdata.com/","use_it_for":"Decluttering and focusing attention."},{"name":"Makeover Monday","author":"Andy Kriebel & Eva Murray","kind":"Community project","url":"https://makeovermonday.co.uk/","use_it_for":"Hundreds of redesigns of the same weekly chart."},{"name":"WTF Visualizations","author":"Community gallery","kind":"Gallery","url":"https://viz.wtf/","use_it_for":"A steady supply of bad examples."},{"name":"Calling Bullshit","author":"Carl Bergstrom & Jevin West","kind":"Course / book","url":"https://www.callingbullshit.org/","use_it_for":"Teaching material on misleading axes and proportional ink."},{"name":"How Charts Lie","author":"Alberto Cairo","kind":"Book","url":"https://albertocairo.com/","use_it_for":"Reading charts critically; lots of misleading examples."},{"name":"The Visual Display of Quantitative Information","author":"Edward Tufte","kind":"Book","url":"https://www.edwardtufte.com/","use_it_for":"Data-ink, chartjunk and the lie factor."}],"bars":[{"group":"Party leader","likes":5400},{"group":"MP A","likes":1250},{"group":"MP B","likes":980},{"group":"Party page","likes":860},{"group":"Campaign group","likes":640}],"dogs":[{"year":2009,"weight_kg":20.98,"neck_cm":44.97},{"year":2010,"weight_kg":20.57,"neck_cm":44.49},{"year":2011,"weight_kg":20.1,"neck_cm":44.05},{"year":2012,"weight_kg":19.61,"neck_cm":43.59},{"year":2013,"weight_kg":19.15,"neck_cm":43.11},{"year":2014,"weight_kg":18.71,"neck_cm":42.61},{"year":2015,"weight_kg":18.29,"neck_cm":42.21}],"polls":[{"week":"2025-01-06","right":45.7,"wrong":44.7},{"week":"2025-01-13","right":42.6,"wrong":41.6},{"week":"2025-01-20","right":43.6,"wrong":43.5},{"week":"2025-01-27","right":45.2,"wrong":44.2},{"week":"2025-02-03","right":45.5,"wrong":43.4},{"week":"2025-02-10","right":45.1,"wrong":44.9},{"week":"2025-02-17","right":43.7,"wrong":46.9},{"week":"2025-02-24","right":45.3,"wrong":46.2},{"week":"2025-03-03","right":43.6,"wrong":43.6},{"week":"2025-03-10","right":43.9,"wrong":44.5},{"week":"2025-03-17","right":45.2,"wrong":45.1},{"week":"2025-03-24","right":43.7,"wrong":43.5},{"week":"2025-03-31","right":43.5,"wrong":46.6},{"week":"2025-04-07","right":43.0,"wrong":45.3},{"week":"2025-04-14","right":44.7,"wrong":43.0},{"week":"2025-04-21","right":44.1,"wrong":47.0},{"week":"2025-04-28","right":41.2,"wrong":44.8},{"week":"2025-05-05","right":43.8,"wrong":44.2},{"week":"2025-05-12","right":44.5,"wrong":45.3},{"week":"2025-05-19","right":41.7,"wrong":46.6},{"week":"2025-05-26","right":44.7,"wrong":46.9},{"week":"2025-06-02","right":45.7,"wrong":46.1},{"week":"2025-06-09","right":43.8,"wrong":43.9},{"week":"2025-06-16","right":44.4,"wrong":44.9},{"week":"2025-06-23","right":42.8,"wrong":44.1},{"week":"2025-06-30","right":42.0,"wrong":45.2},{"week":"2025-07-07","right":45.1,"wrong":43.2},{"week":"2025-07-14","right":41.2,"wrong":46.4},{"week":"2025-07-21","right":45.2,"wrong":47.0},{"week":"2025-07-28","right":40.5,"wrong":42.7},{"week":"2025-08-04","right":43.6,"wrong":45.3},{"week":"2025-08-11","right":41.4,"wrong":47.8},{"week":"2025-08-18","right":44.5,"wrong":46.7},{"week":"2025-08-25","right":43.2,"wrong":47.1},{"week":"2025-09-01","right":45.1,"wrong":47.5},{"week":"2025-09-08","right":43.5,"wrong":47.5},{"week":"2025-09-15","right":40.5,"wrong":48.6},{"week":"2025-09-22","right":44.0,"wrong":47.6},{"week":"2025-09-29","right":39.8,"wrong":46.0},{"week":"2025-10-06","right":43.7,"wrong":44.5}],"scatter":[{"country":"Country 1","aged_65_pct":12.1,"pension_pct_gdp":3.7,"labelled":"no","focus":"no"},{"country":"Country 2","aged_65_pct":25.5,"pension_pct_gdp":12.5,"labelled":"no","focus":"no"},{"country":"Country 3","aged_65_pct":27.1,"pension_pct_gdp":13.0,"labelled":"yes","focus":"no"},{"country":"Country 4","aged_65_pct":11.1,"pension_pct_gdp":6.1,"labelled":"no","focus":"no"},{"country":"Country 5","aged_65_pct":11.1,"pension_pct_gdp":2.1,"labelled":"no","focus":"no"},{"country":"Country 6","aged_65_pct":11.8,"pension_pct_gdp":5.6,"labelled":"no","focus":"no"},{"country":"Country 7","aged_65_pct":9.5,"pension_pct_gdp":12.0,"labelled":"yes","focus":"yes"},{"country":"Country 8","aged_65_pct":18.5,"pension_pct_gdp":9.4,"labelled":"no","focus":"no"},{"country":"Country 9","aged_65_pct":27.0,"pension_pct_gdp":11.2,"labelled":"no","focus":"no"},{"country":"Country 10","aged_65_pct":19.6,"pension_pct_gdp":6.4,"labelled":"no","focus":"no"},{"country":"Country 11","aged_65_pct":20.9,"pension_pct_gdp":13.9,"labelled":"yes","focus":"no"},{"country":"Country 12","aged_65_pct":23.2,"pension_pct_gdp":12.0,"labelled":"no","focus":"no"},{"country":"Country 13","aged_65_pct":25.2,"pension_pct_gdp":12.0,"labelled":"no","focus":"no"},{"country":"Country 14","aged_65_pct":14.8,"pension_pct_gdp":4.6,"labelled":"no","focus":"no"},{"country":"Country 15","aged_65_pct":8.3,"pension_pct_gdp":3.2,"labelled":"yes","focus":"no"},{"country":"Country 16","aged_65_pct":7.5,"pension_pct_gdp":2.8,"labelled":"no","focus":"no"},{"country":"Country 17","aged_65_pct":10.6,"pension_pct_gdp":5.8,"labelled":"no","focus":"no"},{"country":"Country 18","aged_65_pct":7.2,"pension_pct_gdp":4.9,"labelled":"no","focus":"no"},{"country":"Country 19","aged_65_pct":6.0,"pension_pct_gdp":3.3,"labelled":"yes","focus":"no"},{"country":"Country 20","aged_65_pct":14.0,"pension_pct_gdp":7.1,"labelled":"no","focus":"no"},{"country":"Country 21","aged_65_pct":6.6,"pension_pct_gdp":5.1,"labelled":"no","focus":"no"},{"country":"Country 22","aged_65_pct":9.3,"pension_pct_gdp":2.0,"labelled":"no","focus":"no"}],"shares":[{"product":"Product C","share":14},{"product":"Product A","share":19},{"product":"Product F","share":6},{"product":"Product B","share":16},{"product":"Product H","share":4},{"product":"Product E","share":11},{"product":"Product D","share":13},{"product":"Product G","share":9},{"product":"Product I","share":8}]};
+window.dash = (function () {
+  const store = Object.assign({}, window.DATA), calcs = [], subs = [];
+  return {
+    colors: ['var(--s0)', 'var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)', 'var(--s6)', 'var(--s7)'],
+    calc(id, o) { calcs.push([id, o]); store[id] = o.fn.apply(null, o.inputs.map(i => store[i])); },
+    data(id) { return id in store ? {status: 'ok', data: store[id], columns: []} : {status: 'missing', data: []}; },
+    onData(fn) { subs.push(fn); fn(); },
+    setLink(name) { history.replaceState(null, '', '#' + name); },
+    _redraw() { subs.forEach(f => f()); }
+  };
+})();
+let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(() => dash._redraw(), 150); });
+</script>
+
+
+<div class="gv">
+  <header>
+    <h1 class="gv-title" id="top">Good charts vs bad charts</h1>
+    <p class="gv-intro">A good chart makes <b>one point</b>, clearly and honestly. On this page, each bad chart sits next to a fixed version of the <b>same numbers</b>. Look at the bad one first, try to spot the problem, then open the answer.</p>
+    <p class="gv-take" id="takeaway"><span class="dash-skeleton"></span></p>
+    <nav class="gv-nav" aria-label="Sections">
+      <button data-go="questions">5 questions</button>
+      <button data-go="pairs">Spot the mistake</button>
+      <button data-go="quiz">Quiz</button>
+      <button data-go="catalog">All mistakes</button>
+      <button data-go="good">Good examples</button>
+      <button data-go="reading">Learn more</button>
+      <button data-go="glossary">Word list</button>
+    </nav>
+  </header>
+
+  <section class="gv-tiles" id="tiles">
+    <div class="gv-tile"><div class="gv-tile-l">Mistakes in the list</div><div class="gv-tile-v dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=All"></div></div>
+    <div class="gv-tile"><div class="gv-tile-l">Can trick you</div><div class="gv-tile-v bad dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Misleading"></div></div>
+    <div class="gv-tile"><div class="gv-tile-l">Confusing</div><div class="gv-tile-v warn dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Confusing"></div></div>
+    <div class="gv-tile"><div class="gv-tile-l">Hide the point</div><div class="gv-tile-v dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Hides the point"></div></div>
+    <div class="gv-tile"><div class="gv-tile-l">Good examples</div><div class="gv-tile-v dash-skeleton" data-source="list_sizes" data-field="n" data-where="list=Good examples"></div></div>
+    <div class="gv-tile"><div class="gv-tile-l">Places to learn more</div><div class="gv-tile-v dash-skeleton" data-source="list_sizes" data-field="n" data-where="list=Further reading"></div></div>
+  </section>
+
+  <section id="questions" class="gv-card">
+    <h2 class="gv-h2">5 questions to ask about any chart</h2>
+    <p class="gv-sub">Use these as a checklist whenever you read or make a chart.</p>
+    <ol class="gv-q">
+      <li><b>Where does the axis start?</b> Bars should start at zero, or their lengths lie.</li>
+      <li><b>Is there more than one axis?</b> Two axes can be stretched to make any two lines look connected.</li>
+      <li><b>What do the colours mean?</b> A new colour should mean a new group, nothing else.</li>
+      <li><b>Is it a real change or just noise?</b> Bumpy data needs a trend line, not a zig-zag.</li>
+      <li><b>What is the one point?</b> If you can't say it in one sentence, the chart is too busy.</li>
+    </ol>
+  </section>
+
+  <section id="pairs">
+    <h2 class="gv-h2">Spot the mistake</h2>
+    <p class="gv-sub">Both charts in each pair use exactly the same numbers. The left one has a mistake; the right one fixes it. The numbers are made up for practice. Hover over a chart to see the values.</p>
+    <div class="gv-pairs">
+
+      <article class="gv-card" id="pair-truncation">
+        <h3>Bar charts that don't start at zero</h3>
+        <p class="gv-note">The point is how far the leader's posts outperform everyone else's.<br><span class="gv-spot">🔍 Spot it: In the left chart, how many times bigger does the leader's bar look than MP A's?</span></p>
+        <div class="gv-grid2">
+          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-trunc-bad" data-source="bars"></div><details class="gv-ans"><summary>What's wrong?</summary><p>The axis starts well above zero. The leader's bar runs off the edge, and the small bars look much bigger than they really are.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-trunc-good" data-source="bars"></div><p class="gv-cap">Bars start at zero, so their lengths are honest. Numbers are written on the bars, so no axis is needed.</p></div>
+        </div>
+        <p class="gv-rule">Rule: bar charts always start at zero.</p>
+      </article>
+
+      <article class="gv-card" id="pair-dual">
+        <h3>Two y-axes stretched to match</h3>
+        <p class="gv-note">Two measures of dog size over time.<br><span class="gv-spot">🔍 Spot it: The two lines look identical. Did weight and neck size really shrink by the same amount?</span></p>
+        <div class="gv-grid2">
+          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-dual-bad" data-source="dogs"></div><details class="gv-ans"><summary>What's wrong?</summary><p>Each side has its own axis, stretched until the lines overlap. It looks like a perfect match, but weight fell <b data-source="dog_change" data-field="pct_fall" data-where="series=Weight">—</b>, neck size only <b data-source="dog_change" data-field="pct_fall" data-where="series=Neck">—</b>, over the same years.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-dual-good" data-source="dog_index"></div><p class="gv-cap">Both lines start at 100 (the first year) on one shared axis, so you can see which one really fell more.</p></div>
+        </div>
+        <p class="gv-rule">Rule: be suspicious when two lines match perfectly. Check the axes.</p>
+      </article>
+
+      <article class="gv-card" id="pair-polls">
+        <h3>Joining every poll with a line</h3>
+        <p class="gv-note">Weekly polls asking whether a decision was right or wrong.<br><span class="gv-spot">🔍 Spot it: Did people really change their minds every single week?</span></p>
+        <div class="gv-grid2">
+          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-polls-bad" data-source="polls"></div><details class="gv-ans"><summary>What's wrong?</summary><p>Polls go up and down a little just by chance. Joining every dot makes that random wobble look like real mood swings.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-polls-good" data-source="polls polls_trend"></div><p class="gv-cap">Each poll is a faint dot. The solid line is the average of nearby polls, which shows the real trend.</p></div>
+        </div>
+        <p class="gv-rule">Rule: show the trend, not the noise.</p>
+      </article>
+
+      <article class="gv-card" id="pair-colour">
+        <h3>Colour that suggests a group that isn't there</h3>
+        <p class="gv-note">Pension spending vs share of population aged 65+, with one focus country.<br><span class="gv-spot">🔍 Spot it: What do you think the bright dots have in common?</span></p>
+        <div class="gv-grid2">
+          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-col-bad" data-source="scatter"></div><details class="gv-ans"><summary>What's wrong?</summary><p>The bright dots look like a special group, but they're only the ones with name labels. The colour suggests something that isn't true.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-col-good" data-source="scatter"></div><p class="gv-cap">All dots are the same colour. Less important ones are lighter, and the country we care about is in bold.</p></div>
+        </div>
+        <p class="gv-rule">Rule: a new colour should mean a new group.</p>
+      </article>
+
+      <article class="gv-card" id="pair-pie">
+        <h3>Pie chart with too many slices</h3>
+        <p class="gv-note">Market share across nine products.<br><span class="gv-spot">🔍 Spot it: Which product is the third largest? How long did it take you?</span></p>
+        <div class="gv-grid2">
+          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-pie-bad" data-source="shares"></div><details class="gv-ans"><summary>What's wrong?</summary><p>You have to compare angles and keep looking back at the colour key. Our eyes are bad at both.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-pie-good" data-source="shares"></div><p class="gv-cap">Bars sorted from biggest to smallest, with labels on them. The answer takes one second.</p></div>
+        </div>
+        <p class="gv-rule">Rule: if you need to compare more than a few parts, use bars.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="quiz" class="gv-card">
+    <h2 class="gv-h2">Quiz: which chart is misleading?</h2>
+    <p class="gv-sub">Each question shows the same numbers drawn two ways. One chart has a mistake. Pick it, then see why.</p>
+    <div class="gv-qz-top"><span id="qz-prog"></span><span id="qz-score"></span></div>
+    <div id="qz-body">
+      <p class="gv-qz-q" id="qz-prompt"></p>
+      <div class="gv-grid2">
+        <div class="gv-panel" id="qz-p0"><div class="gv-badge" id="qz-b0">Chart A</div><div class="gv-chart" id="qz-c0"></div><button class="gv-pick" data-pick="0">Chart A is misleading</button></div>
+        <div class="gv-panel" id="qz-p1"><div class="gv-badge" id="qz-b1">Chart B</div><div class="gv-chart" id="qz-c1"></div><button class="gv-pick" data-pick="1">Chart B is misleading</button></div>
+      </div>
+      <div class="gv-fb" id="qz-fb" hidden></div>
+      <div class="gv-qz-nav"><button class="gv-btn" id="qz-next" hidden>Next question →</button></div>
+    </div>
+    <div id="qz-end" hidden>
+      <p class="gv-qz-result" id="qz-result"></p>
+      <p class="gv-sub" id="qz-msg"></p>
+      <button class="gv-btn" id="qz-restart">Try again</button>
+    </div>
+  </section>
+
+  <section id="catalog" class="gv-card">
+    <h2 class="gv-h2">All the mistakes</h2>
+    <p class="gv-sub">Every mistake from the Economist article plus other common ones. Use the buttons to filter, or search for a word.</p>
+    <div class="gv-tools">
+      <div id="chips" style="display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs)">
+        <button class="gv-chip" data-cat="All" aria-pressed="true">All</button>
+        <button class="gv-chip" data-cat="Misleading" aria-pressed="false">Misleading</button>
+        <button class="gv-chip" data-cat="Confusing" aria-pressed="false">Confusing</button>
+        <button class="gv-chip" data-cat="Hides the point" aria-pressed="false">Hides the point</button>
+      </div>
+      <input class="gv-search" id="cat-search" type="search" placeholder="Search mistakes…" aria-label="Search mistakes">
+    </div>
+    <div class="gv-tbox">
+      <table class="gv-table" id="catalog-table" data-source="catalog" data-row-key="id">
+        <thead><tr><th data-field="mistake">Mistake</th><th data-field="category">Type</th><th data-field="why_it_hurts">Why it's a problem</th><th data-field="the_fix">How to fix it</th><th data-field="source" class="gv-hide-sm">Source</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="good" class="gv-card">
+    <h2 class="gv-h2">Good examples worth studying</h2>
+    <p class="gv-sub">Famous charts that experts point to as great work, and what makes each one good.</p>
+    <div class="gv-tbox">
+      <table class="gv-table" id="good-table" data-source="exemplars" data-row-key="name">
+        <thead><tr><th data-field="name">Chart</th><th data-field="creator">Creator</th><th data-field="year">Year</th><th data-field="what_it_shows" class="gv-hide-sm">What it shows</th><th data-field="why_it_works">Why it works</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="reading" class="gv-card">
+    <h2 class="gv-h2">Where to learn more</h2>
+    <p class="gv-sub">Websites and books with lots more good and bad examples.</p>
+    <div class="gv-tbox">
+      <table class="gv-table" id="reading-table" data-source="resources" data-row-key="name">
+        <thead><tr><th data-field="name">Resource</th><th data-field="author">By</th><th data-field="kind" class="gv-hide-sm">Format</th><th data-field="use_it_for">Use it for</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+  <section id="glossary" class="gv-card">
+    <h2 class="gv-h2">Word list</h2>
+    <p class="gv-sub">Chart words used on this page, in plain English.</p>
+    <dl class="gv-gloss">
+      <div><dt>Axis</dt><dd>The scale along the side or bottom of a chart that tells you what the numbers are.</dd></div>
+      <div><dt>Baseline</dt><dd>Where the axis starts, usually zero. Bars grow up (or across) from it.</dd></div>
+      <div><dt>Truncated axis</dt><dd>An axis that has been cut so it doesn't start at zero.</dd></div>
+      <div><dt>Dual axis</dt><dd>A chart with two different y-axes, one on each side.</dd></div>
+      <div><dt>Trend line</dt><dd>A smooth line that shows the general direction of bumpy data.</dd></div>
+      <div><dt>Moving average</dt><dd>The average of a few nearby values, worked out again at every point. It smooths out the wobble.</dd></div>
+      <div><dt>Index (first year = 100)</dt><dd>Turning numbers into "compared with the start": 90 means 10% lower than the first year.</dd></div>
+      <div><dt>Outlier</dt><dd>A value much bigger or smaller than the rest.</dd></div>
+      <div><dt>Legend</dt><dd>The key that tells you what each colour or symbol means.</dd></div>
+      <div><dt>Data label</dt><dd>A number written right on the chart, next to the bar or point.</dd></div>
+      <div><dt>Noise</dt><dd>Random ups and downs that don't mean anything real.</dd></div>
+    </dl>
+  </section>
+</div>
+
+<p class="gv-foot">Practice charts use made-up numbers. The mistake list draws on The Economist's "Mistakes, we've drawn a few" (Sarah Leo, 2019) and the sources under "Where to learn more".</p>
+<script>
+dash.calc('catalog_counts', {
+  inputs: ['catalog'], title: 'Mistakes by type',
+  description: 'Number of catalogued mistakes in each category, plus the total.',
+  fn: (catalog) => ['All', 'Misleading', 'Confusing', 'Hides the point'].map(category => ({
+    category, n: category === 'All' ? catalog.length : catalog.filter(r => r.category === category).length }))
+});
+dash.calc('list_sizes', {
+  inputs: ['exemplars', 'resources'], title: 'List sizes',
+  description: 'How many good examples and reading resources are listed.',
+  fn: (exemplars, resources) => [{list: 'Good examples', n: exemplars.length}, {list: 'Further reading', n: resources.length}]
+});
+dash.calc('dog_index', {
+  inputs: ['dogs'], title: 'Dog size, indexed',
+  description: 'Weight and neck size as a share of their first-year value (first year = 100).',
+  fn: (dogs) => dogs.map(d => ({year: d.year,
+    weight: Math.round(d.weight_kg / dogs[0].weight_kg * 1000) / 10,
+    neck: Math.round(d.neck_cm / dogs[0].neck_cm * 1000) / 10}))
+});
+dash.calc('dog_change', {
+  inputs: ['dogs'], title: 'Dog size, % fall',
+  description: 'Percentage fall from the first to the last year for each measure.',
+  fn: (dogs) => { const a = dogs[0], b = dogs[dogs.length - 1];
+    return [{series: 'Weight', pct_fall: Math.round((1 - b.weight_kg / a.weight_kg) * 1000) / 10},
+            {series: 'Neck', pct_fall: Math.round((1 - b.neck_cm / a.neck_cm) * 1000) / 10}]; }
+});
+dash.calc('polls_trend', {
+  inputs: ['polls'], title: 'Poll trend (7-poll average)',
+  description: 'Centred moving average of up to seven polls for each answer.',
+  fn: (polls) => polls.map((p, i) => {
+    const win = polls.slice(Math.max(0, i - 3), i + 4);
+    const avg = k => Math.round(win.reduce((s, r) => s + Number(r[k]), 0) / win.length * 10) / 10;
+    return {week: p.week, right: avg('right'), wrong: avg('wrong')}; })
+});
+
+(() => {
+  const C = dash.colors;
+  const fmt = d3.format(',');
+  const H = 210;
+  const $ = s => document.querySelector(s);
+  let clipN = 0;
+
+  function ready(el, ds) {
+    if (ds.status === 'ok') { el.classList.remove('dash-skeleton'); return true; }
+    el.replaceChildren();
+    if (['error', 'connect', 'declined', 'missing'].includes(ds.status)) {
+      el.classList.remove('dash-skeleton');
+      const f = document.createElement('div'); f.className = 'gv-fail';
+      const d = document.createElement('span'); d.className = 'gv-dot';
+      f.append(d, document.createTextNode('Failed to load')); el.appendChild(f);
+    } else el.classList.add('dash-skeleton');
+    return false;
+  }
+  function svgIn(el, w, h) {
+    el.replaceChildren();
+    return d3.select(el).append('svg').attr('class', 'gv-svg').attr('width', '100%').attr('viewBox', `0 0 ${w} ${h}`);
+  }
+  function textW(svg, strs, cls) {
+    const g = svg.append('g'); let m = 0;
+    strs.forEach(s => { const t = g.append('text').attr('class', cls || 'gv-tick').text(s); m = Math.max(m, t.node().getComputedTextLength()); });
+    g.remove(); return m;
+  }
+  function axis(g, ax) {
+    g.attr('class', 'gv-axis').call(ax).attr('font-size', null).attr('font-family', null);
+    g.select('.domain').remove();
+  }
+  function grid(svg, scale, x1, x2, ticks) {
+    svg.append('g').attr('class', 'gv-grid').selectAll('line').data(scale.ticks(ticks)).join('line')
+      .attr('x1', x1).attr('x2', x2).attr('y1', d => scale(d)).attr('y2', d => scale(d));
+  }
+  function vgrid(svg, scale, y1, y2, ticks) {
+    svg.append('g').attr('class', 'gv-grid').selectAll('line').data(scale.ticks(ticks)).join('line')
+      .attr('y1', y1).attr('y2', y2).attr('x1', d => scale(d)).attr('x2', d => scale(d));
+  }
+  function tip(el) {
+    const host = el.parentNode;
+    let t = host.querySelector(':scope > .gv-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'gv-tip'; host.appendChild(t); }
+    return {
+      show(ev, head, lines) {
+        t.replaceChildren();
+        const h = document.createElement('div'); h.className = 'gv-tip-h'; h.textContent = head; t.appendChild(h);
+        lines.forEach(l => { const d = document.createElement('div'); d.textContent = l; t.appendChild(d); });
+        t.style.display = 'block';
+        const r = host.getBoundingClientRect(), tw = t.offsetWidth;
+        let x = ev.clientX - r.left + 12; const y = ev.clientY - r.top + 12;
+        if (x + tw > r.width) x = Math.max(0, ev.clientX - r.left - tw - 12);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.style.display = 'none'; }
+    };
+  }
+  const width = el => Math.max(260, el.clientWidth || 320);
+
+  // 1. Truncation
+  function truncChart(el, rows, bad) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const lw = textW(svg, rows.map(r => r.group)) + 10;
+    const maxV = d3.max(rows, r => Number(r.likes));
+    const rw = bad ? 12 : textW(svg, rows.map(r => fmt(r.likes))) + 10;
+    const m = {t: 6, r: rw, b: bad ? 22 : 6, l: lw};
+    const y = d3.scaleBand(rows.map(r => r.group), [m.t, H - m.b]).padding(.3);
+    const lo = bad ? 500 : 0, hi = bad ? 1500 : maxV;   // "bad" deliberately truncates the axis
+    const x = d3.scaleLinear([lo, hi], [m.l, w - m.r]);
+    if (bad) {
+      vgrid(svg, x, m.t, H - m.b, 4);
+      axis(svg.append('g').attr('transform', `translate(0,${H - m.b})`), d3.axisBottom(x).ticks(4).tickSize(0).tickPadding(6).tickFormat(fmt));
+    }
+    const id = 'gvclip' + (++clipN);
+    svg.append('clipPath').attr('id', id).append('rect').attr('x', m.l).attr('y', 0).attr('width', w - m.l - m.r).attr('height', H);
+    svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl')
+      .attr('x', m.l - 8).attr('y', r => y(r.group) + y.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').text(r => r.group);
+    svg.append('g').attr('clip-path', `url(#${id})`).selectAll('rect').data(rows).join('rect')
+      .attr('x', m.l).attr('y', r => y(r.group)).attr('height', Math.min(32, y.bandwidth())).attr('rx', 4)
+      .attr('width', r => Math.max(0, x(Math.min(Number(r.likes), hi * 1.2)) - m.l))
+      .attr('fill', (r, i) => bad ? C[i % C.length] : (Number(r.likes) === maxV ? C[0] : 'var(--cds-chart-muted)'))
+      .on('mousemove', (ev, r) => tt.show(ev, r.group, [fmt(r.likes) + ' likes per post (average)'])).on('mouseleave', () => tt.hide());
+    if (!bad) svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl gv-num')
+      .attr('x', r => x(Number(r.likes)) + 6).attr('y', r => y(r.group) + Math.min(32, y.bandwidth()) / 2).attr('dy', '.35em').text(r => fmt(r.likes));
+  }
+
+  // 2. Dual axis
+  function dualBad(el, rows) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const wt = rows.map(r => Number(r.weight_kg)), nk = rows.map(r => Number(r.neck_cm));
+    const yl = d3.scaleLinear(d3.extent(wt), [H - 22, 22]), yr = d3.scaleLinear(d3.extent(nk), [H - 22, 22]);
+    const lw = textW(svg, yl.ticks(4).map(String)) + 8, rw = textW(svg, yr.ticks(4).map(String)) + 8;
+    const m = {l: lw, r: rw};
+    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [m.l + 4, w - m.r - 4]);
+    grid(svg, yl, m.l, w - m.r, 4);
+    axis(svg.append('g').attr('transform', `translate(${m.l},0)`), d3.axisLeft(yl).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(${w - m.r},0)`), d3.axisRight(yr).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
+    svg.append('text').attr('class', 'gv-tick').attr('x', 0).attr('y', 10).text('Weight, kg').style('fill', C[0]);
+    svg.append('text').attr('class', 'gv-tick').attr('x', w).attr('y', 10).attr('text-anchor', 'end').text('Neck, cm').style('fill', C[1]);
+    [[wt, yl, C[0]], [nk, yr, C[1]]].forEach(([v, s, c]) => svg.append('path').datum(rows)
+      .attr('d', d3.line((r, i) => x(r.year), (r, i) => s(v[i]))).attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round'));
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.year) - 10).attr('width', 20).attr('y', 0).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tt.show(ev, String(r.year), ['Weight ' + r.weight_kg + ' kg', 'Neck ' + r.neck_cm + ' cm'])).on('mouseleave', () => tt.hide());
+  }
+  function dualGood(el, rows) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const all = rows.flatMap(r => [r.weight, r.neck]);
+    const mn = d3.min(all), mx = Math.max(100, d3.max(all));
+    const y = d3.scaleLinear([mn - (mx - mn) / 2, mx + 1], [H - 22, 20]);
+    const last = rows[rows.length - 1];
+    const lw = textW(svg, y.ticks(4).map(String)) + 8;
+    const rw = textW(svg, ['Weight ' + last.weight, 'Neck ' + last.neck], 'gv-lbl') + 10;
+    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 4, w - rw]);
+    grid(svg, y, lw, w - rw, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
+    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ Size vs first year (first year = 100)');
+    svg.append('line').attr('x1', lw).attr('x2', w - rw).attr('y1', y(100)).attr('y2', y(100)).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+    const ser = [['weight', 'Weight', C[0]], ['neck', 'Neck', C[1]]];
+    ser.forEach(([k, n, c]) => svg.append('path').datum(rows).attr('d', d3.line(r => x(r.year), r => y(r[k])))
+      .attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round'));
+    let ys = ser.map(([k]) => y(last[k]));
+    if (Math.abs(ys[0] - ys[1]) < 14) { const mid = (ys[0] + ys[1]) / 2, s = ys[0] < ys[1] ? -1 : 1; ys = [mid + s * 7, mid - s * 7]; }
+    ser.forEach(([k, n, c], i) => svg.append('text').attr('class', 'gv-lbl').attr('x', w - rw + 6).attr('y', ys[i]).attr('dy', '.35em').style('fill', c).text(n + ' ' + last[k]));
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.year) - 10).attr('width', 20).attr('y', 0).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tt.show(ev, String(r.year), ['Weight: ' + r.weight + ' (first year = 100)', 'Neck: ' + r.neck + ' (first year = 100)'])).on('mouseleave', () => tt.hide());
+  }
+
+  // 3. Polls
+  const parse = s => new Date(String(s).slice(0, 10));
+  function pollsChart(el, polls, trend) {
+    const bad = !trend;
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const vals = polls.flatMap(p => [Number(p.right), Number(p.wrong)]);
+    const mn = d3.min(vals), mx = d3.max(vals);
+    const y = d3.scaleLinear(bad ? [mn - .3, mx + .3] : [mn - (mx - mn) / 2, mx + .5], [H - 22, 20]);
+    const lw = textW(svg, y.ticks(4).map(d => d + '%')) + 8;
+    const rw = bad ? 8 : textW(svg, ['Wrong', 'Right'], 'gv-lbl') + 10;
+    const x = d3.scaleUtc(d3.extent(polls, p => parse(p.week)), [lw + 4, w - rw]);
+    grid(svg, y, lw, w - rw, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(d => d + '%').tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 110))).tickFormat(d3.utcFormat('%b %Y')).tickSize(0).tickPadding(6));
+    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ % of people asked');
+    const ser = [['right', 'Right', C[0]], ['wrong', 'Wrong', C[1]]];
+    ser.forEach(([k, n, c]) => {
+      if (bad) svg.append('path').datum(polls).attr('d', d3.line(p => x(parse(p.week)), p => y(Number(p[k]))))
+        .attr('fill', 'none').attr('stroke', c).attr('stroke-width', 1.5).attr('stroke-linejoin', 'round');
+      else {
+        svg.append('g').selectAll('circle').data(polls).join('circle').attr('cx', p => x(parse(p.week))).attr('cy', p => y(Number(p[k]))).attr('r', 2.5).attr('fill', c).attr('opacity', .3);
+        svg.append('path').datum(trend).attr('d', d3.line(p => x(parse(p.week)), p => y(Number(p[k])))).attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+      }
+    });
+    if (!bad) {
+      const lt = trend[trend.length - 1];
+      let ys = ser.map(([k]) => y(Number(lt[k])));
+      if (Math.abs(ys[0] - ys[1]) < 14) { const mid = (ys[0] + ys[1]) / 2, s = ys[0] < ys[1] ? -1 : 1; ys = [mid + s * 7, mid - s * 7]; }
+      ser.forEach(([k, n, c], i) => svg.append('text').attr('class', 'gv-lbl').attr('x', w - rw + 6).attr('y', ys[i]).attr('dy', '.35em').style('fill', c).text(n));
+    }
+    const step = (x.range()[1] - x.range()[0]) / Math.max(1, polls.length - 1);
+    svg.append('g').selectAll('rect').data(polls).join('rect').attr('x', p => x(parse(p.week)) - step / 2).attr('width', step).attr('y', 0).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (ev, p) => { const i = polls.indexOf(p); const lines = ['Right ' + p.right + '%', 'Wrong ' + p.wrong + '%'];
+        if (trend) lines.push('Average: right ' + trend[i].right + '%, wrong ' + trend[i].wrong + '%');
+        tt.show(ev, d3.utcFormat('%b %-d, %Y')(parse(p.week)), lines); })
+      .on('mouseleave', () => tt.hide());
+  }
+
+  // 4. Colour highlight
+  function scatter(el, rows, bad) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const x = d3.scaleLinear([0, d3.max(rows, r => Number(r.aged_65_pct)) * 1.08], [0, 1]).nice();
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.pension_pct_gdp)) * 1.1], [H - 34, 10]).nice();
+    const lw = textW(svg, y.ticks(4).map(String)) + 8;
+    x.range([lw + 4, w - 10]);
+    grid(svg, y, lw, w - 10, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 34})`), d3.axisBottom(x).ticks(5).tickSize(0).tickPadding(6));
+    svg.append('text').attr('class', 'gv-tick').attr('x', w - 10).attr('y', H - 2).attr('text-anchor', 'end').text('Aged 65+, % of population →');
+    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ Pensions, % of GDP');
+    const lab = r => r.labelled === 'yes';
+    svg.append('g').selectAll('circle').data(rows).join('circle')
+      .attr('cx', r => x(Number(r.aged_65_pct))).attr('cy', r => y(Number(r.pension_pct_gdp))).attr('r', 5)
+      .attr('fill', r => bad ? (lab(r) ? C[1] : C[0]) : C[0]).attr('opacity', r => bad ? .9 : (lab(r) ? 1 : .25))
+      .on('mousemove', (ev, r) => tt.show(ev, r.country, ['Aged 65+: ' + r.aged_65_pct + '%', 'Pensions: ' + r.pension_pct_gdp + '% of GDP'])).on('mouseleave', () => tt.hide());
+    svg.append('g').selectAll('text').data(rows.filter(lab)).join('text')
+      .attr('class', r => 'gv-lbl' + (!bad && r.focus === 'yes' ? ' strong' : ''))
+      .attr('x', r => x(Number(r.aged_65_pct)) + (x(Number(r.aged_65_pct)) > w * .7 ? -8 : 8))
+      .attr('text-anchor', r => x(Number(r.aged_65_pct)) > w * .7 ? 'end' : 'start')
+      .attr('y', r => y(Number(r.pension_pct_gdp))).attr('dy', '.35em').text(r => r.country);
+  }
+
+  // 5. Pie vs bars
+  function pieBad(el, rows) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const lgw = textW(svg, rows.map(r => r.product)) + 22;
+    const R = Math.max(40, Math.min(H / 2 - 6, (w - lgw - 16) / 2));
+    const cx = R + 4, cy = H / 2;
+    const col = i => `hsl(${i * 40}, 75%, 55%)`;
+    const arcs = d3.pie().sort(null).value(r => Number(r.share))(rows);
+    svg.append('g').attr('transform', `translate(${cx},${cy})`).selectAll('path').data(arcs).join('path')
+      .attr('d', d3.arc().innerRadius(0).outerRadius(R)).attr('fill', (d, i) => col(i)).attr('stroke', 'var(--color-bg)').attr('stroke-width', 1)
+      .on('mousemove', (ev, d) => tt.show(ev, d.data.product, [d.data.share + '% share'])).on('mouseleave', () => tt.hide());
+    const lx = cx + R + 16, lh = Math.min(20, (H - 8) / rows.length), ly0 = cy - lh * rows.length / 2;
+    const lg = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(${lx},${ly0 + i * lh})`);
+    lg.append('rect').attr('width', 10).attr('height', 10).attr('rx', 2).attr('fill', (r, i) => col(i));
+    lg.append('text').attr('class', 'gv-tick').attr('x', 16).attr('y', 5).attr('dy', '.35em').text(r => r.product);
+  }
+  function pieGood(el, rows) {
+    const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
+    const s = rows.slice().sort((a, b) => b.share - a.share);
+    const lw = textW(svg, s.map(r => r.product)) + 10, rw = textW(svg, s.map(r => r.share + '%')) + 10;
+    const y = d3.scaleBand(s.map(r => r.product), [4, H - 4]).padding(.25);
+    const x = d3.scaleLinear([0, d3.max(s, r => Number(r.share))], [lw, w - rw]);
+    svg.append('g').selectAll('text').data(s).join('text').attr('class', 'gv-lbl').attr('x', lw - 8).attr('y', r => y(r.product) + y.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').text(r => r.product);
+    svg.append('g').selectAll('rect').data(s).join('rect').attr('x', lw).attr('y', r => y(r.product)).attr('height', y.bandwidth()).attr('rx', 3)
+      .attr('width', r => x(Number(r.share)) - lw).attr('fill', C[0])
+      .on('mousemove', (ev, r) => tt.show(ev, r.product, [r.share + '% share'])).on('mouseleave', () => tt.hide());
+    svg.append('g').selectAll('text.v').data(s).join('text').attr('class', 'gv-lbl gv-num').attr('x', r => x(Number(r.share)) + 6).attr('y', r => y(r.product) + y.bandwidth() / 2).attr('dy', '.35em').text(r => r.share + '%');
+  }
+
+
+  // Quiz
+  const Q = [
+    {prompt: 'Which chart makes the gap between the leader and everyone else look smaller than it really is?',
+     badIds: ['bars'], goodIds: ['bars'], bad: ([b], el) => truncChart(el, b, true), good: ([b], el) => truncChart(el, b, false),
+     why: "Its axis doesn't start at zero, so the leader's bar is cut off and the small bars look bigger than they are.", rule: 'Bar charts always start at zero.'},
+    {prompt: 'Both charts show dog weight and neck size. Which one makes them look like they shrank by exactly the same amount?',
+     badIds: ['dogs'], goodIds: ['dog_index'], bad: ([d], el) => dualBad(el, d), good: ([d], el) => dualGood(el, d),
+     why: 'It uses two axes, each stretched until the lines overlap. On a shared scale you can see weight fell faster.', rule: 'Be suspicious when two lines match perfectly. Check the axes.'},
+    {prompt: 'Which chart makes it look like people changed their minds every single week?',
+     badIds: ['polls'], goodIds: ['polls', 'polls_trend'], bad: ([p], el) => pollsChart(el, p, null), good: ([p, t], el) => pollsChart(el, p, t),
+     why: 'It joins every poll with a line, so random ups and downs look like real changes. The other chart shows the trend.', rule: 'Show the trend, not the noise.'},
+    {prompt: 'Which chart suggests some countries belong to a special group, when they don\u2019t?',
+     badIds: ['scatter'], goodIds: ['scatter'], bad: ([s], el) => scatter(el, s, true), good: ([s], el) => scatter(el, s, false),
+     why: 'It gives the labelled countries a different colour, which looks like a separate group. They only have labels.', rule: 'A new colour should mean a new group.'},
+    {prompt: 'Which chart makes it harder to see which product is the third largest?',
+     badIds: ['shares'], goodIds: ['shares'], bad: ([s], el) => pieBad(el, s), good: ([s], el) => pieGood(el, s),
+     why: 'Pie slices are hard to compare, and you have to keep matching colours to the key. Sorted, labelled bars answer it instantly.', rule: 'If you need to compare more than a few parts, use bars.'},
+  ];
+  const badSide = [0, 1, 1, 0, 1];   // which side (A=0, B=1) holds the misleading chart
+  const qz = {i: 0, score: 0, picked: null};
+  function drawQuiz() {
+    const done = qz.i >= Q.length;
+    $('#qz-body').hidden = done; $('#qz-end').hidden = !done;
+    $('#qz-score').textContent = 'Score: ' + qz.score;
+    if (done) {
+      $('#qz-prog').textContent = 'Finished';
+      $('#qz-result').textContent = 'You got ' + qz.score + ' out of ' + Q.length;
+      $('#qz-msg').textContent = qz.score === Q.length ? 'Perfect! You can spot misleading charts.' :
+        qz.score >= Q.length - 2 ? 'Nice work. Scroll up to review the ones you missed.' : 'Good start. Read through "Spot the mistake" above, then try again.';
+      return;
+    }
+    const q = Q[qz.i], bs = badSide[qz.i % badSide.length];
+    $('#qz-prog').textContent = 'Question ' + (qz.i + 1) + ' of ' + Q.length;
+    $('#qz-prompt').textContent = q.prompt;
+    [0, 1].forEach(side => {
+      const isBad = side === bs, ids = isBad ? q.badIds : q.goodIds, el = $('#qz-c' + side), panel = $('#qz-p' + side);
+      el.dataset.source = ids.join(' ');
+      const dss = ids.map(id => dash.data(id)), notOk = dss.find(d => d.status !== 'ok');
+      if (notOk) ready(el, notOk); else { el.classList.remove('dash-skeleton'); (isBad ? q.bad : q.good)(dss.map(d => d.data), el); }
+      const answered = qz.picked !== null;
+      panel.classList.toggle('bad', answered && isBad); panel.classList.toggle('good', answered && !isBad);
+      $('#qz-b' + side).textContent = 'Chart ' + 'AB'[side] + (answered ? (isBad ? ' \u2014 \u2717 misleading' : ' \u2014 \u2713 better') : '');
+      panel.querySelector('.gv-pick').disabled = answered;
+    });
+    const fb = $('#qz-fb');
+    if (qz.picked === null) { fb.hidden = true; $('#qz-next').hidden = true; return; }
+    fb.hidden = false; fb.replaceChildren();
+    const right = qz.picked === bs;
+    const head = document.createElement('span'); head.className = right ? 'ok' : 'no';
+    head.textContent = right ? 'Correct! ' : 'Not quite. Chart ' + 'AB'[bs] + ' is the misleading one. ';
+    const why = document.createElement('span'); why.textContent = q.why;
+    const rule = document.createElement('div'); rule.style.marginTop = '.4rem'; rule.style.fontWeight = '600'; rule.textContent = 'Rule: ' + q.rule;
+    fb.append(head, why, rule);
+    const nx = $('#qz-next'); nx.hidden = false; nx.textContent = qz.i === Q.length - 1 ? 'See my score \u2192' : 'Next question \u2192';
+  }
+  document.querySelectorAll('.gv-pick').forEach(b => b.addEventListener('click', () => {
+    if (qz.picked !== null) return;
+    qz.picked = Number(b.dataset.pick);
+    if (qz.picked === badSide[qz.i % badSide.length]) qz.score++;
+    drawQuiz();
+  }));
+  $('#qz-next').addEventListener('click', () => { qz.i++; qz.picked = null; drawQuiz(); $('#quiz').scrollIntoView({behavior: 'smooth'}); });
+  $('#qz-restart').addEventListener('click', () => { qz.i = 0; qz.score = 0; qz.picked = null; drawQuiz(); });
+
+  // Tables
+  let catFilter = 'All', query = '';
+  const slug = c => c === 'Misleading' ? 'p-mis' : c === 'Confusing' ? 'p-con' : 'p-hid';
+  function fillTable(sel, ds, keyCol, cols, cell) {
+    const table = $(sel), tb = table.querySelector('tbody');
+    tb.replaceChildren();
+    if (ds.status !== 'ok') {
+      const tr = document.createElement('tr'), td = document.createElement('td'); td.colSpan = cols.length;
+      if (['error', 'connect', 'declined', 'missing'].includes(ds.status)) {
+        const f = document.createElement('div'); f.className = 'gv-fail'; const d = document.createElement('span'); d.className = 'gv-dot';
+        f.append(d, document.createTextNode('Failed to load')); td.appendChild(f);
+      } else { const sk = document.createElement('span'); sk.className = 'dash-skeleton'; td.appendChild(sk); }
+      tr.appendChild(td); tb.appendChild(tr); return;
+    }
+    return rows => rows.forEach(r => {
+      const tr = document.createElement('tr'); tr.dataset.key = r[keyCol];
+      cols.forEach((k, i) => { const td = document.createElement('td'); if (table.tHead.rows[0].cells[i].classList.contains('gv-hide-sm')) td.className = 'gv-hide-sm'; cell(td, k, r); tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  }
+  function drawCatalog() {
+    const ds = dash.data('catalog');
+    const put = fillTable('#catalog-table', ds, 'id', ['mistake', 'category', 'why_it_hurts', 'the_fix', 'source'], (td, k, r) => {
+      if (k === 'category') { const s = document.createElement('span'); s.className = 'gv-pill ' + slug(r.category); s.textContent = r.category; td.appendChild(s); }
+      else td.textContent = r[k];
+    });
+    if (!put) return;
+    const q = query.trim().toLowerCase();
+    put(ds.data.filter(r => (catFilter === 'All' || r.category === catFilter) &&
+      (!q || Object.values(r).join(' ').toLowerCase().includes(q))));
+  }
+  document.querySelectorAll('#chips .gv-chip').forEach(b => b.addEventListener('click', () => {
+    catFilter = b.dataset.cat;
+    document.querySelectorAll('#chips .gv-chip').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    drawCatalog();
+  }));
+  $('#cat-search').addEventListener('input', e => { query = e.target.value; drawCatalog(); });
+
+  document.querySelectorAll('.gv-nav button').forEach(b => b.addEventListener('click', () => {
+    const el = document.getElementById(b.dataset.go); if (el) { el.scrollIntoView({behavior: 'smooth'}); dash.setLink(el.id); }
+  }));
+
+  function setText(el, ds, val) {
+    if (ds.status === 'ok') { el.classList.remove('dash-skeleton'); el.textContent = val; }
+    else { el.textContent = ''; if (ds.status === 'loading') el.classList.add('dash-skeleton'); else { el.classList.remove('dash-skeleton'); el.textContent = '—'; } }
+  }
+
+  let linked = false;
+  dash.onData(() => {
+    // tiles + takeaway
+    const cc = dash.data('catalog_counts'), ls = dash.data('list_sizes');
+    document.querySelectorAll('[data-source="catalog_counts"]').forEach(el => {
+      const cat = el.dataset.where.split('=')[1]; const r = cc.status === 'ok' ? cc.data.find(d => d.category === cat) : null;
+      setText(el, cc, r ? fmt(r.n) : '—');
+    });
+    document.querySelectorAll('.gv-tile [data-source="list_sizes"]').forEach(el => {
+      const k = el.dataset.where.split('=')[1]; const r = ls.status === 'ok' ? ls.data.find(d => d.list === k) : null;
+      setText(el, ls, r ? fmt(r.n) : '—');
+    });
+    const tk = $('#takeaway');
+    if (cc.status === 'ok' && ls.status === 'ok') {
+      const g = c => cc.data.find(d => d.category === c).n;
+      tk.replaceChildren();
+      const mk = (src, where, val) => { const b = document.createElement('b'); b.dataset.source = src; b.dataset.field = 'n'; b.dataset.where = where; b.textContent = val; return b; };
+      tk.append(mk('catalog_counts', 'category=All', fmt(g('All'))), ' common chart mistakes in the list, ',
+        mk('catalog_counts', 'category=Misleading', fmt(g('Misleading'))),
+        ' of which can actually trick the reader.');
+    }
+
+    // dual-axis note
+    const dc = dash.data('dog_change');
+    document.querySelectorAll('[data-source="dog_change"]').forEach(el => {
+      const k = el.dataset.where.split('=')[1]; const r = dc.status === 'ok' ? dc.data.find(d => d.series === k) : null;
+      el.textContent = r ? r.pct_fall + '%' : '—';
+    });
+
+    // charts
+    const pairs = [
+      ['#c-trunc-bad', ['bars'], ([b]) => truncChart($('#c-trunc-bad'), b, true)],
+      ['#c-trunc-good', ['bars'], ([b]) => truncChart($('#c-trunc-good'), b, false)],
+      ['#c-dual-bad', ['dogs'], ([d]) => dualBad($('#c-dual-bad'), d)],
+      ['#c-dual-good', ['dog_index'], ([d]) => dualGood($('#c-dual-good'), d)],
+      ['#c-polls-bad', ['polls'], ([p]) => pollsChart($('#c-polls-bad'), p, null)],
+      ['#c-polls-good', ['polls', 'polls_trend'], ([p, t]) => pollsChart($('#c-polls-good'), p, t)],
+      ['#c-col-bad', ['scatter'], ([s]) => scatter($('#c-col-bad'), s, true)],
+      ['#c-col-good', ['scatter'], ([s]) => scatter($('#c-col-good'), s, false)],
+      ['#c-pie-bad', ['shares'], ([s]) => pieBad($('#c-pie-bad'), s)],
+      ['#c-pie-good', ['shares'], ([s]) => pieGood($('#c-pie-good'), s)],
+    ];
+    pairs.forEach(([sel, ids, draw]) => {
+      const el = $(sel), dss = ids.map(id => dash.data(id));
+      const bad = dss.find(d => d.status !== 'ok');
+      if (bad) { ready(el, bad); return; }
+      el.classList.remove('dash-skeleton');
+      draw(dss.map(d => d.data));
+    });
+
+    drawQuiz();
+
+    // tables
+    drawCatalog();
+    const ex = dash.data('exemplars');
+    const putEx = fillTable('#good-table', ex, 'name', ['name', 'creator', 'year', 'what_it_shows', 'why_it_works'], (td, k, r) => { td.textContent = r[k]; if (k === 'year') td.classList.add('gv-num'); });
+    if (putEx) putEx(ex.data.slice().sort((a, b) => a.year - b.year));
+    const rs = dash.data('resources');
+    const putRs = fillTable('#reading-table', rs, 'name', ['name', 'author', 'kind', 'use_it_for'], (td, k, r) => {
+      if (k === 'name' && /^https:\/\//.test(r.url || '')) { const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.name; td.appendChild(a); }
+      else td.textContent = r[k];
+    });
+    if (putRs) putRs(rs.data);
+
+    if (!linked && ['bars', 'catalog'].every(id => dash.data(id).status === 'ok')) {
+      linked = true;
+      const named = document.getElementById(location.hash.slice(1));
+      if (named) { named.scrollIntoView(); dash.setLink(named.id); }
+    }
+  });
+})();
+</script>
+
+</div>
+</body>
+</html>
