@@ -107,10 +107,23 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 @media (max-width:640px){.gv-hide-sm{display:none}}
 [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
 [data-dash-source-state=empty]{color:transparent}
+
+.gv-kicker{font-size:var(--cds-font-size-caption);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-fg-muted);margin-bottom:var(--cds-gap-xs)}
+.gv-says{margin:var(--cds-gap-xs) 0 0;font-size:var(--cds-font-size-body);line-height:1.4}
+.gv-says q{font-family:var(--font-anthropic-serif);font-size:1.15em;font-weight:600;quotes:"\201C" "\201D"}
+.gv-panel.bad .gv-says q{color:var(--color-bad)}.gv-panel.good .gv-says q{color:var(--color-ok)}
+.gv-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:var(--cds-gap-lg)}
+.gv-two h3{font-size:var(--cds-font-size-body);font-weight:600;margin:0 0 var(--cds-gap-sm)}
+.gv-steps{margin:0;padding-left:1.4rem;display:flex;flex-direction:column;gap:var(--cds-gap-sm);line-height:1.5}
+.gv-ex{margin-top:var(--cds-gap-md);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--cds-gap-md)}
+.gv-ex > div{border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-md);background:var(--color-bg)}
+.gv-ex .lbl{font-size:var(--cds-font-size-caption);font-weight:600}
+.gv-ex .bad .lbl{color:var(--color-bad)}.gv-ex .good .lbl{color:var(--color-ok)}
+.gv-ex .ttl{font-family:var(--font-anthropic-serif);font-size:1.15rem;margin-top:var(--cds-gap-xs)}
 </style>
 <script>
 // Minimal stand-in for the Claude dashboard runtime, so the page works on its own.
-window.DATA = {"catalog":[{"id":"E1","category":"Misleading","mistake":"Cutting off the bottom of a bar chart","why_it_hurts":"When bars don't start at zero, small differences look huge and big ones look small.","the_fix":"Start bars at zero so their lengths can be compared honestly.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E2","category":"Misleading","mistake":"Two y-axes stretched to match","why_it_hurts":"Each axis is stretched until the two lines overlap, so they look linked even when one changed much more.","the_fix":"Put both on one axis, or show them as % change from the same starting point.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E3","category":"Misleading","mistake":"Joining every poll with a line","why_it_hurts":"Polls bounce up and down by chance. Connecting them makes random noise look like real changes.","the_fix":"Show each poll as a dot and draw one smooth trend line through them.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E4","category":"Confusing","mistake":"Two charts squeezed into one","why_it_hurts":"One series goes below zero and the other above, with baselines at opposite edges. Nobody can read it.","the_fix":"Split it into two small charts side by side.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E5","category":"Confusing","mistake":"Colour that suggests a group that isn't there","why_it_hurts":"Readers assume different colours mean different groups. Here it only meant 'this one has a label'.","the_fix":"Use one colour. Make the less important points lighter instead.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E6","category":"Hides the point","mistake":"Too many colours","why_it_hurts":"Ten similar colours make it impossible to find the few things the story is about.","the_fix":"Colour only what matters and group the rest as 'Others' in grey.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E7","category":"Hides the point","mistake":"Too much data in too little space","why_it_hurts":"When everything is crammed in, the reader can't take in anything.","the_fix":"Leave things out, or show one summary number (like an average).","source":"The Economist (Sarah Leo, 2019)"},{"id":"O1","category":"Misleading","mistake":"Upside-down y-axis","why_it_hurts":"If 'up' means less, readers see a fall when there was really a rise.","the_fix":"Keep the normal direction: higher on the chart means more.","source":"Reuters graphic on Florida gun deaths, 2014"},{"id":"O2","category":"Misleading","mistake":"3D pie charts","why_it_hurts":"The tilt makes slices at the front look bigger than equal slices at the back.","the_fix":"Never use 3D. Use a flat bar chart.","source":"Edward Tufte; Claus Wilke"},{"id":"O3","category":"Hides the point","mistake":"Pie chart with lots of slices","why_it_hurts":"People are bad at comparing angles. With many slices, you can't tell which is bigger.","the_fix":"Use bars sorted from biggest to smallest, with labels on them.","source":"FT Visual Vocabulary; Datawrapper blog"},{"id":"O4","category":"Misleading","mistake":"Pictures that grow in two directions","why_it_hurts":"Making a picture twice as tall also makes it twice as wide, so it looks four times bigger.","the_fix":"Use simple bars, or grow the picture's area, not its height.","source":"Edward Tufte"},{"id":"O5","category":"Confusing","mistake":"Rainbow colour scales","why_it_hurts":"Rainbow colours create sharp 'edges' that aren't in the data, and there's no natural order to them.","the_fix":"Use shades of one colour, light for low and dark for high.","source":"Borland & Taylor, 2007"},{"id":"O6","category":"Misleading","mistake":"Maps of totals","why_it_hurts":"A map of total counts mostly just shows where lots of people live.","the_fix":"Map rates instead, like 'per 1,000 people'.","source":"xkcd comic #1138 'Heatmap'"},{"id":"O7","category":"Hides the point","mistake":"Spaghetti chart (too many lines)","why_it_hurts":"When many lines cross each other, you can't follow any of them.","the_fix":"Highlight one or two lines and make the rest grey, or draw several small charts.","source":"Storytelling with Data"},{"id":"O8","category":"Misleading","mistake":"Uneven gaps between dates","why_it_hurts":"If 1990, 2000, 2015 and 2016 are evenly spaced, the speed of change looks wrong.","the_fix":"Space the dates by how much time actually passed.","source":"Alberto Cairo, How Charts Lie"},{"id":"O9","category":"Confusing","mistake":"Red vs green only","why_it_hurts":"Many colour-blind people can't tell red and green apart, so they miss the message.","the_fix":"Use blue and orange, and add labels too.","source":"Datawrapper blog"},{"id":"O10","category":"Misleading","mistake":"Running totals that hide a drop","why_it_hurts":"A running total always goes up, even when each new month is worse than the one before.","the_fix":"Show each month (or quarter) on its own, not the total so far.","source":"Apple iPhone sales chart, 2013"}],"exemplars":[{"name":"Napoleon's march to Moscow","creator":"Charles Joseph Minard","year":1869,"what_it_shows":"An army shrinking as it marches to Moscow and back.","why_it_works":"The band gets thinner as soldiers are lost, so you see the disaster at a glance."},{"name":"Broad Street cholera map","creator":"John Snow","year":1854,"what_it_shows":"Where people died of cholera in one part of London.","why_it_works":"Putting deaths on a map showed they clustered around one water pump."},{"name":"Charts for the 1900 Paris Exposition","creator":"W.E.B. Du Bois and team","year":1900,"what_it_shows":"Life of Black Americans after slavery ended.","why_it_works":"Bold, creative shapes, but each chart still tells one clear story."},{"name":"Gapminder bubble chart","creator":"Hans Rosling","year":2006,"what_it_shows":"How rich and how healthy each country is, moving over time.","why_it_works":"Moving bubbles make 200 years of change easy to follow and remember."},{"name":"Coronavirus trajectory tracker","creator":"John Burn-Murdoch, Financial Times","year":2020,"what_it_shows":"Covid deaths in different countries.","why_it_works":"Every country starts from the same point and is labelled directly, so they're easy to compare."},{"name":"You Draw It","creator":"The New York Times","year":2015,"what_it_shows":"Readers draw their guess first, then see the real line.","why_it_works":"Guessing first makes you remember the real answer."},{"name":"Redesigned Economist charts","creator":"Sarah Leo, The Economist","year":2019,"what_it_shows":"Seven of their own bad charts, each next to a better version.","why_it_works":"Each fix uses the same space, so you can see that design made the difference."}],"resources":[{"name":"Mistakes, we've drawn a few","author":"Sarah Leo, The Economist","kind":"Article","url":"https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368","use_it_for":"Before/after redesigns; your starting point."},{"name":"Visual Vocabulary","author":"Financial Times","kind":"Poster / guide","url":"https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md","use_it_for":"Picking a chart type from the relationship you want to show."},{"name":"Y-axis rules of thumb","author":"Francis Gagnon","kind":"Article","url":"https://www.chezvoila.com/blog/yaxis","use_it_for":"When a non-zero axis is OK and how much space to leave."},{"name":"Fundamentals of Data Visualization","author":"Claus O. Wilke","kind":"Free online book","url":"https://clauswilke.com/dataviz/","use_it_for":"Labelled 'bad', 'ugly' and 'good' figures throughout."},{"name":"Datawrapper blog","author":"Lisa Charlotte Muth and team","kind":"Blog","url":"https://blog.datawrapper.de/","use_it_for":"Practical posts on colour, labels and chart choice."},{"name":"From Data to Viz","author":"Yan Holtz & Conor Healy","kind":"Website","url":"https://www.data-to-viz.com/","use_it_for":"Decision tree plus a 'caveats' page of common mistakes."},{"name":"Junk Charts","author":"Kaiser Fung","kind":"Blog","url":"https://junkcharts.typepad.com/","use_it_for":"Critiques and redesigns of published charts."},{"name":"Storytelling with Data","author":"Cole Nussbaumer Knaflic","kind":"Book / blog","url":"https://www.storytellingwithdata.com/","use_it_for":"Decluttering and focusing attention."},{"name":"Makeover Monday","author":"Andy Kriebel & Eva Murray","kind":"Community project","url":"https://makeovermonday.co.uk/","use_it_for":"Hundreds of redesigns of the same weekly chart."},{"name":"WTF Visualizations","author":"Community gallery","kind":"Gallery","url":"https://viz.wtf/","use_it_for":"A steady supply of bad examples."},{"name":"Calling Bullshit","author":"Carl Bergstrom & Jevin West","kind":"Course / book","url":"https://www.callingbullshit.org/","use_it_for":"Teaching material on misleading axes and proportional ink."},{"name":"How Charts Lie","author":"Alberto Cairo","kind":"Book","url":"https://albertocairo.com/","use_it_for":"Reading charts critically; lots of misleading examples."},{"name":"The Visual Display of Quantitative Information","author":"Edward Tufte","kind":"Book","url":"https://www.edwardtufte.com/","use_it_for":"Data-ink, chartjunk and the lie factor."}],"bars":[{"group":"Party leader","likes":5400},{"group":"MP A","likes":1250},{"group":"MP B","likes":980},{"group":"Party page","likes":860},{"group":"Campaign group","likes":640}],"dogs":[{"year":2009,"weight_kg":20.98,"neck_cm":44.97},{"year":2010,"weight_kg":20.57,"neck_cm":44.49},{"year":2011,"weight_kg":20.1,"neck_cm":44.05},{"year":2012,"weight_kg":19.61,"neck_cm":43.59},{"year":2013,"weight_kg":19.15,"neck_cm":43.11},{"year":2014,"weight_kg":18.71,"neck_cm":42.61},{"year":2015,"weight_kg":18.29,"neck_cm":42.21}],"polls":[{"week":"2025-01-06","right":45.7,"wrong":44.7},{"week":"2025-01-13","right":42.6,"wrong":41.6},{"week":"2025-01-20","right":43.6,"wrong":43.5},{"week":"2025-01-27","right":45.2,"wrong":44.2},{"week":"2025-02-03","right":45.5,"wrong":43.4},{"week":"2025-02-10","right":45.1,"wrong":44.9},{"week":"2025-02-17","right":43.7,"wrong":46.9},{"week":"2025-02-24","right":45.3,"wrong":46.2},{"week":"2025-03-03","right":43.6,"wrong":43.6},{"week":"2025-03-10","right":43.9,"wrong":44.5},{"week":"2025-03-17","right":45.2,"wrong":45.1},{"week":"2025-03-24","right":43.7,"wrong":43.5},{"week":"2025-03-31","right":43.5,"wrong":46.6},{"week":"2025-04-07","right":43.0,"wrong":45.3},{"week":"2025-04-14","right":44.7,"wrong":43.0},{"week":"2025-04-21","right":44.1,"wrong":47.0},{"week":"2025-04-28","right":41.2,"wrong":44.8},{"week":"2025-05-05","right":43.8,"wrong":44.2},{"week":"2025-05-12","right":44.5,"wrong":45.3},{"week":"2025-05-19","right":41.7,"wrong":46.6},{"week":"2025-05-26","right":44.7,"wrong":46.9},{"week":"2025-06-02","right":45.7,"wrong":46.1},{"week":"2025-06-09","right":43.8,"wrong":43.9},{"week":"2025-06-16","right":44.4,"wrong":44.9},{"week":"2025-06-23","right":42.8,"wrong":44.1},{"week":"2025-06-30","right":42.0,"wrong":45.2},{"week":"2025-07-07","right":45.1,"wrong":43.2},{"week":"2025-07-14","right":41.2,"wrong":46.4},{"week":"2025-07-21","right":45.2,"wrong":47.0},{"week":"2025-07-28","right":40.5,"wrong":42.7},{"week":"2025-08-04","right":43.6,"wrong":45.3},{"week":"2025-08-11","right":41.4,"wrong":47.8},{"week":"2025-08-18","right":44.5,"wrong":46.7},{"week":"2025-08-25","right":43.2,"wrong":47.1},{"week":"2025-09-01","right":45.1,"wrong":47.5},{"week":"2025-09-08","right":43.5,"wrong":47.5},{"week":"2025-09-15","right":40.5,"wrong":48.6},{"week":"2025-09-22","right":44.0,"wrong":47.6},{"week":"2025-09-29","right":39.8,"wrong":46.0},{"week":"2025-10-06","right":43.7,"wrong":44.5}],"scatter":[{"country":"Country 1","aged_65_pct":12.1,"pension_pct_gdp":3.7,"labelled":"no","focus":"no"},{"country":"Country 2","aged_65_pct":25.5,"pension_pct_gdp":12.5,"labelled":"no","focus":"no"},{"country":"Country 3","aged_65_pct":27.1,"pension_pct_gdp":13.0,"labelled":"yes","focus":"no"},{"country":"Country 4","aged_65_pct":11.1,"pension_pct_gdp":6.1,"labelled":"no","focus":"no"},{"country":"Country 5","aged_65_pct":11.1,"pension_pct_gdp":2.1,"labelled":"no","focus":"no"},{"country":"Country 6","aged_65_pct":11.8,"pension_pct_gdp":5.6,"labelled":"no","focus":"no"},{"country":"Country 7","aged_65_pct":9.5,"pension_pct_gdp":12.0,"labelled":"yes","focus":"yes"},{"country":"Country 8","aged_65_pct":18.5,"pension_pct_gdp":9.4,"labelled":"no","focus":"no"},{"country":"Country 9","aged_65_pct":27.0,"pension_pct_gdp":11.2,"labelled":"no","focus":"no"},{"country":"Country 10","aged_65_pct":19.6,"pension_pct_gdp":6.4,"labelled":"no","focus":"no"},{"country":"Country 11","aged_65_pct":20.9,"pension_pct_gdp":13.9,"labelled":"yes","focus":"no"},{"country":"Country 12","aged_65_pct":23.2,"pension_pct_gdp":12.0,"labelled":"no","focus":"no"},{"country":"Country 13","aged_65_pct":25.2,"pension_pct_gdp":12.0,"labelled":"no","focus":"no"},{"country":"Country 14","aged_65_pct":14.8,"pension_pct_gdp":4.6,"labelled":"no","focus":"no"},{"country":"Country 15","aged_65_pct":8.3,"pension_pct_gdp":3.2,"labelled":"yes","focus":"no"},{"country":"Country 16","aged_65_pct":7.5,"pension_pct_gdp":2.8,"labelled":"no","focus":"no"},{"country":"Country 17","aged_65_pct":10.6,"pension_pct_gdp":5.8,"labelled":"no","focus":"no"},{"country":"Country 18","aged_65_pct":7.2,"pension_pct_gdp":4.9,"labelled":"no","focus":"no"},{"country":"Country 19","aged_65_pct":6.0,"pension_pct_gdp":3.3,"labelled":"yes","focus":"no"},{"country":"Country 20","aged_65_pct":14.0,"pension_pct_gdp":7.1,"labelled":"no","focus":"no"},{"country":"Country 21","aged_65_pct":6.6,"pension_pct_gdp":5.1,"labelled":"no","focus":"no"},{"country":"Country 22","aged_65_pct":9.3,"pension_pct_gdp":2.0,"labelled":"no","focus":"no"}],"shares":[{"product":"Product C","share":14},{"product":"Product A","share":19},{"product":"Product F","share":6},{"product":"Product B","share":16},{"product":"Product H","share":4},{"product":"Product E","share":11},{"product":"Product D","share":13},{"product":"Product G","share":9},{"product":"Product I","share":8}],"incidents":[{"year":2000,"incidents":410},{"year":2001,"incidents":425},{"year":2002,"incidents":418},{"year":2003,"incidents":440},{"year":2004,"incidents":452},{"year":2005,"incidents":470},{"year":2006,"incidents":465},{"year":2007,"incidents":498},{"year":2008,"incidents":530},{"year":2009,"incidents":585},{"year":2010,"incidents":640},{"year":2011,"incidents":690},{"year":2012,"incidents":725}],"sales":[{"quarter":"Q1 2024","units":120},{"quarter":"Q2 2024","units":135},{"quarter":"Q3 2024","units":140},{"quarter":"Q4 2024","units":128},{"quarter":"Q1 2025","units":110},{"quarter":"Q2 2025","units":95},{"quarter":"Q3 2025","units":82},{"quarter":"Q4 2025","units":70}],"growth":[{"year":1990,"members":200},{"year":2000,"members":320},{"year":2010,"members":440},{"year":2015,"members":500},{"year":2016,"members":512},{"year":2017,"members":524},{"year":2018,"members":536},{"year":2019,"members":548}]};
+window.DATA = {"catalog":[{"id":"E1","category":"Misleading","mistake":"Cutting off the bottom of a bar chart","why_it_hurts":"When bars don't start at zero, small differences look huge and big ones look small.","the_fix":"Start bars at zero so their lengths can be compared honestly.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E2","category":"Misleading","mistake":"Two y-axes stretched to match","why_it_hurts":"Each axis is stretched until the two lines overlap, so they look linked even when one changed much more.","the_fix":"Put both on one axis, or show them as % change from the same starting point.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E3","category":"Misleading","mistake":"Joining every poll with a line","why_it_hurts":"Polls bounce up and down by chance. Connecting them makes random noise look like real changes.","the_fix":"Show each poll as a dot and draw one smooth trend line through them.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E4","category":"Confusing","mistake":"Two charts squeezed into one","why_it_hurts":"One series goes below zero and the other above, with baselines at opposite edges. Nobody can read it.","the_fix":"Split it into two small charts side by side.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E5","category":"Confusing","mistake":"Color that suggests a group that isn't there","why_it_hurts":"Readers assume different colors mean different groups. Here it only meant \u201cthis one has a label\u201d.","the_fix":"Use one color. Make the less important points lighter instead.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E6","category":"Hides the point","mistake":"Too many colors","why_it_hurts":"Ten similar colors make it impossible to find the few things the story is about.","the_fix":"Color only what matters and group the rest as \u201cOthers\u201d in gray.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E7","category":"Hides the point","mistake":"Too much data in too little space","why_it_hurts":"When everything is crammed in, the reader can't take in anything.","the_fix":"Leave things out, or show one summary number (like an average).","source":"The Economist (Sarah Leo, 2019)"},{"id":"O1","category":"Misleading","mistake":"Upside-down y-axis","why_it_hurts":"If 'up' means less, readers see a fall when there was really a rise.","the_fix":"Keep the normal direction: higher on the chart means more.","source":"Reuters graphic on Florida gun deaths, 2014"},{"id":"O2","category":"Misleading","mistake":"3D pie charts","why_it_hurts":"The tilt makes slices at the front look bigger than equal slices at the back.","the_fix":"Never use 3D. Use a flat bar chart.","source":"Edward Tufte; Claus Wilke"},{"id":"O3","category":"Hides the point","mistake":"Pie chart with lots of slices","why_it_hurts":"People are bad at comparing angles. With many slices, you can't tell which is bigger.","the_fix":"Use bars sorted from biggest to smallest, with labels on them.","source":"FT Visual Vocabulary; Datawrapper blog"},{"id":"O4","category":"Misleading","mistake":"Pictures that grow in two directions","why_it_hurts":"Making a picture twice as tall also makes it twice as wide, so it looks four times bigger.","the_fix":"Use simple bars, or grow the picture's area, not its height.","source":"Edward Tufte"},{"id":"O5","category":"Confusing","mistake":"Rainbow color scales","why_it_hurts":"Rainbow colors create sharp \u201cedges\u201d that aren't in the data, and there's no natural order to them.","the_fix":"Use shades of one color, light for low and dark for high.","source":"Borland & Taylor, 2007"},{"id":"O6","category":"Misleading","mistake":"Maps of totals","why_it_hurts":"A map of total counts mostly just shows where lots of people live.","the_fix":"Map rates instead, like \u201cper 1,000 people\u201d.","source":"xkcd comic #1138 \u201cHeatmap\u201d"},{"id":"O7","category":"Hides the point","mistake":"Spaghetti chart (too many lines)","why_it_hurts":"When many lines cross each other, you can't follow any of them.","the_fix":"Highlight one or two lines and make the rest gray, or draw several small charts.","source":"Storytelling with Data"},{"id":"O8","category":"Misleading","mistake":"Uneven gaps between dates","why_it_hurts":"If 1990, 2000, 2015 and 2016 are evenly spaced, the speed of change looks wrong.","the_fix":"Space the dates by how much time actually passed.","source":"Alberto Cairo, How Charts Lie"},{"id":"O9","category":"Confusing","mistake":"Red vs green only","why_it_hurts":"Many color-blind people can't tell red and green apart, so they miss the message.","the_fix":"Use blue and orange, and add labels too.","source":"Datawrapper blog"},{"id":"O10","category":"Misleading","mistake":"Running totals that hide a drop","why_it_hurts":"A running total always goes up, even when each new month is worse than the one before.","the_fix":"Show each month (or quarter) on its own, not the total so far.","source":"Apple iPhone sales chart, 2013"}],"exemplars":[{"name":"Napoleon's march to Moscow","creator":"Charles Joseph Minard","year":1869,"story":"Napoleon's huge army marched into Russia, and almost none of it came back.","why_it_works":"The thick band is the army. It gets thinner as soldiers die, so you can see the disaster without reading a single number.","url":"https://en.wikipedia.org/wiki/Charles_Joseph_Minard"},{"name":"Broad Street cholera map","creator":"John Snow","year":1854,"story":"The deaths cluster around one water pump, so the pump is spreading the disease.","why_it_works":"Putting each death on a map made the pattern impossible to miss. The city removed the pump's handle.","url":"https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"},{"name":"Data portraits for the 1900 Paris Exposition","creator":"W.E.B. Du Bois and his students","year":1900,"story":"In the decades after slavery, Black Americans in Georgia built schools, businesses and land ownership despite huge barriers.","why_it_works":"Bold shapes and colors grab attention, but each chart still makes just one clear point.","url":"https://en.wikipedia.org/wiki/W._E._B._Du_Bois"},{"name":"Gapminder bubble chart","creator":"Hans Rosling","year":2006,"story":"Almost every country got richer and healthier over the last 200 years, just at very different times.","why_it_works":"Each bubble is a country. Watching them move over time turns a giant table of numbers into a story you remember.","url":"https://www.gapminder.org/tools/"},{"name":"You Draw It","creator":"The New York Times","year":2015,"story":"Kids from richer families are much more likely to go to college.","why_it_works":"You draw your guess before seeing the real line. Being surprised by your own guess makes the point stick.","url":"https://www.nytimes.com/interactive/2015/05/28/upshot/you-draw-it-how-family-income-affects-childrens-college-chances.html"}],"resources":[{"name":"Over 75 New York Times graphs for students to analyze","author":"The New York Times Learning Network","kind":"Article / collection","url":"https://www.nytimes.com/2023/07/26/learning/over-75-new-york-times-graphs-for-students-to-analyze.html","use_it_for":"Real graphs on topics students care about, sorted by subject."},{"name":"What's Going On in This Graph?","author":"The New York Times Learning Network & American Statistical Association","kind":"Weekly activity","url":"https://www.nytimes.com/column/whats-going-on-in-this-graph","use_it_for":"Notice, wonder and write a headline for a new real graph each week."},{"name":"Mistakes, we've drawn a few","author":"Sarah Leo, The Economist","kind":"Article","url":"https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368","use_it_for":"Before/after redesigns; your starting point."},{"name":"Visual Vocabulary","author":"Financial Times","kind":"Poster / guide","url":"https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md","use_it_for":"Picking a chart type from the relationship you want to show."},{"name":"Y-axis rules of thumb","author":"Francis Gagnon","kind":"Article","url":"https://www.chezvoila.com/blog/yaxis","use_it_for":"When a non-zero axis is OK and how much space to leave."},{"name":"Fundamentals of Data Visualization","author":"Claus O. Wilke","kind":"Free online book","url":"https://clauswilke.com/dataviz/","use_it_for":"Labelled 'bad', 'ugly' and 'good' figures throughout."},{"name":"Datawrapper blog","author":"Lisa Charlotte Muth and team","kind":"Blog","url":"https://blog.datawrapper.de/","use_it_for":"Practical posts on color, labels and chart choice."},{"name":"From Data to Viz","author":"Yan Holtz & Conor Healy","kind":"Website","url":"https://www.data-to-viz.com/","use_it_for":"Decision tree plus a 'caveats' page of common mistakes."},{"name":"Junk Charts","author":"Kaiser Fung","kind":"Blog","url":"https://junkcharts.typepad.com/","use_it_for":"Critiques and redesigns of published charts."},{"name":"Storytelling with Data","author":"Cole Nussbaumer Knaflic","kind":"Book / blog","url":"https://www.storytellingwithdata.com/","use_it_for":"Decluttering and focusing attention."},{"name":"Makeover Monday","author":"Andy Kriebel & Eva Murray","kind":"Community project","url":"https://makeovermonday.co.uk/","use_it_for":"Hundreds of redesigns of the same weekly chart."},{"name":"WTF Visualizations","author":"Community gallery","kind":"Gallery","url":"https://viz.wtf/","use_it_for":"A steady supply of bad examples."},{"name":"Calling Bullshit","author":"Carl Bergstrom & Jevin West","kind":"Course / book","url":"https://www.callingbullshit.org/","use_it_for":"Teaching material on misleading axes and proportional ink."},{"name":"How Charts Lie","author":"Alberto Cairo","kind":"Book","url":"https://albertocairo.com/","use_it_for":"Reading charts critically; lots of misleading examples."},{"name":"The Visual Display of Quantitative Information","author":"Edward Tufte","kind":"Book","url":"https://www.edwardtufte.com/","use_it_for":"Data-ink, chartjunk and the lie factor."}],"election":[{"candidate":"Maya","votes":52},{"candidate":"Jordan","votes":48},{"candidate":"Sam","votes":41}],"screen_time":[{"year":2019,"screen_hours":5.0,"test_score":78.0},{"year":2020,"screen_hours":5.6,"test_score":77.5},{"year":2021,"screen_hours":6.4,"test_score":76.6},{"year":2022,"screen_hours":6.6,"test_score":76.2},{"year":2023,"screen_hours":6.9,"test_score":75.4},{"year":2024,"screen_hours":7.1,"test_score":74.8},{"year":2025,"screen_hours":7.4,"test_score":74.1}],"lunch":[{"week":"2025-09-08","pct_good":47},{"week":"2025-09-15","pct_good":54},{"week":"2025-09-22","pct_good":57},{"week":"2025-09-29","pct_good":51},{"week":"2025-10-06","pct_good":48},{"week":"2025-10-13","pct_good":53},{"week":"2025-10-20","pct_good":56},{"week":"2025-10-27","pct_good":59},{"week":"2025-11-03","pct_good":49},{"week":"2025-11-10","pct_good":49},{"week":"2025-11-17","pct_good":58},{"week":"2025-11-24","pct_good":57},{"week":"2025-12-01","pct_good":62},{"week":"2025-12-08","pct_good":60},{"week":"2025-12-15","pct_good":55},{"week":"2025-12-22","pct_good":55},{"week":"2025-12-29","pct_good":67},{"week":"2026-01-05","pct_good":55},{"week":"2026-01-12","pct_good":54},{"week":"2026-01-19","pct_good":52},{"week":"2026-01-26","pct_good":58},{"week":"2026-02-02","pct_good":58},{"week":"2026-02-09","pct_good":57},{"week":"2026-02-16","pct_good":58},{"week":"2026-02-23","pct_good":60},{"week":"2026-03-02","pct_good":62},{"week":"2026-03-09","pct_good":64},{"week":"2026-03-16","pct_good":60},{"week":"2026-03-23","pct_good":52},{"week":"2026-03-30","pct_good":63}],"team":[{"player":"Ava","practice_hours":6.2,"points":6.9,"labeled":"yes","focus":"no"},{"player":"Ben","practice_hours":7.3,"points":8.0,"labeled":"no","focus":"no"},{"player":"Chloe","practice_hours":5.7,"points":6.4,"labeled":"no","focus":"no"},{"player":"Diego","practice_hours":10.0,"points":18.5,"labeled":"yes","focus":"no"},{"player":"Emma","practice_hours":8.7,"points":10.9,"labeled":"no","focus":"no"},{"player":"Finn","practice_hours":3.8,"points":3.6,"labeled":"no","focus":"no"},{"player":"Grace","practice_hours":4.3,"points":8.1,"labeled":"no","focus":"no"},{"player":"Hiro","practice_hours":5.2,"points":7.9,"labeled":"no","focus":"no"},{"player":"Isla","practice_hours":5.5,"points":17.5,"labeled":"yes","focus":"yes"},{"player":"Jay","practice_hours":8.8,"points":14.1,"labeled":"no","focus":"no"},{"player":"Kai","practice_hours":2.0,"points":3.5,"labeled":"no","focus":"no"},{"player":"Leo","practice_hours":5.8,"points":10.9,"labeled":"yes","focus":"no"}],"activities":[{"activity":"Music","pct":13},{"activity":"Sports","pct":24},{"activity":"Volunteering","pct":4},{"activity":"Gaming","pct":21},{"activity":"Reading","pct":8},{"activity":"Art","pct":12},{"activity":"Part-time job","pct":6},{"activity":"Clubs","pct":9},{"activity":"Other","pct":3}],"phones":[{"month":"Sep","phones":12},{"month":"Oct","phones":15},{"month":"Nov","phones":14},{"month":"Dec","phones":19},{"month":"Jan","phones":22},{"month":"Feb","phones":24},{"month":"Mar","phones":27},{"month":"Apr","phones":31},{"month":"May","phones":36},{"month":"Jun","phones":40}],"fundraiser":[{"week":"Week 1","dollars":900},{"week":"Week 2","dollars":820},{"week":"Week 3","dollars":700},{"week":"Week 4","dollars":610},{"week":"Week 5","dollars":480},{"week":"Week 6","dollars":400},{"week":"Week 7","dollars":310},{"week":"Week 8","dollars":250}],"robotics":[{"year":2000,"members":10},{"year":2010,"members":40},{"year":2020,"members":70},{"year":2021,"members":73},{"year":2022,"members":76},{"year":2023,"members":79},{"year":2024,"members":82},{"year":2025,"members":85}]};
 window.dash = (function () {
   const store = Object.assign({}, window.DATA), calcs = [], subs = [];
   return {
@@ -129,101 +142,111 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
 <div class="gv">
   <header>
     <h1 class="gv-title" id="top">Good charts vs bad charts</h1>
-    <p class="gv-intro">A good chart makes <b>one point</b>, clearly and honestly. On this page, each bad chart sits next to a fixed version of the <b>same numbers</b>. Look at the bad one first, try to spot the problem, then open the answer.</p>
-    <p class="gv-take" id="takeaway"><span class="dash-skeleton"></span></p>
+    <p class="gv-intro">Every chart tells a story. A <b>good chart</b> tells a <b>true</b> story you can see at a glance. A <b>misleading chart</b> tells a story the numbers don’t actually support. Each example below is an everyday situation drawn two ways, using <b>exactly the same numbers</b>.</p>
+    <p class="gv-take" id="takeaway"><span class="gv-v" data-source="catalog_counts" data-field="n" data-where="category=All">—</span> common chart mistakes are listed on this page, and <span class="gv-v" data-source="catalog_counts" data-field="n" data-where="category=Misleading">—</span> of them can actually trick you.</p>
     <nav class="gv-nav" aria-label="Sections">
-      <button data-go="questions">5 questions</button>
+      <button data-go="read">How to read a chart</button>
       <button data-go="pairs">Spot the mistake</button>
       <button data-go="quiz">Quiz</button>
+      <button data-go="tell">Tell your story</button>
       <button data-go="your-turn">Your turn</button>
       <button data-go="catalog">All mistakes</button>
-      <button data-go="good">Good examples</button>
+      <button data-go="good">Great charts</button>
       <button data-go="reading">Learn more</button>
       <button data-go="glossary">Word list</button>
     </nav>
   </header>
 
-  <section class="gv-tiles" id="tiles">
-    <div class="gv-tile"><div class="gv-tile-l">Mistakes in the list</div><div class="gv-tile-v dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=All"></div></div>
-    <div class="gv-tile"><div class="gv-tile-l">Can trick you</div><div class="gv-tile-v bad dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Misleading"></div></div>
-    <div class="gv-tile"><div class="gv-tile-l">Confusing</div><div class="gv-tile-v warn dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Confusing"></div></div>
-    <div class="gv-tile"><div class="gv-tile-l">Hide the point</div><div class="gv-tile-v dash-skeleton" data-source="catalog_counts" data-field="n" data-where="category=Hides the point"></div></div>
-    <div class="gv-tile"><div class="gv-tile-l">Good examples</div><div class="gv-tile-v dash-skeleton" data-source="list_sizes" data-field="n" data-where="list=Good examples"></div></div>
-    <div class="gv-tile"><div class="gv-tile-l">Places to learn more</div><div class="gv-tile-v dash-skeleton" data-source="list_sizes" data-field="n" data-where="list=Further reading"></div></div>
-  </section>
-
-  <section id="questions" class="gv-card">
-    <h2 class="gv-h2">5 questions to ask about any chart</h2>
-    <p class="gv-sub">Use these as a checklist whenever you read or make a chart.</p>
-    <ol class="gv-q">
-      <li><b>Where does the axis start?</b> Bars should start at zero, or their lengths lie.</li>
-      <li><b>Is there more than one axis?</b> Two axes can be stretched to make any two lines look connected.</li>
-      <li><b>What do the colours mean?</b> A new colour should mean a new group, nothing else.</li>
-      <li><b>Is it a real change or just noise?</b> Bumpy data needs a trend line, not a zig-zag.</li>
-      <li><b>What is the one point?</b> If you can't say it in one sentence, the chart is too busy.</li>
-    </ol>
+  <section id="read" class="gv-card">
+    <h2 class="gv-h2">How to read any chart</h2>
+    <p class="gv-sub">Use these every time you see a chart, in class, in the news or on social media.</p>
+    <div class="gv-two">
+      <div>
+        <h3>Think like a reporter</h3>
+        <ol class="gv-steps">
+          <li><b>What do you notice?</b> What jumps out first? What’s the biggest, smallest, highest or lowest?</li>
+          <li><b>What do you wonder?</b> What questions does it raise? What’s missing?</li>
+          <li><b>What’s the headline?</b> Sum up the chart’s story in one catchy sentence, like a news headline.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Then check: is the story true?</h3>
+        <ol class="gv-steps">
+          <li><b>Where does the axis start?</b> Bars should start at zero, or their lengths lie.</li>
+          <li><b>Is there more than one axis?</b> Two axes can be stretched to make any two lines look connected.</li>
+          <li><b>What do the colors mean?</b> A new color should mean a new group, nothing else.</li>
+          <li><b>Is it a real change or just noise?</b> Bumpy data needs a trend line, not a zig-zag.</li>
+          <li><b>Is it easy to read?</b> If it takes more than a few seconds to find the answer, the chart is getting in the way.</li>
+        </ol>
+      </div>
+    </div>
   </section>
 
   <section id="pairs">
     <h2 class="gv-h2">Spot the mistake</h2>
-    <p class="gv-sub">Both charts in each pair use exactly the same numbers. The left one has a mistake; the right one fixes it. The numbers are made up for practice. Hover over a chart to see the values.</p>
+    <p class="gv-sub">Each story is drawn twice from the same numbers. Read the situation, look at the misleading chart, and try to spot the trick before opening the answer. The numbers are made up for practice. Hover over a chart to see the values.</p>
     <div class="gv-pairs">
 
-      <article class="gv-card" id="pair-truncation">
-        <h3>Bar charts that don't start at zero</h3>
-        <p class="gv-note">The point is how far the leader's posts outperform everyone else's.<br><span class="gv-spot">🔍 Spot it: In the left chart, how many times bigger does the leader's bar look than MP A's?</span></p>
+      <article class="gv-card" id="pair-election">
+        <div class="gv-kicker">Story 1 · Student council election</div>
+        <h3>Did Maya win in a landslide?</h3>
+        <p class="gv-note">Maya got <span class="gv-v" data-source="election" data-field="votes" data-where="candidate=Maya">—</span> votes, Jordan got <span class="gv-v" data-source="election" data-field="votes" data-where="candidate=Jordan">—</span> and Sam got <span class="gv-v" data-source="election" data-field="votes" data-where="candidate=Sam">—</span>.<br><span class="gv-spot">🔍 Spot it: In the misleading chart, how many times taller is Maya’s bar than Sam’s? Does that match the votes?</span></p>
         <div class="gv-grid2">
-          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-trunc-bad" data-source="bars"></div><details class="gv-ans"><summary>What's wrong?</summary><p>The axis starts well above zero. The leader's bar runs off the edge, and the small bars look much bigger than they really are.</p></details></div>
-          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-trunc-good" data-source="bars"></div><p class="gv-cap">Bars start at zero, so their lengths are honest. Numbers are written on the bars, so no axis is needed.</p></div>
+          <div class="gv-panel bad"><div class="gv-badge">✗ Misleading</div><p class="gv-says">This chart says: <q>Maya won in a landslide!</q></p><div class="gv-chart" id="c-elec-bad" data-source="election"></div><details class="gv-ans"><summary>Why is this misleading?</summary><p>The axis starts at 40 instead of zero. Cutting off the bottom of the bars makes Maya’s bar look many times taller than Sam’s, even though the vote counts are close.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Honest</div><p class="gv-says">This chart says: <q>Maya won a close race.</q></p><div class="gv-chart" id="c-elec-good" data-source="election"></div><p class="gv-cap"><b>Why it works:</b> the bars start at zero, so a bar twice as tall really means twice the votes. The winner is highlighted and the vote counts are written on top.</p></div>
         </div>
         <p class="gv-rule">Rule: bar charts always start at zero.</p>
       </article>
 
-      <article class="gv-card" id="pair-dual">
-        <h3>Two y-axes stretched to match</h3>
-        <p class="gv-note">Two measures of dog size over time.<br><span class="gv-spot">🔍 Spot it: The two lines look identical. Did weight and neck size really shrink by the same amount?</span></p>
+      <article class="gv-card" id="pair-screen">
+        <div class="gv-kicker">Story 2 · Screen time and test scores</div>
+        <h3>Is screen time wrecking test scores?</h3>
+        <p class="gv-note">Since <span class="gv-v" data-source="screen_summary" data-field="from_year" data-where="measure=Screen time">—</span>, students’ daily screen time went up <b class="gv-v" data-source="screen_summary" data-field="size_pct" data-where="measure=Screen time" data-fmt="pct">—</b>, and average test scores went down <b class="gv-v" data-source="screen_summary" data-field="size_pct" data-where="measure=Test scores" data-fmt="pct">—</b>.<br><span class="gv-spot">🔍 Spot it: The lines make a dramatic X. Did both things really change by about the same amount?</span></p>
         <div class="gv-grid2">
-          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-dual-bad" data-source="dogs"></div><details class="gv-ans"><summary>What's wrong?</summary><p>Each side has its own axis, stretched until the lines overlap. It looks like a perfect match, but weight fell <b data-source="dog_change" data-field="pct_fall" data-where="series=Weight">—</b>, neck size only <b data-source="dog_change" data-field="pct_fall" data-where="series=Neck">—</b>, over the same years.</p></details></div>
-          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-dual-good" data-source="dog_index"></div><p class="gv-cap">Both lines start at 100 (the first year) on one shared axis, so you can see which one really fell more.</p></div>
+          <div class="gv-panel bad"><div class="gv-badge">✗ Misleading</div><p class="gv-says">This chart says: <q>Screen time is wrecking test scores!</q></p><div class="gv-chart" id="c-screen-bad" data-source="screen_time"></div><details class="gv-ans"><summary>Why is this misleading?</summary><p>Each line has its own axis, and each axis was stretched to fill the chart. That makes a small dip in scores look as big as a huge jump in screen time, so it looks like one is causing the other.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Honest</div><p class="gv-says">This chart says: <q>Screen time rose a lot. Scores dipped a little.</q></p><div class="gv-chart" id="c-screen-good" data-source="screen_change"></div><p class="gv-cap"><b>Why it works:</b> both lines are measured the same way, as percent change since the first year, on one shared axis. Now you can compare them fairly. (Even an honest chart like this can’t prove one thing <i>caused</i> the other.)</p></div>
         </div>
         <p class="gv-rule">Rule: be suspicious when two lines match perfectly. Check the axes.</p>
       </article>
 
-      <article class="gv-card" id="pair-polls">
-        <h3>Joining every poll with a line</h3>
-        <p class="gv-note">Weekly polls asking whether a decision was right or wrong.<br><span class="gv-spot">🔍 Spot it: Did people really change their minds every single week?</span></p>
+      <article class="gv-card" id="pair-lunch">
+        <div class="gv-kicker">Story 3 · Weekly cafeteria survey</div>
+        <h3>Is school lunch getting better or worse?</h3>
+        <p class="gv-note">Every week, a few students are asked if lunch was good. The chart shows the percent who said yes.<br><span class="gv-spot">🔍 Spot it: Did lunch really get much better, then much worse, almost every week?</span></p>
         <div class="gv-grid2">
-          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-polls-bad" data-source="polls"></div><details class="gv-ans"><summary>What's wrong?</summary><p>Polls go up and down a little just by chance. Joining every dot makes that random wobble look like real mood swings.</p></details></div>
-          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-polls-good" data-source="polls polls_trend"></div><p class="gv-cap">Each poll is a faint dot. The solid line is the average of nearby polls, which shows the real trend.</p></div>
+          <div class="gv-panel bad"><div class="gv-badge">✗ Misleading</div><p class="gv-says">This chart says: <q>Lunch is a roller coaster!</q></p><div class="gv-chart" id="c-lunch-bad" data-source="lunch"></div><details class="gv-ans"><summary>Why is this misleading?</summary><p>Each week only a few students are asked, so the result bounces around by chance. Connecting every point turns that random bounce into fake drama, and the narrow axis makes the swings look even bigger.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Honest</div><p class="gv-says">This chart says: <q>Lunch is slowly getting better.</q></p><div class="gv-chart" id="c-lunch-good" data-source="lunch lunch_trend"></div><p class="gv-cap"><b>Why it works:</b> each week is a faint dot, and the solid line is the average of nearby weeks. The average smooths out the random bounce and shows the real trend.</p></div>
         </div>
         <p class="gv-rule">Rule: show the trend, not the noise.</p>
       </article>
 
-      <article class="gv-card" id="pair-colour">
-        <h3>Colour that suggests a group that isn't there</h3>
-        <p class="gv-note">Pension spending vs share of population aged 65+, with one focus country.<br><span class="gv-spot">🔍 Spot it: What do you think the bright dots have in common?</span></p>
+      <article class="gv-card" id="pair-team">
+        <div class="gv-kicker">Story 4 · Basketball team</div>
+        <h3>Does more practice mean more points?</h3>
+        <p class="gv-note">Each dot is a player: hours of practice per week, and points scored per game. The coach wants to talk about four players.<br><span class="gv-spot">🔍 Spot it: In the misleading chart, what do you think the orange players have in common?</span></p>
         <div class="gv-grid2">
-          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-col-bad" data-source="scatter"></div><details class="gv-ans"><summary>What's wrong?</summary><p>The bright dots look like a special group, but they're only the ones with name labels. The colour suggests something that isn't true.</p></details></div>
-          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-col-good" data-source="scatter"></div><p class="gv-cap">All dots are the same colour. Less important ones are lighter, and the country we care about is in bold.</p></div>
+          <div class="gv-panel bad"><div class="gv-badge">✗ Misleading</div><p class="gv-says">This chart says: <q>The orange players are a special group.</q></p><div class="gv-chart" id="c-team-bad" data-source="team"></div><details class="gv-ans"><summary>Why is this misleading?</summary><p>Orange looks like it means something, like starters or a different team. But it only marks the players who have name labels. A color that means nothing sends readers looking for a story that isn’t there.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Honest</div><p class="gv-says">This chart says: <q>More practice usually means more points, but Isla stands out.</q></p><div class="gv-chart" id="c-team-good" data-source="team"></div><p class="gv-cap"><b>Why it works:</b> every player is the same color. Players we aren’t talking about fade into the background, and Isla, the surprise in the story, is in bold: she scores far more than her practice time would predict.</p></div>
         </div>
-        <p class="gv-rule">Rule: a new colour should mean a new group.</p>
+        <p class="gv-rule">Rule: a new color should mean a new group.</p>
       </article>
 
-      <article class="gv-card" id="pair-pie">
-        <h3>Pie chart with too many slices</h3>
-        <p class="gv-note">Market share across nine products.<br><span class="gv-spot">🔍 Spot it: Which product is the third largest? How long did it take you?</span></p>
+      <article class="gv-card" id="pair-activities">
+        <div class="gv-kicker">Story 5 · Class survey</div>
+        <h3>What’s our favorite after-school activity?</h3>
+        <p class="gv-note">Every student picked one favorite activity. The chart shows the percent who picked each.<br><span class="gv-spot">🔍 Spot it: Which activity came third? How long did it take you to find it?</span></p>
         <div class="gv-grid2">
-          <div class="gv-panel bad"><div class="gv-badge">✗ Bad</div><div class="gv-chart" id="c-pie-bad" data-source="shares"></div><details class="gv-ans"><summary>What's wrong?</summary><p>You have to compare angles and keep looking back at the colour key. Our eyes are bad at both.</p></details></div>
-          <div class="gv-panel good"><div class="gv-badge">✓ Better</div><div class="gv-chart" id="c-pie-good" data-source="shares"></div><p class="gv-cap">Bars sorted from biggest to smallest, with labels on them. The answer takes one second.</p></div>
+          <div class="gv-panel bad"><div class="gv-badge">✗ Hard to read</div><p class="gv-says">This chart says: <q>Um… lots of different things?</q></p><div class="gv-chart" id="c-act-bad" data-source="activities"></div><details class="gv-ans"><summary>Why is this hard to read?</summary><p>Our eyes are bad at comparing the sizes of slices, and you have to keep looking back and forth at the color key. Music and Art look almost the same. The chart hides its own story.</p></details></div>
+          <div class="gv-panel good"><div class="gv-badge">✓ Easy to read</div><p class="gv-says">This chart says: <q>Sports and gaming are the class favorites.</q></p><div class="gv-chart" id="c-act-good" data-source="activities"></div><p class="gv-cap"><b>Why it works:</b> the bars are sorted from most to least popular and labeled directly, so the ranking reads top to bottom in one second.</p></div>
         </div>
-        <p class="gv-rule">Rule: if you need to compare more than a few parts, use bars.</p>
+        <p class="gv-rule">Rule: to compare more than a few things, use sorted bars.</p>
       </article>
     </div>
   </section>
 
   <section id="quiz" class="gv-card">
     <h2 class="gv-h2">Quiz: which chart is misleading?</h2>
-    <p class="gv-sub">Each question shows the same numbers drawn two ways. One chart has a mistake. Pick it, then see why. The last three are mistakes you haven't seen yet!</p>
+    <p class="gv-sub">Each question tells a short story and shows the same numbers drawn two ways. One chart tells a false or confusing story. Pick it, then see why. The last three are tricks you haven’t seen yet!</p>
     <div class="gv-qz-top"><span id="qz-prog"></span><span id="qz-score"></span></div>
     <div id="qz-body">
       <p class="gv-qz-q" id="qz-prompt"></p>
@@ -241,14 +264,31 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
     </div>
   </section>
 
+  <section id="tell" class="gv-card">
+    <h2 class="gv-h2">Tell your own story with a chart</h2>
+    <p class="gv-sub">Making a chart? Work through these steps in order. Most bad charts happen when people skip step 2.</p>
+    <ol class="gv-steps">
+      <li><b>Start with a question.</b> “Did Maya win easily?” “Is lunch getting better?”</li>
+      <li><b>Write your headline first.</b> Answer your question in one sentence. That’s the story your chart has to prove.</li>
+      <li><b>Pick the chart that fits the story.</b> Comparing amounts → <b>bar chart</b> (starting at zero). Change over time → <b>line chart</b>. Do two things go together? → <b>scatter plot</b>. Parts of a whole → <b>sorted bars</b>, or a pie with only two or three slices.</li>
+      <li><b>Point at the story.</b> Use your headline as the chart’s title. Color the one thing that matters and make everything else gray. Label things directly instead of using a color key.</li>
+      <li><b>Check it’s honest.</b> Run through the five checks at the top of this page. Would the story still hold if someone saw the full numbers?</li>
+    </ol>
+    <div class="gv-ex">
+      <div class="bad"><div class="lbl">✗ A label, not a story</div><div class="ttl">Votes by candidate</div></div>
+      <div class="good"><div class="lbl">✓ A headline that tells the story</div><div class="ttl">Maya won the election, but only just</div></div>
+    </div>
+  </section>
+
   <section id="your-turn" class="gv-card">
     <h2 class="gv-h2">Your turn: find a chart in the real world</h2>
     <p class="gv-sub">Charts are everywhere: news sites, social media, ads, even textbooks. Find one and put it to the test.</p>
-    <ol class="gv-q">
-      <li><b>Find a chart</b> that's trying to make a point. Save a screenshot or the link.</li>
-      <li><b>Ask the 5 questions</b> from the top of this page about it.</li>
-      <li><b>Decide:</b> is it a good chart, confusing, hiding its point, or misleading?</li>
-      <li><b>Fix it:</b> sketch or describe a better version, then share it with the class.</li>
+    <ol class="gv-steps">
+      <li><b>Find a chart</b> that’s trying to make a point. Save a screenshot or the link.</li>
+      <li><b>Notice and wonder.</b> What jumps out at you? What questions do you have?</li>
+      <li><b>Write its headline.</b> What story is the chart trying to tell?</li>
+      <li><b>Check it.</b> Use the five checks. Is the story true, confusing or misleading?</li>
+      <li><b>Fix it.</b> Sketch a better version with an honest headline, then share it with the class.</li>
     </ol>
     <p style="margin:var(--cds-gap-md) 0 0"><a class="gv-btn gv-link" href="worksheet.pdf" target="_blank" rel="noopener">Download the printable worksheet (PDF)</a></p>
   </section>
@@ -267,18 +307,18 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
     </div>
     <div class="gv-tbox">
       <table class="gv-table" id="catalog-table" data-source="catalog" data-row-key="id">
-        <thead><tr><th data-field="mistake">Mistake</th><th data-field="category">Type</th><th data-field="why_it_hurts">Why it's a problem</th><th data-field="the_fix">How to fix it</th><th data-field="source" class="gv-hide-sm">Source</th></tr></thead>
+        <thead><tr><th data-field="mistake">Mistake</th><th data-field="category">Type</th><th data-field="why_it_hurts">Why it’s a problem</th><th data-field="the_fix">How to fix it</th><th data-field="source" class="gv-hide-sm">Source</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
   </section>
 
   <section id="good" class="gv-card">
-    <h2 class="gv-h2">Good examples worth studying</h2>
-    <p class="gv-sub">Famous charts that experts point to as great work, and what makes each one good.</p>
+    <h2 class="gv-h2">Great charts worth studying</h2>
+    <p class="gv-sub">Famous charts that experts point to as great work. Each one tells a single, powerful story. Click a name to see the chart.</p>
     <div class="gv-tbox">
       <table class="gv-table" id="good-table" data-source="exemplars" data-row-key="name">
-        <thead><tr><th data-field="name">Chart</th><th data-field="creator">Creator</th><th data-field="year">Year</th><th data-field="what_it_shows" class="gv-hide-sm">What it shows</th><th data-field="why_it_works">Why it works</th></tr></thead>
+        <thead><tr><th data-field="name">Chart</th><th data-field="creator" class="gv-hide-sm">Made by</th><th data-field="year">Year</th><th data-field="story">The story it tells</th><th data-field="why_it_works">Why it works</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -286,7 +326,7 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
 
   <section id="reading" class="gv-card">
     <h2 class="gv-h2">Where to learn more</h2>
-    <p class="gv-sub">Websites and books with lots more good and bad examples.</p>
+    <p class="gv-sub">Websites and books with lots more real charts, good and bad. The first two are great for weekly class practice.</p>
     <div class="gv-tbox">
       <table class="gv-table" id="reading-table" data-source="resources" data-row-key="name">
         <thead><tr><th data-field="name">Resource</th><th data-field="author">By</th><th data-field="kind" class="gv-hide-sm">Format</th><th data-field="use_it_for">Use it for</th></tr></thead>
@@ -294,77 +334,74 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
       </table>
     </div>
   </section>
+
   <section id="glossary" class="gv-card">
     <h2 class="gv-h2">Word list</h2>
     <p class="gv-sub">Chart words used on this page, in plain English.</p>
     <dl class="gv-gloss">
       <div><dt>Axis</dt><dd>The scale along the side or bottom of a chart that tells you what the numbers are.</dd></div>
       <div><dt>Baseline</dt><dd>Where the axis starts, usually zero. Bars grow up (or across) from it.</dd></div>
-      <div><dt>Truncated axis</dt><dd>An axis that has been cut so it doesn't start at zero.</dd></div>
+      <div><dt>Truncated axis</dt><dd>An axis that has been cut off so it doesn’t start at zero.</dd></div>
       <div><dt>Dual axis</dt><dd>A chart with two different y-axes, one on each side.</dd></div>
+      <div><dt>Percent change</dt><dd>How much something went up or down compared with where it started. +50% means it grew by half.</dd></div>
       <div><dt>Trend line</dt><dd>A smooth line that shows the general direction of bumpy data.</dd></div>
-      <div><dt>Moving average</dt><dd>The average of a few nearby values, worked out again at every point. It smooths out the wobble.</dd></div>
-      <div><dt>Index (first year = 100)</dt><dd>Turning numbers into "compared with the start": 90 means 10% lower than the first year.</dd></div>
-      <div><dt>Outlier</dt><dd>A value much bigger or smaller than the rest.</dd></div>
-      <div><dt>Legend</dt><dd>The key that tells you what each colour or symbol means.</dd></div>
+      <div><dt>Moving average</dt><dd>The average of a few nearby values, worked out again at every point. It smooths out the bounce.</dd></div>
+      <div><dt>Noise</dt><dd>Random ups and downs that don’t mean anything real.</dd></div>
+      <div><dt>Outlier</dt><dd>A value much bigger or smaller than the rest. Often the most interesting part of the story.</dd></div>
+      <div><dt>Legend</dt><dd>The key that tells you what each color or symbol means.</dd></div>
       <div><dt>Data label</dt><dd>A number written right on the chart, next to the bar or point.</dd></div>
-      <div><dt>Noise</dt><dd>Random ups and downs that don't mean anything real.</dd></div>
+      <div><dt>Headline</dt><dd>One sentence that sums up the story a chart is telling.</dd></div>
+      <div><dt>Correlation</dt><dd>When two things tend to go up or down together. It doesn’t prove one causes the other.</dd></div>
     </dl>
   </section>
 </div>
-
-<p class="gv-foot">Practice charts use made-up numbers. The mistake list draws on The Economist's "Mistakes, we've drawn a few" (Sarah Leo, 2019) and the sources under "Where to learn more".</p>
+<p class="gv-foot">Practice charts use made-up numbers. The mistake list draws on The Economist’s “Mistakes, we’ve drawn a few” (Sarah Leo, 2019) and the sources under “Where to learn more.” The reading approach is inspired by The New York Times Learning Network’s “What’s Going On in This Graph?”</p>
 <script>
 dash.calc('catalog_counts', {
   inputs: ['catalog'], title: 'Mistakes by type',
-  description: 'Number of catalogued mistakes in each category, plus the total.',
+  description: 'Number of listed mistakes in each category, plus the total.',
   fn: (catalog) => ['All', 'Misleading', 'Confusing', 'Hides the point'].map(category => ({
     category, n: category === 'All' ? catalog.length : catalog.filter(r => r.category === category).length }))
 });
-dash.calc('list_sizes', {
-  inputs: ['exemplars', 'resources'], title: 'List sizes',
-  description: 'How many good examples and reading resources are listed.',
-  fn: (exemplars, resources) => [{list: 'Good examples', n: exemplars.length}, {list: 'Further reading', n: resources.length}]
+dash.calc('screen_change', {
+  inputs: ['screen_time'], title: 'Screen time vs scores, % change',
+  description: 'Percent change in screen time and test scores since the first year.',
+  fn: (rows) => rows.map(r => ({year: r.year,
+    screen: Math.round((r.screen_hours / rows[0].screen_hours - 1) * 1000) / 10,
+    score: Math.round((r.test_score / rows[0].test_score - 1) * 1000) / 10}))
 });
-dash.calc('dog_index', {
-  inputs: ['dogs'], title: 'Dog size, indexed',
-  description: 'Weight and neck size as a share of their first-year value (first year = 100).',
-  fn: (dogs) => dogs.map(d => ({year: d.year,
-    weight: Math.round(d.weight_kg / dogs[0].weight_kg * 1000) / 10,
-    neck: Math.round(d.neck_cm / dogs[0].neck_cm * 1000) / 10}))
+dash.calc('screen_summary', {
+  inputs: ['screen_time'], title: 'Screen time vs scores, total change',
+  description: 'Percent change from the first to the last year for each measure.',
+  fn: (rows) => { const a = rows[0], b = rows[rows.length - 1];
+    return [{measure: 'Screen time', from_year: a.year, change_pct: Math.round((b.screen_hours / a.screen_hours - 1) * 100), size_pct: Math.abs(Math.round((b.screen_hours / a.screen_hours - 1) * 100))},
+            {measure: 'Test scores', from_year: a.year, change_pct: Math.round((b.test_score / a.test_score - 1) * 100), size_pct: Math.abs(Math.round((b.test_score / a.test_score - 1) * 100))}]; }
 });
-dash.calc('dog_change', {
-  inputs: ['dogs'], title: 'Dog size, % fall',
-  description: 'Percentage fall from the first to the last year for each measure.',
-  fn: (dogs) => { const a = dogs[0], b = dogs[dogs.length - 1];
-    return [{series: 'Weight', pct_fall: Math.round((1 - b.weight_kg / a.weight_kg) * 1000) / 10},
-            {series: 'Neck', pct_fall: Math.round((1 - b.neck_cm / a.neck_cm) * 1000) / 10}]; }
+dash.calc('lunch_trend', {
+  inputs: ['lunch'], title: 'Lunch rating trend (5-week average)',
+  description: 'Centered average of up to five nearby weeks.',
+  fn: (rows) => rows.map((r, i) => { const win = rows.slice(Math.max(0, i - 2), i + 3);
+    return {week: r.week, pct_good: Math.round(win.reduce((s, d) => s + Number(d.pct_good), 0) / win.length * 10) / 10}; })
 });
-dash.calc('sales_cumulative', {
-  inputs: ['sales'], title: 'Sales running total',
-  description: 'Units sold so far, added up quarter by quarter.',
-  fn: (sales) => { let t = 0; return sales.map(r => ({quarter: r.quarter, total: (t += Number(r.units))})); }
-});
-dash.calc('polls_trend', {
-  inputs: ['polls'], title: 'Poll trend (7-poll average)',
-  description: 'Centred moving average of up to seven polls for each answer.',
-  fn: (polls) => polls.map((p, i) => {
-    const win = polls.slice(Math.max(0, i - 3), i + 4);
-    const avg = k => Math.round(win.reduce((s, r) => s + Number(r[k]), 0) / win.length * 10) / 10;
-    return {week: p.week, right: avg('right'), wrong: avg('wrong')}; })
+dash.calc('fundraiser_total', {
+  inputs: ['fundraiser'], title: 'Fundraiser running total',
+  description: 'Dollars raised so far, added up week by week.',
+  fn: (rows) => { let t = 0; return rows.map(r => ({week: r.week, total: (t += Number(r.dollars))})); }
 });
 
 (() => {
   const C = dash.colors;
   const fmt = d3.format(',');
-  const H = 210;
+  const money = d3.format('$,');
+  const H = 220;
   const $ = s => document.querySelector(s);
   let clipN = 0;
+  const FAIL = ['error', 'connect', 'declined', 'missing'];
 
   function ready(el, ds) {
     if (ds.status === 'ok') { el.classList.remove('dash-skeleton'); return true; }
     el.replaceChildren();
-    if (['error', 'connect', 'declined', 'missing'].includes(ds.status)) {
+    if (FAIL.includes(ds.status)) {
       el.classList.remove('dash-skeleton');
       const f = document.createElement('div'); f.className = 'gv-fail';
       const d = document.createElement('span'); d.className = 'gv-dot';
@@ -381,17 +418,24 @@ dash.calc('polls_trend', {
     strs.forEach(s => { const t = g.append('text').attr('class', cls || 'gv-tick').text(s); m = Math.max(m, t.node().getComputedTextLength()); });
     g.remove(); return m;
   }
-  function axis(g, ax) {
-    g.attr('class', 'gv-axis').call(ax).attr('font-size', null).attr('font-family', null);
-    g.select('.domain').remove();
-  }
+  function axis(g, ax) { g.attr('class', 'gv-axis').call(ax).attr('font-size', null).attr('font-family', null); g.select('.domain').remove(); }
   function grid(svg, scale, x1, x2, ticks) {
     svg.append('g').attr('class', 'gv-grid').selectAll('line').data(scale.ticks(ticks)).join('line')
       .attr('x1', x1).attr('x2', x2).attr('y1', d => scale(d)).attr('y2', d => scale(d));
   }
-  function vgrid(svg, scale, y1, y2, ticks) {
-    svg.append('g').attr('class', 'gv-grid').selectAll('line').data(scale.ticks(ticks)).join('line')
-      .attr('y1', y1).attr('y2', y2).attr('x1', d => scale(d)).attr('x2', d => scale(d));
+  function label(svg, x, y, text, anchor) { return svg.append('text').attr('class', 'gv-tick').attr('x', x).attr('y', y).attr('text-anchor', anchor || 'start').text(text); }
+  function line(svg, data, X, Y, color, width) {
+    return svg.append('path').datum(data).attr('d', d3.line(X, Y)).attr('fill', 'none').attr('stroke', color)
+      .attr('stroke-width', width || 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+  }
+  function endLabels(svg, items, x) {   // items: [{y, text, color}] — nudged apart so they never overlap
+    items.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < 14) items[i].y = items[i - 1].y + 14;
+    items.forEach(it => svg.append('text').attr('class', 'gv-lbl').attr('x', x).attr('y', it.y).attr('dy', '.35em').style('fill', it.color).text(it.text));
+  }
+  function hover(svg, rows, X, step, tt, head, lines) {
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => X(r) - step / 2).attr('width', step).attr('y', 0).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tt.show(ev, head(r), lines(r))).on('mouseleave', () => tt.hide());
   }
   function tip(el) {
     const host = el.parentNode;
@@ -412,272 +456,245 @@ dash.calc('polls_trend', {
     };
   }
   const width = el => Math.max(260, el.clientWidth || 320);
+  function a11y(el, text) { const s = el.querySelector('svg'); if (s) { s.setAttribute('role', 'img'); s.setAttribute('aria-label', text); } }
 
-  // 1. Truncation
-  function truncChart(el, rows, bad) {
+  // Story 1: election (truncated axis)
+  function votesChart(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const lw = textW(svg, rows.map(r => r.group)) + 10;
-    const maxV = d3.max(rows, r => Number(r.likes));
-    const rw = bad ? 12 : textW(svg, rows.map(r => fmt(r.likes))) + 10;
-    const m = {t: 6, r: rw, b: bad ? 22 : 6, l: lw};
-    const y = d3.scaleBand(rows.map(r => r.group), [m.t, H - m.b]).padding(.3);
-    const lo = bad ? 500 : 0, hi = bad ? 1500 : maxV;   // "bad" deliberately truncates the axis
-    const x = d3.scaleLinear([lo, hi], [m.l, w - m.r]);
-    if (bad) {
-      vgrid(svg, x, m.t, H - m.b, 4);
-      axis(svg.append('g').attr('transform', `translate(0,${H - m.b})`), d3.axisBottom(x).ticks(4).tickSize(0).tickPadding(6).tickFormat(fmt));
-    }
-    const id = 'gvclip' + (++clipN);
-    svg.append('clipPath').attr('id', id).append('rect').attr('x', m.l).attr('y', 0).attr('width', w - m.l - m.r).attr('height', H);
-    svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl')
-      .attr('x', m.l - 8).attr('y', r => y(r.group) + y.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').text(r => r.group);
-    svg.append('g').attr('clip-path', `url(#${id})`).selectAll('rect').data(rows).join('rect')
-      .attr('x', m.l).attr('y', r => y(r.group)).attr('height', Math.min(32, y.bandwidth())).attr('rx', 4)
-      .attr('width', r => Math.max(0, x(Math.min(Number(r.likes), hi * 1.2)) - m.l))
-      .attr('fill', (r, i) => bad ? C[i % C.length] : (Number(r.likes) === maxV ? C[0] : 'var(--cds-chart-muted)'))
-      .on('mousemove', (ev, r) => tt.show(ev, r.group, [fmt(r.likes) + ' likes per post (average)'])).on('mouseleave', () => tt.hide());
-    if (!bad) svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl gv-num')
-      .attr('x', r => x(Number(r.likes)) + 6).attr('y', r => y(r.group) + Math.min(32, y.bandwidth()) / 2).attr('dy', '.35em').text(r => fmt(r.likes));
+    const mx = d3.max(rows, r => Number(r.votes));
+    const lo = bad ? 40 : 0;                       // the misleading version deliberately starts at 40
+    const y = d3.scaleLinear([lo, bad ? mx + 1 : mx * 1.15], [H - 26, bad ? 12 : 8]);
+    const lw = bad ? textW(svg, y.ticks(4).map(String)) + 10 : 6;
+    const x = d3.scaleBand(rows.map(r => r.candidate), [lw + 6, w - 6]).padding(.35);
+    if (bad) { grid(svg, y, lw, w - 6, 4); axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6)); }
+    axis(svg.append('g').attr('transform', `translate(0,${H - 26})`), d3.axisBottom(x).tickSize(0).tickPadding(8));
+    svg.selectAll('.gv-axis text').filter(function () { return rows.some(r => r.candidate === this.textContent); }).attr('class', 'gv-lbl');
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.candidate)).attr('width', x.bandwidth())
+      .attr('y', r => y(Number(r.votes))).attr('height', r => y(lo) - y(Number(r.votes))).attr('rx', 4)
+      .attr('fill', (r, i) => bad ? C[i % C.length] : (Number(r.votes) === mx ? C[0] : 'var(--cds-chart-muted)'))
+      .on('mousemove', (ev, r) => tt.show(ev, r.candidate, [fmt(r.votes) + ' votes'])).on('mouseleave', () => tt.hide());
+    if (!bad) svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl gv-num').attr('text-anchor', 'middle')
+      .attr('x', r => x(r.candidate) + x.bandwidth() / 2).attr('y', r => y(Number(r.votes)) - 6).text(r => fmt(r.votes) + ' votes');
   }
 
-  // 2. Dual axis
-  function dualBad(el, rows) {
+  // Story 2: screen time (dual axis)
+  function screenBad(el, rows) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const wt = rows.map(r => Number(r.weight_kg)), nk = rows.map(r => Number(r.neck_cm));
-    const yl = d3.scaleLinear(d3.extent(wt), [H - 22, 22]), yr = d3.scaleLinear(d3.extent(nk), [H - 22, 22]);
+    const yl = d3.scaleLinear(d3.extent(rows, r => Number(r.screen_hours)), [H - 24, 26]);
+    const yr = d3.scaleLinear(d3.extent(rows, r => Number(r.test_score)), [H - 24, 26]);
     const lw = textW(svg, yl.ticks(4).map(String)) + 8, rw = textW(svg, yr.ticks(4).map(String)) + 8;
-    const m = {l: lw, r: rw};
-    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [m.l + 4, w - m.r - 4]);
-    grid(svg, yl, m.l, w - m.r, 4);
-    axis(svg.append('g').attr('transform', `translate(${m.l},0)`), d3.axisLeft(yl).ticks(4).tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(${w - m.r},0)`), d3.axisRight(yr).ticks(4).tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', 0).attr('y', 10).text('Weight, kg').style('fill', C[0]);
-    svg.append('text').attr('class', 'gv-tick').attr('x', w).attr('y', 10).attr('text-anchor', 'end').text('Neck, cm').style('fill', C[1]);
-    [[wt, yl, C[0]], [nk, yr, C[1]]].forEach(([v, s, c]) => svg.append('path').datum(rows)
-      .attr('d', d3.line((r, i) => x(r.year), (r, i) => s(v[i]))).attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round'));
-    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.year) - 10).attr('width', 20).attr('y', 0).attr('height', H).attr('fill', 'transparent')
-      .on('mousemove', (ev, r) => tt.show(ev, String(r.year), ['Weight ' + r.weight_kg + ' kg', 'Neck ' + r.neck_cm + ' cm'])).on('mouseleave', () => tt.hide());
+    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 6, w - rw - 6]);
+    grid(svg, yl, lw, w - rw, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(yl).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(${w - rw},0)`), d3.axisRight(yr).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 24})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
+    label(svg, 0, 12, '↑ Screen time (hrs/day)').style('fill', C[0]);
+    label(svg, w, 12, 'Test score ↑', 'end').style('fill', C[1]);
+    line(svg, rows, r => x(r.year), r => yl(Number(r.screen_hours)), C[0], 2.5);
+    line(svg, rows, r => x(r.year), r => yr(Number(r.test_score)), C[1], 2.5);
+    hover(svg, rows, r => x(r.year), 24, tt, r => String(r.year), r => ['Screen time: ' + r.screen_hours + ' hrs/day', 'Test score: ' + r.test_score]);
   }
-  function dualGood(el, rows) {
+  function screenGood(el, rows) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const all = rows.flatMap(r => [r.weight, r.neck]);
-    const mn = d3.min(all), mx = Math.max(100, d3.max(all));
-    const y = d3.scaleLinear([mn - (mx - mn) / 2, mx + 1], [H - 22, 20]);
+    const vals = rows.flatMap(r => [r.screen, r.score]);
+    const y = d3.scaleLinear([Math.min(-10, d3.min(vals) - 5), d3.max(vals) + 5], [H - 24, 26]).nice();
+    const pf = v => (v > 0 ? '+' : '') + v + '%';
     const last = rows[rows.length - 1];
-    const lw = textW(svg, y.ticks(4).map(String)) + 8;
-    const rw = textW(svg, ['Weight ' + last.weight, 'Neck ' + last.neck], 'gv-lbl') + 10;
-    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 4, w - rw]);
+    const lw = textW(svg, y.ticks(4).map(pf)) + 8;
+    const items = [{y: y(last.screen), text: 'Screen time ' + pf(last.screen), color: C[0]}, {y: y(last.score), text: 'Test scores ' + pf(last.score), color: C[1]}];
+    const rw = textW(svg, items.map(i => i.text), 'gv-lbl') + 10;
+    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 6, w - rw]);
     grid(svg, y, lw, w - rw, 4);
-    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ Size vs first year (first year = 100)');
-    svg.append('line').attr('x1', lw).attr('x2', w - rw).attr('y1', y(100)).attr('y2', y(100)).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
-    const ser = [['weight', 'Weight', C[0]], ['neck', 'Neck', C[1]]];
-    ser.forEach(([k, n, c]) => svg.append('path').datum(rows).attr('d', d3.line(r => x(r.year), r => y(r[k])))
-      .attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round'));
-    let ys = ser.map(([k]) => y(last[k]));
-    if (Math.abs(ys[0] - ys[1]) < 14) { const mid = (ys[0] + ys[1]) / 2, s = ys[0] < ys[1] ? -1 : 1; ys = [mid + s * 7, mid - s * 7]; }
-    ser.forEach(([k, n, c], i) => svg.append('text').attr('class', 'gv-lbl').attr('x', w - rw + 6).attr('y', ys[i]).attr('dy', '.35em').style('fill', c).text(n + ' ' + last[k]));
-    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.year) - 10).attr('width', 20).attr('y', 0).attr('height', H).attr('fill', 'transparent')
-      .on('mousemove', (ev, r) => tt.show(ev, String(r.year), ['Weight: ' + r.weight + ' (first year = 100)', 'Neck: ' + r.neck + ' (first year = 100)'])).on('mouseleave', () => tt.hide());
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(pf).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 24})`), d3.axisBottom(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(6));
+    label(svg, lw + 6, 12, '↑ Change since ' + rows[0].year);
+    svg.append('line').attr('x1', lw).attr('x2', w - rw).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+    line(svg, rows, r => x(r.year), r => y(r.screen), C[0], 2.5);
+    line(svg, rows, r => x(r.year), r => y(r.score), C[1], 2.5);
+    endLabels(svg, items, w - rw + 6);
+    hover(svg, rows, r => x(r.year), 24, tt, r => String(r.year), r => ['Screen time: ' + pf(r.screen), 'Test scores: ' + pf(r.score)]);
   }
 
-  // 3. Polls
+  // Story 3: lunch survey (noise)
   const parse = s => new Date(String(s).slice(0, 10));
-  function pollsChart(el, polls, trend) {
+  function lunchChart(el, rows, trend) {
     const bad = !trend;
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const vals = polls.flatMap(p => [Number(p.right), Number(p.wrong)]);
-    const mn = d3.min(vals), mx = d3.max(vals);
-    const y = d3.scaleLinear(bad ? [mn - .3, mx + .3] : [mn - (mx - mn) / 2, mx + .5], [H - 22, 20]);
+    const ext = d3.extent(rows, r => Number(r.pct_good));
+    const y = d3.scaleLinear(bad ? [ext[0] - 1, ext[1] + 1] : [0, 100], [H - 24, 24]);
     const lw = textW(svg, y.ticks(4).map(d => d + '%')) + 8;
-    const rw = bad ? 26 : textW(svg, ['Wrong', 'Right'], 'gv-lbl') + 10;
-    const x = d3.scaleUtc(d3.extent(polls, p => parse(p.week)), [lw + 4, w - rw]);
+    const rw = bad ? 14 : textW(svg, ['Average'], 'gv-lbl') + 10;
+    const x = d3.scaleUtc(d3.extent(rows, r => parse(r.week)), [lw + 6, w - rw]);
     grid(svg, y, lw, w - rw, 4);
     axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(d => d + '%').tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(0,${H - 22})`), d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 110))).tickFormat(d3.utcFormat('%b %Y')).tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 8).text('↑ % of people asked');
-    const ser = [['right', 'Right', C[0]], ['wrong', 'Wrong', C[1]]];
-    ser.forEach(([k, n, c]) => {
-      if (bad) svg.append('path').datum(polls).attr('d', d3.line(p => x(parse(p.week)), p => y(Number(p[k]))))
-        .attr('fill', 'none').attr('stroke', c).attr('stroke-width', 1.5).attr('stroke-linejoin', 'round');
-      else {
-        svg.append('g').selectAll('circle').data(polls).join('circle').attr('cx', p => x(parse(p.week))).attr('cy', p => y(Number(p[k]))).attr('r', 2.5).attr('fill', c).attr('opacity', .3);
-        svg.append('path').datum(trend).attr('d', d3.line(p => x(parse(p.week)), p => y(Number(p[k])))).attr('fill', 'none').attr('stroke', c).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-      }
-    });
-    if (!bad) {
-      const lt = trend[trend.length - 1];
-      let ys = ser.map(([k]) => y(Number(lt[k])));
-      if (Math.abs(ys[0] - ys[1]) < 14) { const mid = (ys[0] + ys[1]) / 2, s = ys[0] < ys[1] ? -1 : 1; ys = [mid + s * 7, mid - s * 7]; }
-      ser.forEach(([k, n, c], i) => svg.append('text').attr('class', 'gv-lbl').attr('x', w - rw + 6).attr('y', ys[i]).attr('dy', '.35em').style('fill', c).text(n));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 24})`), d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 90))).tickFormat(d3.utcFormat('%b')).tickSize(0).tickPadding(6));
+    label(svg, lw + 6, 12, '↑ Students who said lunch was good');
+    if (bad) line(svg, rows, r => x(parse(r.week)), r => y(Number(r.pct_good)), C[0], 1.75);
+    else {
+      svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(parse(r.week))).attr('cy', r => y(Number(r.pct_good))).attr('r', 3).attr('fill', C[0]).attr('opacity', .3);
+      line(svg, trend, r => x(parse(r.week)), r => y(Number(r.pct_good)), C[0], 3);
+      endLabels(svg, [{y: y(Number(trend[trend.length - 1].pct_good)), text: 'Average', color: C[0]}], w - rw + 6);
     }
-    const step = (x.range()[1] - x.range()[0]) / Math.max(1, polls.length - 1);
-    svg.append('g').selectAll('rect').data(polls).join('rect').attr('x', p => x(parse(p.week)) - step / 2).attr('width', step).attr('y', 0).attr('height', H).attr('fill', 'transparent')
-      .on('mousemove', (ev, p) => { const i = polls.indexOf(p); const lines = ['Right ' + p.right + '%', 'Wrong ' + p.wrong + '%'];
-        if (trend) lines.push('Average: right ' + trend[i].right + '%, wrong ' + trend[i].wrong + '%');
-        tt.show(ev, d3.utcFormat('%b %-d, %Y')(parse(p.week)), lines); })
-      .on('mouseleave', () => tt.hide());
+    const step = (x.range()[1] - x.range()[0]) / Math.max(1, rows.length - 1);
+    hover(svg, rows, r => x(parse(r.week)), step, tt, r => 'Week of ' + d3.utcFormat('%b %-d')(parse(r.week)),
+      r => { const l = [r.pct_good + '% said lunch was good']; if (trend) l.push('Average: ' + trend[rows.indexOf(r)].pct_good + '%'); return l; });
   }
 
-  // 4. Colour highlight
-  function scatter(el, rows, bad) {
+  // Story 4: basketball team (misleading color)
+  function teamChart(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const x = d3.scaleLinear([0, d3.max(rows, r => Number(r.aged_65_pct)) * 1.08], [0, 1]).nice();
-    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.pension_pct_gdp)) * 1.1], [H - 34, 26]).nice();
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.points)) * 1.1], [H - 36, 26]).nice();
     const lw = textW(svg, y.ticks(4).map(String)) + 8;
-    x.range([lw + 4, w - 10]);
+    const x = d3.scaleLinear([0, d3.max(rows, r => Number(r.practice_hours)) * 1.08], [lw + 6, w - 10]).nice();
     grid(svg, y, lw, w - 10, 4);
     axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(0,${H - 34})`), d3.axisBottom(x).ticks(5).tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', w - 10).attr('y', H - 2).attr('text-anchor', 'end').text('Aged 65+, % of population →');
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 12).text('↑ Pensions, % of GDP');
-    const lab = r => r.labelled === 'yes';
+    axis(svg.append('g').attr('transform', `translate(0,${H - 36})`), d3.axisBottom(x).ticks(5).tickSize(0).tickPadding(6));
+    label(svg, w - 10, H - 4, 'Practice hours per week →', 'end');
+    label(svg, lw + 6, 12, '↑ Points per game');
+    const lab = r => r.labeled === 'yes';
     svg.append('g').selectAll('circle').data(rows).join('circle')
-      .attr('cx', r => x(Number(r.aged_65_pct))).attr('cy', r => y(Number(r.pension_pct_gdp))).attr('r', 5)
-      .attr('fill', r => bad ? (lab(r) ? C[1] : C[0]) : C[0]).attr('opacity', r => bad ? .9 : (lab(r) ? 1 : .25))
-      .on('mousemove', (ev, r) => tt.show(ev, r.country, ['Aged 65+: ' + r.aged_65_pct + '%', 'Pensions: ' + r.pension_pct_gdp + '% of GDP'])).on('mouseleave', () => tt.hide());
-    // place labels, nudging any that would overlap another label
+      .attr('cx', r => x(Number(r.practice_hours))).attr('cy', r => y(Number(r.points))).attr('r', 5.5)
+      .attr('fill', r => bad && lab(r) ? C[1] : C[0]).attr('opacity', r => bad ? .9 : (lab(r) ? 1 : .25))
+      .on('mousemove', (ev, r) => tt.show(ev, r.player, [r.practice_hours + ' practice hours per week', r.points + ' points per game'])).on('mouseleave', () => tt.hide());
     const L = rows.filter(lab).map(r => {
-      const px = x(Number(r.aged_65_pct)), py = y(Number(r.pension_pct_gdp)), right = px > w * .7;
-      const tw = textW(svg, [r.country], 'gv-lbl') + 4, x0 = right ? px - 8 - tw : px + 8;
+      const px = x(Number(r.practice_hours)), py = y(Number(r.points)), right = px > w * .7;
+      const tw = textW(svg, [r.player], 'gv-lbl') + 4, x0 = right ? px - 9 - tw : px + 9;
       return {r, px, py, right, x0, x1: x0 + tw, ly: py};
     }).sort((a, b) => a.py - b.py);
-    L.forEach((b, i) => { for (let k = 0; k < 3; k++) L.slice(0, i).forEach(a => {
-      if (b.x0 < a.x1 && a.x0 < b.x1 && Math.abs(b.ly - a.ly) < 14) b.ly = a.ly + 14; }); });
+    L.forEach((b, i) => { for (let k = 0; k < 3; k++) L.slice(0, i).forEach(a => { if (b.x0 < a.x1 && a.x0 < b.x1 && Math.abs(b.ly - a.ly) < 14) b.ly = a.ly + 14; }); });
     svg.append('g').selectAll('text').data(L).join('text')
       .attr('class', l => 'gv-lbl' + (!bad && l.r.focus === 'yes' ? ' strong' : ''))
-      .attr('x', l => l.right ? l.px - 8 : l.px + 8).attr('text-anchor', l => l.right ? 'end' : 'start')
-      .attr('y', l => l.ly).attr('dy', '.35em').text(l => l.r.country);
+      .attr('x', l => l.right ? l.px - 9 : l.px + 9).attr('text-anchor', l => l.right ? 'end' : 'start')
+      .attr('y', l => l.ly).attr('dy', '.35em').text(l => l.r.player);
   }
 
-  // 5. Pie vs bars
+  // Story 5: activities (pie vs sorted bars)
   function pieBad(el, rows) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const lgw = textW(svg, rows.map(r => r.product)) + 22;
-    const R = Math.max(40, Math.min(H / 2 - 6, (w - lgw - 16) / 2));
-    const cx = R + 4, cy = H / 2;
-    const col = i => `hsl(${i * 40}, 75%, 55%)`;
-    const arcs = d3.pie().sort(null).value(r => Number(r.share))(rows);
-    svg.append('g').attr('transform', `translate(${cx},${cy})`).selectAll('path').data(arcs).join('path')
+    const lgw = textW(svg, rows.map(r => r.activity)) + 22;
+    const R = Math.max(44, Math.min(H / 2 - 8, (w - lgw - 20) / 2));
+    const cx = R + 6, cy = H / 2;
+    const col = i => `hsl(${i * 40}, 72%, 55%)`;
+    svg.append('g').attr('transform', `translate(${cx},${cy})`).selectAll('path').data(d3.pie().sort(null).value(r => Number(r.pct))(rows)).join('path')
       .attr('d', d3.arc().innerRadius(0).outerRadius(R)).attr('fill', (d, i) => col(i)).attr('stroke', 'var(--color-bg)').attr('stroke-width', 1)
-      .on('mousemove', (ev, d) => tt.show(ev, d.data.product, [d.data.share + '% share'])).on('mouseleave', () => tt.hide());
-    const lx = cx + R + 16, lh = Math.min(20, (H - 8) / rows.length), ly0 = cy - lh * rows.length / 2;
+      .on('mousemove', (ev, d) => tt.show(ev, d.data.activity, [d.data.pct + '% of students'])).on('mouseleave', () => tt.hide());
+    const lx = cx + R + 16, lh = Math.min(21, (H - 10) / rows.length), ly0 = cy - lh * rows.length / 2;
     const lg = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(${lx},${ly0 + i * lh})`);
     lg.append('rect').attr('width', 10).attr('height', 10).attr('rx', 2).attr('fill', (r, i) => col(i));
-    lg.append('text').attr('class', 'gv-tick').attr('x', 16).attr('y', 5).attr('dy', '.35em').text(r => r.product);
+    lg.append('text').attr('class', 'gv-tick').attr('x', 16).attr('y', 5).attr('dy', '.35em').text(r => r.activity);
   }
   function pieGood(el, rows) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const s = rows.slice().sort((a, b) => b.share - a.share);
-    const lw = textW(svg, s.map(r => r.product)) + 10, rw = textW(svg, s.map(r => r.share + '%')) + 10;
-    const y = d3.scaleBand(s.map(r => r.product), [4, H - 4]).padding(.25);
-    const x = d3.scaleLinear([0, d3.max(s, r => Number(r.share))], [lw, w - rw]);
-    svg.append('g').selectAll('text').data(s).join('text').attr('class', 'gv-lbl').attr('x', lw - 8).attr('y', r => y(r.product) + y.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').text(r => r.product);
-    svg.append('g').selectAll('rect').data(s).join('rect').attr('x', lw).attr('y', r => y(r.product)).attr('height', y.bandwidth()).attr('rx', 3)
-      .attr('width', r => x(Number(r.share)) - lw).attr('fill', C[0])
-      .on('mousemove', (ev, r) => tt.show(ev, r.product, [r.share + '% share'])).on('mouseleave', () => tt.hide());
-    svg.append('g').selectAll('text.v').data(s).join('text').attr('class', 'gv-lbl gv-num').attr('x', r => x(Number(r.share)) + 6).attr('y', r => y(r.product) + y.bandwidth() / 2).attr('dy', '.35em').text(r => r.share + '%');
+    const s = rows.slice().sort((a, b) => b.pct - a.pct);
+    const lw = textW(svg, s.map(r => r.activity), 'gv-lbl') + 10, rw = textW(svg, s.map(r => r.pct + '%')) + 10;
+    const y = d3.scaleBand(s.map(r => r.activity), [4, H - 4]).padding(.22);
+    const x = d3.scaleLinear([0, d3.max(s, r => Number(r.pct))], [lw, w - rw]);
+    svg.append('g').selectAll('text').data(s).join('text').attr('class', 'gv-lbl').attr('x', lw - 8).attr('y', r => y(r.activity) + y.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').text(r => r.activity);
+    svg.append('g').selectAll('rect').data(s).join('rect').attr('x', lw).attr('y', r => y(r.activity)).attr('height', y.bandwidth()).attr('rx', 3)
+      .attr('width', r => x(Number(r.pct)) - lw).attr('fill', (r, i) => i < 2 ? C[0] : 'var(--cds-chart-muted)')
+      .on('mousemove', (ev, r) => tt.show(ev, r.activity, [r.pct + '% of students'])).on('mouseleave', () => tt.hide());
+    svg.append('g').selectAll('text.v').data(s).join('text').attr('class', 'gv-lbl gv-num').attr('x', r => x(Number(r.pct)) + 6).attr('y', r => y(r.activity) + y.bandwidth() / 2).attr('dy', '.35em').text(r => r.pct + '%');
   }
 
-
-  function a11y(el, text) { const s = el.querySelector('svg'); if (s) { s.setAttribute('role', 'img'); s.setAttribute('aria-label', text); } }
-
-  // 6. Upside-down axis
-  function invChart(el, rows, bad) {
+  // Quiz 6: confiscated phones (upside-down axis)
+  function phonesChart(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const mx = d3.max(rows, r => Number(r.incidents)) * 1.1;
-    const y = d3.scaleLinear([0, mx], bad ? [24, H - 22] : [H - 22, 24]);
-    const lw = textW(svg, y.ticks(4).map(fmt)) + 8;
-    const x = d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 6, w - 12]);
-    grid(svg, y, lw, w - 12, 4);
-    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(fmt).tickSize(0).tickPadding(6));
-    axis(svg.append('g').attr('transform', `translate(0,${H - 4})`), d3.axisTop(x).ticks(4).tickFormat(d3.format('d')).tickSize(0).tickPadding(4));
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 12).text(bad ? 'Incidents per year' : '↑ Incidents per year');
-    if (bad) svg.append('path').datum(rows).attr('d', d3.area(r => x(r.year), y(0), r => y(Number(r.incidents)))).attr('fill', 'var(--color-bad)').attr('opacity', .75);
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.phones)) * 1.1], bad ? [26, H - 24] : [H - 24, 26]);
+    const lw = textW(svg, y.ticks(4).map(String)) + 8;
+    const x = d3.scalePoint(rows.map(r => r.month), [lw + 10, w - 10]);
+    grid(svg, y, lw, w - 10, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 4})`), d3.axisTop(x).tickValues(rows.map(r => r.month).filter((m, i) => w > 380 || i % 2 === 0)).tickSize(0).tickPadding(4));
+    label(svg, lw + 6, 12, bad ? 'Phones taken away' : '↑ Phones taken away');
+    if (bad) svg.append('path').datum(rows).attr('d', d3.area(r => x(r.month), y(0), r => y(Number(r.phones)))).attr('fill', 'var(--color-bad)').attr('opacity', .75);
     else {
-      svg.append('path').datum(rows).attr('d', d3.line(r => x(r.year), r => y(Number(r.incidents)))).attr('fill', 'none').attr('stroke', C[0]).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-      svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.year)).attr('cy', r => y(Number(r.incidents))).attr('r', 2.5).attr('fill', C[0]);
+      line(svg, rows, r => x(r.month), r => y(Number(r.phones)), C[0], 2.5);
+      svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.month)).attr('cy', r => y(Number(r.phones))).attr('r', 3).attr('fill', C[0]);
     }
-    const step = (x.range()[1] - x.range()[0]) / Math.max(1, rows.length - 1);
-    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.year) - step / 2).attr('width', step).attr('y', 0).attr('height', H).attr('fill', 'transparent')
-      .on('mousemove', (ev, r) => tt.show(ev, String(r.year), [fmt(r.incidents) + ' incidents'])).on('mouseleave', () => tt.hide());
+    hover(svg, rows, r => x(r.month), x.step(), tt, r => r.month, r => [fmt(r.phones) + ' phones taken away']);
   }
-
-  // 7. Running total
-  function cumChart(el, rows, bad) {
+  // Quiz 7: fundraiser (running total)
+  function fundChart(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const key = bad ? 'total' : 'units';
-    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r[key])) * 1.1], [H - 34, 22]);
-    const lw = textW(svg, y.ticks(4).map(fmt)) + 8;
-    const x = d3.scaleBand(rows.map(r => r.quarter), [lw + 4, w - 8]).padding(.3);
+    const key = bad ? 'total' : 'dollars';
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r[key])) * 1.1], [H - 30, 26]).nice();
+    const lw = textW(svg, y.ticks(4).map(money)) + 8;
+    const x = d3.scaleBand(rows.map(r => r.week), [lw + 4, w - 8]).padding(.3);
     grid(svg, y, lw, w - 8, 4);
-    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(fmt).tickSize(0).tickPadding(6));
-    const every = x.bandwidth() < 34 ? 2 : 1;
-    axis(svg.append('g').attr('transform', `translate(0,${H - 34})`), d3.axisBottom(x).tickValues(rows.map(r => r.quarter).filter((q, i) => i % every === 0)).tickFormat(q => q.replace(' 20', " '")).tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 12).text(bad ? '↑ Total units sold so far' : '↑ Units sold each quarter');
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(money).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${H - 30})`), d3.axisBottom(x).tickFormat(s => s.replace('Week ', 'Wk ')).tickSize(0).tickPadding(6));
+    label(svg, lw + 6, 12, bad ? '↑ Total raised so far' : '↑ Raised each week');
     if (bad) {
-      svg.append('path').datum(rows).attr('d', d3.line(r => x(r.quarter) + x.bandwidth() / 2, r => y(Number(r.total)))).attr('fill', 'none').attr('stroke', C[0]).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-      svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.quarter) + x.bandwidth() / 2).attr('cy', r => y(Number(r.total))).attr('r', 3).attr('fill', C[0]);
-    } else svg.append('g').selectAll('rect.b').data(rows).join('rect').attr('x', r => x(r.quarter)).attr('width', x.bandwidth()).attr('y', r => y(Number(r.units))).attr('height', r => y(0) - y(Number(r.units))).attr('rx', 3).attr('fill', C[0]);
-    svg.append('g').selectAll('rect.h').data(rows).join('rect').attr('x', r => x(r.quarter) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', 0).attr('height', H).attr('fill', 'transparent')
-      .on('mousemove', (ev, r) => tt.show(ev, r.quarter, [fmt(r[key]) + (bad ? ' units sold in total' : ' units sold')])).on('mouseleave', () => tt.hide());
+      line(svg, rows, r => x(r.week) + x.bandwidth() / 2, r => y(Number(r.total)), C[0], 2.5);
+      svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.week) + x.bandwidth() / 2).attr('cy', r => y(Number(r.total))).attr('r', 3.5).attr('fill', C[0]);
+    } else svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.week)).attr('width', x.bandwidth()).attr('y', r => y(Number(r.dollars))).attr('height', r => y(0) - y(Number(r.dollars))).attr('rx', 3).attr('fill', C[0]);
+    hover(svg, rows, r => x(r.week) + x.bandwidth() / 2, x.step(), tt, r => r.week, r => [money(r[key]) + (bad ? ' raised so far' : ' raised this week')]);
   }
-
-  // 8. Uneven dates
-  function unevenChart(el, rows, bad) {
+  // Quiz 8: robotics club (uneven dates)
+  function roboticsChart(el, rows, bad) {
     const w = width(el), svg = svgIn(el, w, H), tt = tip(el);
-    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.members)) * 1.1], [H - 30, 22]);
-    const lw = textW(svg, y.ticks(4).map(fmt)) + 8;
-    const x = bad ? d3.scalePoint(rows.map(r => r.year), [lw + 14, w - 14]) : d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 14, w - 14]);
-    const X = r => x(r.year);
+    const y = d3.scaleLinear([0, d3.max(rows, r => Number(r.members)) * 1.1], [H - 30, 26]).nice();
+    const lw = textW(svg, y.ticks(4).map(String)) + 8;
+    const x = bad ? d3.scalePoint(rows.map(r => r.year), [lw + 16, w - 16]) : d3.scaleLinear(d3.extent(rows, r => r.year), [lw + 16, w - 16]);
     grid(svg, y, lw, w - 8, 4);
-    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(fmt).tickSize(0).tickPadding(6));
-    const ax = bad ? d3.axisBottom(x).tickValues(rows.map(r => r.year).filter((yv, i) => w > 360 || i % 2 === 0)) : d3.axisBottom(x).ticks(4).tickFormat(d3.format('d'));
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
+    const ax = bad ? d3.axisBottom(x).tickValues(rows.map(r => r.year).filter((v, i) => w > 380 || i % 2 === 0)) : d3.axisBottom(x).ticks(4).tickFormat(d3.format('d'));
     axis(svg.append('g').attr('transform', `translate(0,${H - 30})`), ax.tickSize(0).tickPadding(6));
-    svg.append('text').attr('class', 'gv-tick').attr('x', lw + 6).attr('y', 12).text('↑ Club members');
-    svg.append('path').datum(rows).attr('d', d3.line(X, r => y(Number(r.members)))).attr('fill', 'none').attr('stroke', C[0]).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-    svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', X).attr('cy', r => y(Number(r.members))).attr('r', 3.5).attr('fill', C[0])
+    label(svg, lw + 6, 12, '↑ Robotics club members');
+    line(svg, rows, r => x(r.year), r => y(Number(r.members)), C[0], 2.5);
+    svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.year)).attr('cy', r => y(Number(r.members))).attr('r', 4).attr('fill', C[0])
       .on('mousemove', (ev, r) => tt.show(ev, String(r.year), [fmt(r.members) + ' members'])).on('mouseleave', () => tt.hide());
   }
 
-  const PAIR_DESC = {"#c-trunc-bad": "Bar chart of average likes per post for five accounts. The axis starts at 500 and the largest bar is cut off.", "#c-trunc-good": "Bar chart of average likes per post for five accounts, starting at zero, with values labelled. The party leader's bar is about four times longer than the next.", "#c-dual-bad": "Line chart with two y-axes, one for dog weight and one for neck size. The two lines overlap almost exactly.", "#c-dual-good": "Line chart of dog weight and neck size on one axis, both starting at 100. Weight falls further than neck size.", "#c-polls-bad": "Two zig-zag lines joining forty weekly poll results, on a narrow axis.", "#c-polls-good": "Weekly poll results as faint dots with two smooth average lines; Wrong slowly rises above Right.", "#c-col-bad": "Scatter plot of countries. Five labelled countries are a bright colour; the rest are a darker colour.", "#c-col-good": "Scatter plot of countries, all one colour. Unlabelled countries are faded and the focus country is bold.", "#c-pie-bad": "Pie chart with nine rainbow-coloured slices and a colour key.", "#c-pie-good": "Horizontal bar chart of nine products sorted from largest to smallest share, with percentages labelled."};
+  const PAIRS = [
+    ['#c-elec-bad', ['election'], ([d], el) => votesChart(el, d, true), 'Bar chart of votes for Maya, Jordan and Sam. The axis starts at 40, so Maya\u2019s bar looks many times taller than Sam\u2019s.'],
+    ['#c-elec-good', ['election'], ([d], el) => votesChart(el, d, false), 'Bar chart of votes starting at zero. Maya, Jordan and Sam have similar bar heights; Maya is highlighted.'],
+    ['#c-screen-bad', ['screen_time'], ([d], el) => screenBad(el, d), 'Line chart with two y-axes. Screen time rises and test scores fall, crossing in a dramatic X.'],
+    ['#c-screen-good', ['screen_change'], ([d], el) => screenGood(el, d), 'Line chart of percent change on one axis. Screen time rises steeply; test scores dip slightly.'],
+    ['#c-lunch-bad', ['lunch'], ([d], el) => lunchChart(el, d, null), 'Zig-zag line of weekly lunch ratings on a narrow axis, jumping up and down every week.'],
+    ['#c-lunch-good', ['lunch', 'lunch_trend'], ([d, t], el) => lunchChart(el, d, t), 'Weekly lunch ratings as faint dots on a 0 to 100 percent axis, with a smooth average line rising slowly.'],
+    ['#c-team-bad', ['team'], ([d], el) => teamChart(el, d, true), 'Scatter plot of players\u2019 practice hours and points. Four labeled players are orange; the rest are blue.'],
+    ['#c-team-good', ['team'], ([d], el) => teamChart(el, d, false), 'Scatter plot of players\u2019 practice hours and points, all one color. Isla is in bold, far above the others for her practice time.'],
+    ['#c-act-bad', ['activities'], ([d], el) => pieBad(el, d), 'Pie chart with nine rainbow-colored slices and a color key.'],
+    ['#c-act-good', ['activities'], ([d], el) => pieGood(el, d), 'Bar chart of nine activities sorted from most to least popular, with percentages labeled. Sports and gaming are highlighted.'],
+  ];
 
   // Quiz
   const Q = [
-    {prompt: 'Which chart makes the gap between the leader and everyone else look smaller than it really is?',
-     badIds: ['bars'], goodIds: ['bars'], bad: ([b], el) => truncChart(el, b, true), good: ([b], el) => truncChart(el, b, false),
-     badDesc: 'Bar chart of average likes per post for five accounts. The axis starts at 500 and the largest bar is cut off.', goodDesc: 'Bar chart of average likes per post for five accounts, starting at zero, with values labelled.',
-     why: "Its axis doesn't start at zero, so the leader's bar is cut off and the small bars look bigger than they are.", rule: 'Bar charts always start at zero.'},
-    {prompt: 'Both charts show dog weight and neck size. Which one makes them look like they shrank by exactly the same amount?',
-     badIds: ['dogs'], goodIds: ['dog_index'], bad: ([d], el) => dualBad(el, d), good: ([d], el) => dualGood(el, d),
-     badDesc: 'Line chart with two y-axes, one for dog weight and one for neck size. The two lines overlap almost exactly.', goodDesc: 'Line chart of dog weight and neck size on one axis, both starting at 100. Weight falls further than neck size.',
-     why: 'It uses two axes, each stretched until the lines overlap. On a shared scale you can see weight fell faster.', rule: 'Be suspicious when two lines match perfectly. Check the axes.'},
-    {prompt: 'Which chart makes it look like people changed their minds every single week?',
-     badIds: ['polls'], goodIds: ['polls', 'polls_trend'], bad: ([p], el) => pollsChart(el, p, null), good: ([p, t], el) => pollsChart(el, p, t),
-     badDesc: 'Two zig-zag lines joining forty weekly poll results, on a narrow axis.', goodDesc: 'Weekly poll results as faint dots with two smooth average lines; Wrong slowly rises above Right.',
-     why: 'It joins every poll with a line, so random ups and downs look like real changes. The other chart shows the trend.', rule: 'Show the trend, not the noise.'},
-    {prompt: 'Which chart suggests some countries belong to a special group, when they don\u2019t?',
-     badIds: ['scatter'], goodIds: ['scatter'], bad: ([s], el) => scatter(el, s, true), good: ([s], el) => scatter(el, s, false),
-     badDesc: 'Scatter plot of countries. Five labelled countries are a bright colour; the rest are a darker colour.', goodDesc: 'Scatter plot of countries, all one colour. Unlabelled countries are faded and the focus country is bold.',
-     why: 'It gives the labelled countries a different colour, which looks like a separate group. They only have labels.', rule: 'A new colour should mean a new group.'},
-    {prompt: 'Which chart makes it harder to see which product is the third largest?',
-     badIds: ['shares'], goodIds: ['shares'], bad: ([s], el) => pieBad(el, s), good: ([s], el) => pieGood(el, s),
-     badDesc: 'Pie chart with nine rainbow-coloured slices and a colour key.', goodDesc: 'Horizontal bar chart of nine products sorted from largest to smallest share, with percentages labelled.',
-     why: 'Pie slices are hard to compare, and you have to keep matching colours to the key. Sorted, labelled bars answer it instantly.', rule: 'If you need to compare more than a few parts, use bars.'},
-    {prompt: 'New mistake! Did reported incidents go up or down? Which chart makes it easy to get this wrong?',
-     badIds: ['incidents'], goodIds: ['incidents'], bad: ([r], el) => invChart(el, r, true), good: ([r], el) => invChart(el, r, false),
-     badDesc: 'Filled area chart of incidents per year with the y-axis upside down: zero is at the top.', goodDesc: 'Line chart of incidents per year with a normal axis, rising over time.',
-     why: 'Its y-axis is upside down, with zero at the top. Incidents went up, but the shape looks like a fall.', rule: 'Up on the chart should mean more.'},
-    {prompt: 'New mistake! Sales have been falling for a year. Which chart hides that?',
-     badIds: ['sales_cumulative'], goodIds: ['sales'], bad: ([r], el) => cumChart(el, r, true), good: ([r], el) => cumChart(el, r, false),
-     badDesc: 'Line chart of total units sold so far, always rising.', goodDesc: 'Bar chart of units sold each quarter, rising then falling for four quarters.',
-     why: 'It shows a running total, which can only go up. Each quarter is actually worse than the one before.', rule: 'Show each period, not the total so far.'},
-    {prompt: 'New mistake! Which chart makes it look like the club stopped growing recently?',
-     badIds: ['growth'], goodIds: ['growth'], bad: ([r], el) => unevenChart(el, r, true), good: ([r], el) => unevenChart(el, r, false),
-     badDesc: 'Line chart of club members with the years 1990, 2000, 2010 and then every year to 2019 spaced evenly.', goodDesc: 'Line chart of club members on a true time scale: a straight, steady rise.',
-     why: 'The dates are spaced evenly even though the gaps are 10 years, then 5, then 1. Growth was steady the whole time.', rule: 'Space dates by how much time really passed.'},
+    {prompt: 'Maya, Jordan and Sam ran for student council. Which chart makes the result look like a landslide when it was close?',
+     ids: [['election'], ['election']], draw: [(d, el) => votesChart(el, d[0], true), (d, el) => votesChart(el, d[0], false)],
+     why: 'Its axis starts at 40, not zero, so the bars exaggerate the gap.', rule: 'Bar charts always start at zero.'},
+    {prompt: 'Screen time went up and test scores went down. Which chart makes the two changes look equally big?',
+     ids: [['screen_time'], ['screen_change']], draw: [(d, el) => screenBad(el, d[0]), (d, el) => screenGood(el, d[0])],
+     why: 'It uses two axes, each stretched to fill the chart. On one shared scale, the score drop is small.', rule: 'Be suspicious when two lines match perfectly. Check the axes.'},
+    {prompt: 'A few students rate lunch each week. Which chart makes it look like lunch changes wildly from week to week?',
+     ids: [['lunch'], ['lunch', 'lunch_trend']], draw: [(d, el) => lunchChart(el, d[0], null), (d, el) => lunchChart(el, d[0], d[1])],
+     why: 'It joins every week with a line on a narrow axis, so random bounce looks like real change. The other chart shows the trend.', rule: 'Show the trend, not the noise.'},
+    {prompt: 'Practice hours vs points for a basketball team. Which chart suggests some players belong to a special group when they don\u2019t?',
+     ids: [['team'], ['team']], draw: [(d, el) => teamChart(el, d[0], true), (d, el) => teamChart(el, d[0], false)],
+     why: 'It colors the labeled players orange, which looks like a separate group. They only have name labels.', rule: 'A new color should mean a new group.'},
+    {prompt: 'Students picked their favorite after-school activity. Which chart makes it harder to see which came third?',
+     ids: [['activities'], ['activities']], draw: [(d, el) => pieBad(el, d[0]), (d, el) => pieGood(el, d[0])],
+     why: 'Pie slices are hard to compare, and you have to keep matching colors to the key. Sorted, labeled bars answer it instantly.', rule: 'To compare more than a few things, use sorted bars.'},
+    {prompt: 'New trick! The principal says more phones are being taken away in class every month. Which chart makes it look like the problem is going away?',
+     ids: [['phones'], ['phones']], draw: [(d, el) => phonesChart(el, d[0], true), (d, el) => phonesChart(el, d[0], false)],
+     why: 'Its y-axis is upside down, with zero at the top. The number of phones went up, but the shape looks like it went down.', rule: 'Up on the chart should mean more.'},
+    {prompt: 'New trick! Donations to the school fundraiser have dropped every week. Which chart hides that?',
+     ids: [['fundraiser_total'], ['fundraiser']], draw: [(d, el) => fundChart(el, d[0], true), (d, el) => fundChart(el, d[0], false)],
+     why: 'It shows a running total, which can only go up. Each week actually raised less than the week before.', rule: 'Show each period, not the total so far.'},
+    {prompt: 'New trick! The robotics club has grown steadily for 25 years. Which chart makes it look like growth suddenly stalled?',
+     ids: [['robotics'], ['robotics']], draw: [(d, el) => roboticsChart(el, d[0], true), (d, el) => roboticsChart(el, d[0], false)],
+     why: 'It spaces the years evenly even though the early gaps are 10 years and the later ones are 1 year. The growth was steady the whole time.', rule: 'Space dates by how much time really passed.'},
+  ];
+  const DESC = [
+    ['Bar chart of votes with the axis starting at 40.', 'Bar chart of votes starting at zero, with vote counts labeled.'],
+    ['Line chart with two y-axes; the lines cross in an X.', 'Line chart of percent change since the first year on one axis.'],
+    ['Zig-zag line of weekly lunch ratings on a narrow axis.', 'Weekly ratings as dots on a 0 to 100 percent axis, with an average line.'],
+    ['Scatter plot; four labeled players are orange and the rest blue.', 'Scatter plot, all one color, with unlabeled players faded and Isla in bold.'],
+    ['Pie chart with nine slices and a color key.', 'Sorted bar chart of nine activities with percentages labeled.'],
+    ['Filled area chart of phones taken away, with zero at the top of the axis.', 'Line chart of phones taken away each month, rising over the year.'],
+    ['Line chart of total money raised so far, always rising.', 'Bar chart of money raised each week, falling every week.'],
+    ['Line chart of club members with years 2000, 2010 and then every year spaced evenly.', 'Line chart of club members on a true time scale: a straight, steady rise.'],
   ];
   const badSide = [0, 1, 1, 0, 1, 0, 1, 0];   // which side (A=0, B=1) holds the misleading chart
   const qz = {i: 0, score: 0, picked: null};
@@ -688,25 +705,25 @@ dash.calc('polls_trend', {
     if (done) {
       $('#qz-prog').textContent = 'Finished';
       $('#qz-result').textContent = 'You got ' + qz.score + ' out of ' + Q.length;
-      $('#qz-msg').textContent = qz.score === Q.length ? 'Perfect! You can spot misleading charts.' :
-        qz.score >= Q.length - 3 ? 'Nice work. Scroll up to review the ones you missed.' : 'Good start. Read through "Spot the mistake" above, then try again.';
+      $('#qz-msg').textContent = qz.score === Q.length ? 'Perfect! You can spot a misleading chart.' :
+        qz.score >= Q.length - 3 ? 'Nice work. Scroll up to review the ones you missed.' : 'Good start. Read through \u201cSpot the mistake\u201d above, then try again.';
       return;
     }
-    const q = Q[qz.i], bs = badSide[qz.i % badSide.length];
+    const q = Q[qz.i], bs = badSide[qz.i];
     $('#qz-prog').textContent = 'Question ' + (qz.i + 1) + ' of ' + Q.length;
     $('#qz-prompt').textContent = q.prompt;
+    const answered = qz.picked !== null;
     [0, 1].forEach(side => {
-      const isBad = side === bs, ids = isBad ? q.badIds : q.goodIds, el = $('#qz-c' + side), panel = $('#qz-p' + side);
+      const which = side === bs ? 0 : 1, ids = q.ids[which], el = $('#qz-c' + side), panel = $('#qz-p' + side);
       el.dataset.source = ids.join(' ');
       const dss = ids.map(id => dash.data(id)), notOk = dss.find(d => d.status !== 'ok');
-      if (notOk) ready(el, notOk); else { el.classList.remove('dash-skeleton'); (isBad ? q.bad : q.good)(dss.map(d => d.data), el); a11y(el, 'Chart ' + 'AB'[side] + ': ' + (isBad ? q.badDesc : q.goodDesc)); }
-      const answered = qz.picked !== null;
-      panel.classList.toggle('bad', answered && isBad); panel.classList.toggle('good', answered && !isBad);
-      $('#qz-b' + side).textContent = 'Chart ' + 'AB'[side] + (answered ? (isBad ? ' \u2014 \u2717 misleading' : ' \u2014 \u2713 better') : '');
+      if (notOk) ready(el, notOk); else { el.classList.remove('dash-skeleton'); q.draw[which](dss.map(d => d.data), el); a11y(el, 'Chart ' + 'AB'[side] + ': ' + DESC[qz.i][which]); }
+      panel.classList.toggle('bad', answered && which === 0); panel.classList.toggle('good', answered && which === 1);
+      $('#qz-b' + side).textContent = 'Chart ' + 'AB'[side] + (answered ? (which === 0 ? ' \u2014 \u2717 misleading' : ' \u2014 \u2713 honest') : '');
       panel.querySelector('.gv-pick').disabled = answered;
     });
     const fb = $('#qz-fb');
-    if (qz.picked === null) { fb.hidden = true; $('#qz-next').hidden = true; return; }
+    if (!answered) { fb.hidden = true; $('#qz-next').hidden = true; return; }
     fb.hidden = false; fb.replaceChildren();
     const right = qz.picked === bs;
     const head = document.createElement('span'); head.className = right ? 'ok' : 'no';
@@ -719,7 +736,7 @@ dash.calc('polls_trend', {
   document.querySelectorAll('.gv-pick').forEach(b => b.addEventListener('click', () => {
     if (qz.picked !== null) return;
     qz.picked = Number(b.dataset.pick);
-    if (qz.picked === badSide[qz.i % badSide.length]) qz.score++;
+    if (qz.picked === badSide[qz.i]) qz.score++;
     drawQuiz();
   }));
   $('#qz-next').addEventListener('click', () => { qz.i++; qz.picked = null; drawQuiz(); $('#quiz').scrollIntoView({behavior: 'smooth'}); });
@@ -733,17 +750,21 @@ dash.calc('polls_trend', {
     tb.replaceChildren();
     if (ds.status !== 'ok') {
       const tr = document.createElement('tr'), td = document.createElement('td'); td.colSpan = cols.length;
-      if (['error', 'connect', 'declined', 'missing'].includes(ds.status)) {
+      if (FAIL.includes(ds.status)) {
         const f = document.createElement('div'); f.className = 'gv-fail'; const d = document.createElement('span'); d.className = 'gv-dot';
         f.append(d, document.createTextNode('Failed to load')); td.appendChild(f);
       } else { const sk = document.createElement('span'); sk.className = 'dash-skeleton'; td.appendChild(sk); }
-      tr.appendChild(td); tb.appendChild(tr); return;
+      tr.appendChild(td); tb.appendChild(tr); return null;
     }
     return rows => rows.forEach(r => {
       const tr = document.createElement('tr'); tr.dataset.key = r[keyCol];
       cols.forEach((k, i) => { const td = document.createElement('td'); if (table.tHead.rows[0].cells[i].classList.contains('gv-hide-sm')) td.className = 'gv-hide-sm'; cell(td, k, r); tr.appendChild(td); });
       tb.appendChild(tr);
     });
+  }
+  function linkCell(td, text, url) {
+    if (/^https:\/\//.test(url || '')) { const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = text; td.appendChild(a); }
+    else td.textContent = text;
   }
   function drawCatalog() {
     const ds = dash.data('catalog');
@@ -753,8 +774,7 @@ dash.calc('polls_trend', {
     });
     if (!put) return;
     const q = query.trim().toLowerCase();
-    put(ds.data.filter(r => (catFilter === 'All' || r.category === catFilter) &&
-      (!q || Object.values(r).join(' ').toLowerCase().includes(q))));
+    put(ds.data.filter(r => (catFilter === 'All' || r.category === catFilter) && (!q || Object.values(r).join(' ').toLowerCase().includes(q))));
   }
   document.querySelectorAll('#chips .gv-chip').forEach(b => b.addEventListener('click', () => {
     catFilter = b.dataset.cat;
@@ -762,82 +782,41 @@ dash.calc('polls_trend', {
     drawCatalog();
   }));
   $('#cat-search').addEventListener('input', e => { query = e.target.value; drawCatalog(); });
-
   document.querySelectorAll('.gv-nav button').forEach(b => b.addEventListener('click', () => {
     const el = document.getElementById(b.dataset.go); if (el) { el.scrollIntoView({behavior: 'smooth'}); dash.setLink(el.id); }
   }));
 
-  function setText(el, ds, val) {
-    if (ds.status === 'ok') { el.classList.remove('dash-skeleton'); el.textContent = val; }
-    else { el.textContent = ''; if (ds.status === 'loading') el.classList.add('dash-skeleton'); else { el.classList.remove('dash-skeleton'); el.textContent = '—'; } }
+  function fillValues() {
+    document.querySelectorAll('.gv-v').forEach(el => {
+      const ds = dash.data(el.dataset.source);
+      if (ds.status !== 'ok') { el.textContent = '—'; return; }
+      const [k, v] = (el.dataset.where || '=').split('=');
+      const r = ds.data.find(d => String(d[k]) === v), val = r ? r[el.dataset.field] : null;
+      el.textContent = val == null ? '—' : el.dataset.fmt === 'signedpct' ? (val > 0 ? '+' : '') + val + '%' : el.dataset.fmt === 'pct' ? val + '%' : (typeof val === 'number' && val >= 10000 ? fmt(val) : String(val));
+    });
   }
 
   let linked = false;
   dash.onData(() => {
-    // tiles + takeaway
-    const cc = dash.data('catalog_counts'), ls = dash.data('list_sizes');
-    document.querySelectorAll('[data-source="catalog_counts"]').forEach(el => {
-      const cat = el.dataset.where.split('=')[1]; const r = cc.status === 'ok' ? cc.data.find(d => d.category === cat) : null;
-      setText(el, cc, r ? fmt(r.n) : '—');
-    });
-    document.querySelectorAll('.gv-tile [data-source="list_sizes"]').forEach(el => {
-      const k = el.dataset.where.split('=')[1]; const r = ls.status === 'ok' ? ls.data.find(d => d.list === k) : null;
-      setText(el, ls, r ? fmt(r.n) : '—');
-    });
-    const tk = $('#takeaway');
-    if (cc.status === 'ok' && ls.status === 'ok') {
-      const g = c => cc.data.find(d => d.category === c).n;
-      tk.replaceChildren();
-      const mk = (src, where, val) => { const b = document.createElement('b'); b.dataset.source = src; b.dataset.field = 'n'; b.dataset.where = where; b.textContent = val; return b; };
-      tk.append(mk('catalog_counts', 'category=All', fmt(g('All'))), ' common chart mistakes in the list, ',
-        mk('catalog_counts', 'category=Misleading', fmt(g('Misleading'))),
-        ' of which can actually trick the reader.');
-    }
-
-    // dual-axis note
-    const dc = dash.data('dog_change');
-    document.querySelectorAll('[data-source="dog_change"]').forEach(el => {
-      const k = el.dataset.where.split('=')[1]; const r = dc.status === 'ok' ? dc.data.find(d => d.series === k) : null;
-      el.textContent = r ? r.pct_fall + '%' : '—';
-    });
-
-    // charts
-    const pairs = [
-      ['#c-trunc-bad', ['bars'], ([b]) => truncChart($('#c-trunc-bad'), b, true)],
-      ['#c-trunc-good', ['bars'], ([b]) => truncChart($('#c-trunc-good'), b, false)],
-      ['#c-dual-bad', ['dogs'], ([d]) => dualBad($('#c-dual-bad'), d)],
-      ['#c-dual-good', ['dog_index'], ([d]) => dualGood($('#c-dual-good'), d)],
-      ['#c-polls-bad', ['polls'], ([p]) => pollsChart($('#c-polls-bad'), p, null)],
-      ['#c-polls-good', ['polls', 'polls_trend'], ([p, t]) => pollsChart($('#c-polls-good'), p, t)],
-      ['#c-col-bad', ['scatter'], ([s]) => scatter($('#c-col-bad'), s, true)],
-      ['#c-col-good', ['scatter'], ([s]) => scatter($('#c-col-good'), s, false)],
-      ['#c-pie-bad', ['shares'], ([s]) => pieBad($('#c-pie-bad'), s)],
-      ['#c-pie-good', ['shares'], ([s]) => pieGood($('#c-pie-good'), s)],
-    ];
-    pairs.forEach(([sel, ids, draw]) => {
-      const el = $(sel), dss = ids.map(id => dash.data(id));
-      const bad = dss.find(d => d.status !== 'ok');
+    fillValues();
+    PAIRS.forEach(([sel, ids, draw, desc]) => {
+      const el = $(sel), dss = ids.map(id => dash.data(id)), bad = dss.find(d => d.status !== 'ok');
       if (bad) { ready(el, bad); return; }
       el.classList.remove('dash-skeleton');
-      draw(dss.map(d => d.data));
-      a11y(el, PAIR_DESC[sel]);
+      draw(dss.map(d => d.data), el);
+      a11y(el, desc);
     });
-
     drawQuiz();
-
-    // tables
     drawCatalog();
     const ex = dash.data('exemplars');
-    const putEx = fillTable('#good-table', ex, 'name', ['name', 'creator', 'year', 'what_it_shows', 'why_it_works'], (td, k, r) => { td.textContent = r[k]; if (k === 'year') td.classList.add('gv-num'); });
+    const putEx = fillTable('#good-table', ex, 'name', ['name', 'creator', 'year', 'story', 'why_it_works'], (td, k, r) => {
+      if (k === 'name') linkCell(td, r.name, r.url); else { td.textContent = r[k]; if (k === 'year') td.classList.add('gv-num'); }
+    });
     if (putEx) putEx(ex.data.slice().sort((a, b) => a.year - b.year));
     const rs = dash.data('resources');
-    const putRs = fillTable('#reading-table', rs, 'name', ['name', 'author', 'kind', 'use_it_for'], (td, k, r) => {
-      if (k === 'name' && /^https:\/\//.test(r.url || '')) { const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.name; td.appendChild(a); }
-      else td.textContent = r[k];
-    });
+    const putRs = fillTable('#reading-table', rs, 'name', ['name', 'author', 'kind', 'use_it_for'], (td, k, r) => { if (k === 'name') linkCell(td, r.name, r.url); else td.textContent = r[k]; });
     if (putRs) putRs(rs.data);
-
-    if (!linked && ['bars', 'catalog'].every(id => dash.data(id).status === 'ok')) {
+    if (!linked && ['election', 'catalog'].every(id => dash.data(id).status === 'ok')) {
       linked = true;
       const named = document.getElementById(location.hash.slice(1));
       if (named) { named.scrollIntoView(); dash.setLink(named.id); }

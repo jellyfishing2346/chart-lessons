@@ -2,16 +2,17 @@
 
 An interactive lesson that teaches students how to spot misleading, confusing and cluttered charts, and how to fix them.
 
-**Live site:** https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/
+**Live site:** https://jellyfishing2346.github.io/chart-lessons/
 
 ## What's inside
 
-- **5 questions to ask about any chart**: a checklist students can use on any chart they see.
-- **Spot the mistake**: five bad charts, each next to a fixed version of the same numbers, with a hidden "What's wrong?" answer.
-- **Quiz**: eight "which chart is misleading?" questions, three of them using mistakes students haven't seen yet, with a score at the end.
+- **How to read any chart**: think like a reporter (notice, wonder, write a headline), then check whether the chart's story is true.
+- **Spot the mistake**: five everyday stories (a student council election, screen time, school lunch, a basketball team, a class survey). Each is drawn twice from the same numbers, with the headline each chart tells and why one is misleading.
+- **Quiz**: eight "which chart is misleading?" questions, three using tricks students haven't seen yet, with a score at the end.
+- **Tell your own story**: five steps for turning a question into an honest chart with a headline.
 - **Your turn**: a real-world activity with a printable worksheet.
 - **All the mistakes**: a searchable list of 17 common chart mistakes, why each is a problem, and how to fix it.
-- **Good examples, further reading and a word list** of chart terms in plain English.
+- **Great charts, further reading and a word list** of chart terms in plain English.
 
 ## Files
 
@@ -30,7 +31,8 @@ Replace a file by uploading a new version with the same name (**Add file → Upl
 
 ## Sources and credits
 
-- Sarah Leo, ["Mistakes, we've drawn a few"](https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368), *The Economist*, 2019. The first five "Spot the mistake" pairs follow her redesigns.
+- Sarah Leo, ["Mistakes, we've drawn a few"](https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368), *The Economist*, 2019. Several of the mistakes follow her redesigns.
+- The "notice, wonder, headline" approach is inspired by The New York Times Learning Network's [What's Going On in This Graph?](https://www.nytimes.com/column/whats-going-on-in-this-graph)
 - Further examples from the Financial Times Visual Vocabulary, Claus Wilke's *Fundamentals of Data Visualization*, the Datawrapper blog, Edward Tufte, Alberto Cairo and others listed on the site.
 - All chart numbers on the site are made up for practice and are not real data.
 - Charts drawn with [D3](https://d3js.org/) (ISC licence).
