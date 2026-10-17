@@ -6,9 +6,10 @@ An interactive lesson that teaches students how to spot misleading, confusing an
 
 ## What's inside
 
+- **Three levels** (🌱 Beginner, 🌿 Intermediate, 🌳 Advanced): a picker at the top changes how many stories, checks and quiz questions students see, adds "Go deeper" notes at Advanced, and links each level's own worksheet.
 - **How to read any chart**: think like a reporter (notice, wonder, write a headline), then check whether the chart's story is true.
 - **Spot the mistake**: five everyday stories (a student council election, screen time, school lunch, a basketball team, a class survey). Each is drawn twice from the same numbers, with the headline each chart tells and why one is misleading.
-- **Quiz**: eight "which chart is misleading?" questions, three using tricks students haven't seen yet, with a score at the end.
+- **Quiz**: 4 questions with hints (Beginner), 8 (Intermediate) or 11 (Advanced, including three where breaking a rule might be OK), with a score at the end.
 - **Tell your own story**: five steps for turning a question into an honest chart with a headline.
 - **Your turn**: a real-world activity with a printable worksheet.
 - **All the mistakes**: a searchable list of 17 common chart mistakes, why each is a problem, and how to fix it.
@@ -20,7 +21,7 @@ An interactive lesson that teaches students how to spot misleading, confusing an
 |------|------------|
 | `index.html` | The whole website: page, charts, quiz and data. |
 | `d3.min.js` | The charting library (D3 v7.8.5), stored here so the site doesn't depend on another server. |
-| `worksheet.pdf` | Printable student worksheet, linked from the "Your turn" section. |
+| `worksheet-beginner.pdf`, `worksheet-intermediate.pdf`, `worksheet-advanced.pdf` | Printable student worksheets, one per level, linked from the "Your turn" section. |
 | `README.md` | This file. |
 
 The teacher answer key is kept out of this repository on purpose, because anyone can see the files in a public repo.
