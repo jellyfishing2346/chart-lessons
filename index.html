@@ -123,6 +123,53 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 .gv-deep ul{margin:4px 0 0;padding-left:1.2rem}
 .gv-hint{margin:0 0 var(--cds-gap-md);font-size:var(--cds-font-size-body);color:var(--color-fg-muted)}
 .gv-more{padding:var(--cds-pad-md);border:1px dashed var(--color-border-line);border-radius:var(--cds-radius);color:var(--color-fg-muted);font-size:var(--cds-font-size-body)}
+.gv-frame{position:relative;border:1px solid var(--color-border-line);border-radius:14px;background:var(--color-bg)}
+.gv-frame > :first-child{border-top-left-radius:13px;border-top-right-radius:13px}
+.gv-frame-top{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-bottom:1px solid var(--color-border-line)}
+.gv-avatar{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;color:#fff;font-size:.85rem}
+.gv-who{font-weight:600;font-size:var(--cds-font-size-body);line-height:1.2}.gv-who small{display:block;font-weight:400;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.gv-post{padding:.6rem .8rem 0;font-size:var(--cds-font-size-body);line-height:1.4}
+.gv-frame .gv-chart{margin:0;padding:.3rem .6rem}
+.gv-react{display:flex;gap:1.2rem;padding:.4rem .8rem .6rem;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.gv-ad-head{padding:.8rem;text-align:center;font-weight:800;font-size:1.25rem;letter-spacing:.01em;background:var(--color-panel)}
+.gv-ad-head small{display:block;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-fg-muted)}
+.gv-fine{padding:0 .8rem .6rem;font-size:.68rem;color:var(--color-fg-muted)}
+.gv-news-site{padding:.45rem .8rem;font-family:var(--font-anthropic-serif);font-weight:700;border-bottom:3px double var(--color-border-line);letter-spacing:.02em}
+.gv-news-head{padding:.6rem .8rem 0;font-family:var(--font-anthropic-serif);font-size:1.2rem;font-weight:700;line-height:1.25}
+.gv-news-dek{padding:.2rem .8rem 0;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.gv-app{max-width:420px;margin:0 auto;border-radius:26px;border-width:6px}
+.gv-app-bar{padding:.7rem .9rem .2rem;font-weight:700;font-size:1.05rem}.gv-app-bar small{display:block;font-weight:400;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.gv-info-head{padding:.7rem .8rem;font-weight:800;font-size:1.15rem;text-align:center}
+.gv-info-head small{display:block;font-weight:500;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.gv-field{display:flex;flex-direction:column;gap:var(--cds-gap-lg)}
+.gv-fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-lg);align-items:start}
+.gv-seg{display:inline-flex;border:1px solid var(--color-border-line);border-radius:999px;overflow:hidden;margin-bottom:var(--cds-gap-sm)}
+.gv-seg button{font:inherit;font-size:var(--cds-font-size-caption);border:0;background:transparent;color:var(--color-fg);padding:var(--cds-pad-xs) var(--cds-pad-md);cursor:pointer}
+.gv-seg button[aria-pressed=true]{background:var(--color-fg);color:var(--color-bg)}
+.gv-steps2{display:flex;flex-direction:column;gap:var(--cds-gap-xs);margin-top:var(--cds-gap-sm)}
+.gv-steps2 details{border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-sm) var(--cds-pad-md);background:var(--color-bg)}
+.gv-steps2 summary{cursor:pointer;font-weight:600}
+.gv-steps2 p{margin:var(--cds-gap-xs) 0 0;line-height:1.45}
+.gv-verdict{margin-top:var(--cds-gap-sm);font-weight:700}
+.gv-verdict.mis{color:var(--color-bad)}.gv-verdict.con{color:var(--color-warn)}
+.gv-tipbox{margin-top:var(--cds-gap-sm);padding:var(--cds-pad-sm) var(--cds-pad-md);border-radius:var(--cds-radius);background:var(--color-panel);border:1px solid var(--color-border-line);line-height:1.45}
+.gv-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:var(--cds-gap-sm);margin:var(--cds-gap-sm) 0}
+.gv-ctl label{font-size:var(--cds-font-size-body);font-weight:600}
+.gv-ctl input[type=range]{flex:1;min-width:10rem;accent-color:var(--color-fg)}
+.gv-readout{font-size:var(--cds-font-size-body);line-height:1.5;margin-top:var(--cds-gap-sm)}
+.gv-meter{display:inline-block;font-weight:700;padding:0 .5rem;border-radius:999px;border:1px solid currentColor}
+.gv-meter.ok{color:var(--color-ok)}.gv-meter.warn{color:var(--color-warn)}.gv-meter.bad{color:var(--color-bad)}
+.gv-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--cds-gap-md)}
+.gv-form label{display:flex;flex-direction:column;gap:4px;font-size:var(--cds-font-size-caption);font-weight:600}
+.gv-form input[type=text],.gv-form textarea,.gv-form select{font:inherit;font-size:var(--cds-font-size-body);padding:var(--cds-pad-xs) var(--cds-pad-sm);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:var(--color-bg);color:var(--color-fg)}
+.gv-form textarea{min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:var(--cds-font-size-caption)}
+.gv-form .gv-check{flex-direction:row;align-items:center;font-weight:400;font-size:var(--cds-font-size-body)}
+.gv-checklist{list-style:none;margin:var(--cds-gap-sm) 0 0;padding:0;display:flex;flex-direction:column;gap:6px;line-height:1.4}
+.gv-checklist li{padding-left:1.6rem;position:relative}
+.gv-checklist li::before{position:absolute;left:0;font-weight:700}
+.gv-checklist li.ok::before{content:"\2713";color:var(--color-ok)}
+.gv-checklist li.warn::before{content:"!";color:var(--color-warn);left:.3rem}
+.gv-checklist li.info::before{content:"i";color:var(--color-fg-muted);left:.3rem;font-style:italic}
 .gv-kicker{font-size:var(--cds-font-size-caption);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-fg-muted);margin-bottom:var(--cds-gap-xs)}
 .gv-says{margin:var(--cds-gap-xs) 0 0;font-size:var(--cds-font-size-body);line-height:1.4}
 .gv-says q{font-family:var(--font-anthropic-serif);font-size:1.15em;font-weight:600;quotes:"\201C" "\201D"}
@@ -138,7 +185,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 </style>
 <script>
 // Minimal stand-in for the Claude dashboard runtime, so the page works on its own.
-window.DATA = {"catalog":[{"id":"E1","category":"Misleading","mistake":"Cutting off the bottom of a bar chart","why_it_hurts":"When bars don't start at zero, small differences look huge and big ones look small.","the_fix":"Start bars at zero so their lengths can be compared honestly.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E2","category":"Misleading","mistake":"Two y-axes stretched to match","why_it_hurts":"Each axis is stretched until the two lines overlap, so they look linked even when one changed much more.","the_fix":"Put both on one axis, or show them as % change from the same starting point.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E3","category":"Misleading","mistake":"Joining every poll with a line","why_it_hurts":"Polls bounce up and down by chance. Connecting them makes random noise look like real changes.","the_fix":"Show each poll as a dot and draw one smooth trend line through them.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E4","category":"Confusing","mistake":"Two charts squeezed into one","why_it_hurts":"One series goes below zero and the other above, with baselines at opposite edges. Nobody can read it.","the_fix":"Split it into two small charts side by side.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E5","category":"Confusing","mistake":"Color that suggests a group that isn't there","why_it_hurts":"Readers assume different colors mean different groups. Here it only meant \u201cthis one has a label\u201d.","the_fix":"Use one color. Make the less important points lighter instead.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E6","category":"Hides the point","mistake":"Too many colors","why_it_hurts":"Ten similar colors make it impossible to find the few things the story is about.","the_fix":"Color only what matters and group the rest as \u201cOthers\u201d in gray.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E7","category":"Hides the point","mistake":"Too much data in too little space","why_it_hurts":"When everything is crammed in, the reader can't take in anything.","the_fix":"Leave things out, or show one summary number (like an average).","source":"The Economist (Sarah Leo, 2019)"},{"id":"O1","category":"Misleading","mistake":"Upside-down y-axis","why_it_hurts":"If 'up' means less, readers see a fall when there was really a rise.","the_fix":"Keep the normal direction: higher on the chart means more.","source":"Reuters graphic on Florida gun deaths, 2014"},{"id":"O2","category":"Misleading","mistake":"3D pie charts","why_it_hurts":"The tilt makes slices at the front look bigger than equal slices at the back.","the_fix":"Never use 3D. Use a flat bar chart.","source":"Edward Tufte; Claus Wilke"},{"id":"O3","category":"Hides the point","mistake":"Pie chart with lots of slices","why_it_hurts":"People are bad at comparing angles. With many slices, you can't tell which is bigger.","the_fix":"Use bars sorted from biggest to smallest, with labels on them.","source":"FT Visual Vocabulary; Datawrapper blog"},{"id":"O4","category":"Misleading","mistake":"Pictures that grow in two directions","why_it_hurts":"Making a picture twice as tall also makes it twice as wide, so it looks four times bigger.","the_fix":"Use simple bars, or grow the picture's area, not its height.","source":"Edward Tufte"},{"id":"O5","category":"Confusing","mistake":"Rainbow color scales","why_it_hurts":"Rainbow colors create sharp \u201cedges\u201d that aren't in the data, and there's no natural order to them.","the_fix":"Use shades of one color, light for low and dark for high.","source":"Borland & Taylor, 2007"},{"id":"O6","category":"Misleading","mistake":"Maps of totals","why_it_hurts":"A map of total counts mostly just shows where lots of people live.","the_fix":"Map rates instead, like \u201cper 1,000 people\u201d.","source":"xkcd comic #1138 \u201cHeatmap\u201d"},{"id":"O7","category":"Hides the point","mistake":"Spaghetti chart (too many lines)","why_it_hurts":"When many lines cross each other, you can't follow any of them.","the_fix":"Highlight one or two lines and make the rest gray, or draw several small charts.","source":"Storytelling with Data"},{"id":"O8","category":"Misleading","mistake":"Uneven gaps between dates","why_it_hurts":"If 1990, 2000, 2015 and 2016 are evenly spaced, the speed of change looks wrong.","the_fix":"Space the dates by how much time actually passed.","source":"Alberto Cairo, How Charts Lie"},{"id":"O9","category":"Confusing","mistake":"Red vs green only","why_it_hurts":"Many color-blind people can't tell red and green apart, so they miss the message.","the_fix":"Use blue and orange, and add labels too.","source":"Datawrapper blog"},{"id":"O10","category":"Misleading","mistake":"Running totals that hide a drop","why_it_hurts":"A running total always goes up, even when each new month is worse than the one before.","the_fix":"Show each month (or quarter) on its own, not the total so far.","source":"Apple iPhone sales chart, 2013"}],"exemplars":[{"name":"Napoleon's march to Moscow","creator":"Charles Joseph Minard","year":1869,"story":"Napoleon's huge army marched into Russia, and almost none of it came back.","why_it_works":"The thick band is the army. It gets thinner as soldiers die, so you can see the disaster without reading a single number.","url":"https://en.wikipedia.org/wiki/Charles_Joseph_Minard"},{"name":"Broad Street cholera map","creator":"John Snow","year":1854,"story":"The deaths cluster around one water pump, so the pump is spreading the disease.","why_it_works":"Putting each death on a map made the pattern impossible to miss. The city removed the pump's handle.","url":"https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"},{"name":"Data portraits for the 1900 Paris Exposition","creator":"W.E.B. Du Bois and his students","year":1900,"story":"In the decades after slavery, Black Americans in Georgia built schools, businesses and land ownership despite huge barriers.","why_it_works":"Bold shapes and colors grab attention, but each chart still makes just one clear point.","url":"https://en.wikipedia.org/wiki/W._E._B._Du_Bois"},{"name":"Gapminder bubble chart","creator":"Hans Rosling","year":2006,"story":"Almost every country got richer and healthier over the last 200 years, just at very different times.","why_it_works":"Each bubble is a country. Watching them move over time turns a giant table of numbers into a story you remember.","url":"https://www.gapminder.org/tools/"},{"name":"You Draw It","creator":"The New York Times","year":2015,"story":"Kids from richer families are much more likely to go to college.","why_it_works":"You draw your guess before seeing the real line. Being surprised by your own guess makes the point stick.","url":"https://www.nytimes.com/interactive/2015/05/28/upshot/you-draw-it-how-family-income-affects-childrens-college-chances.html"}],"resources":[{"name":"Over 75 New York Times graphs for students to analyze","author":"The New York Times Learning Network","kind":"Article / collection","url":"https://www.nytimes.com/2023/07/26/learning/over-75-new-york-times-graphs-for-students-to-analyze.html","use_it_for":"Real graphs on topics students care about, sorted by subject.","level":"Beginner"},{"name":"What's Going On in This Graph?","author":"The New York Times Learning Network & American Statistical Association","kind":"Weekly activity","url":"https://www.nytimes.com/column/whats-going-on-in-this-graph","use_it_for":"Notice, wonder and write a headline for a new real graph each week.","level":"Beginner"},{"name":"Mistakes, we've drawn a few","author":"Sarah Leo, The Economist","kind":"Article","url":"https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368","use_it_for":"Before/after redesigns; your starting point.","level":"Intermediate"},{"name":"Visual Vocabulary","author":"Financial Times","kind":"Poster / guide","url":"https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md","use_it_for":"Picking a chart type from the relationship you want to show.","level":"Intermediate"},{"name":"Y-axis rules of thumb","author":"Francis Gagnon","kind":"Article","url":"https://www.chezvoila.com/blog/yaxis","use_it_for":"When a non-zero axis is OK and how much space to leave.","level":"Advanced"},{"name":"Fundamentals of Data Visualization","author":"Claus O. Wilke","kind":"Free online book","url":"https://clauswilke.com/dataviz/","use_it_for":"Labelled 'bad', 'ugly' and 'good' figures throughout.","level":"Advanced"},{"name":"Datawrapper blog","author":"Lisa Charlotte Muth and team","kind":"Blog","url":"https://blog.datawrapper.de/","use_it_for":"Practical posts on color, labels and chart choice.","level":"Intermediate"},{"name":"From Data to Viz","author":"Yan Holtz & Conor Healy","kind":"Website","url":"https://www.data-to-viz.com/","use_it_for":"Decision tree plus a 'caveats' page of common mistakes.","level":"Intermediate"},{"name":"Junk Charts","author":"Kaiser Fung","kind":"Blog","url":"https://junkcharts.typepad.com/","use_it_for":"Critiques and redesigns of published charts.","level":"Advanced"},{"name":"Storytelling with Data","author":"Cole Nussbaumer Knaflic","kind":"Book / blog","url":"https://www.storytellingwithdata.com/","use_it_for":"Decluttering and focusing attention.","level":"Intermediate"},{"name":"Makeover Monday","author":"Andy Kriebel & Eva Murray","kind":"Community project","url":"https://makeovermonday.co.uk/","use_it_for":"Hundreds of redesigns of the same weekly chart.","level":"Advanced"},{"name":"WTF Visualizations","author":"Community gallery","kind":"Gallery","url":"https://viz.wtf/","use_it_for":"A steady supply of bad examples.","level":"Beginner"},{"name":"Calling Bullshit","author":"Carl Bergstrom & Jevin West","kind":"Course / book","url":"https://www.callingbullshit.org/","use_it_for":"Teaching material on misleading axes and proportional ink.","level":"Advanced"},{"name":"How Charts Lie","author":"Alberto Cairo","kind":"Book","url":"https://albertocairo.com/","use_it_for":"Reading charts critically; lots of misleading examples.","level":"Advanced"},{"name":"The Visual Display of Quantitative Information","author":"Edward Tufte","kind":"Book","url":"https://www.edwardtufte.com/","use_it_for":"Data-ink, chartjunk and the lie factor.","level":"Advanced"}],"election":[{"candidate":"Maya","votes":52},{"candidate":"Jordan","votes":48},{"candidate":"Sam","votes":41}],"screen_time":[{"year":2019,"screen_hours":5.0,"test_score":78.0},{"year":2020,"screen_hours":5.6,"test_score":77.5},{"year":2021,"screen_hours":6.4,"test_score":76.6},{"year":2022,"screen_hours":6.6,"test_score":76.2},{"year":2023,"screen_hours":6.9,"test_score":75.4},{"year":2024,"screen_hours":7.1,"test_score":74.8},{"year":2025,"screen_hours":7.4,"test_score":74.1}],"lunch":[{"week":"2025-09-08","pct_good":47},{"week":"2025-09-15","pct_good":54},{"week":"2025-09-22","pct_good":57},{"week":"2025-09-29","pct_good":51},{"week":"2025-10-06","pct_good":48},{"week":"2025-10-13","pct_good":53},{"week":"2025-10-20","pct_good":56},{"week":"2025-10-27","pct_good":59},{"week":"2025-11-03","pct_good":49},{"week":"2025-11-10","pct_good":49},{"week":"2025-11-17","pct_good":58},{"week":"2025-11-24","pct_good":57},{"week":"2025-12-01","pct_good":62},{"week":"2025-12-08","pct_good":60},{"week":"2025-12-15","pct_good":55},{"week":"2025-12-22","pct_good":55},{"week":"2025-12-29","pct_good":67},{"week":"2026-01-05","pct_good":55},{"week":"2026-01-12","pct_good":54},{"week":"2026-01-19","pct_good":52},{"week":"2026-01-26","pct_good":58},{"week":"2026-02-02","pct_good":58},{"week":"2026-02-09","pct_good":57},{"week":"2026-02-16","pct_good":58},{"week":"2026-02-23","pct_good":60},{"week":"2026-03-02","pct_good":62},{"week":"2026-03-09","pct_good":64},{"week":"2026-03-16","pct_good":60},{"week":"2026-03-23","pct_good":52},{"week":"2026-03-30","pct_good":63}],"team":[{"player":"Ava","practice_hours":6.2,"points":6.9,"labeled":"yes","focus":"no"},{"player":"Ben","practice_hours":7.3,"points":8.0,"labeled":"no","focus":"no"},{"player":"Chloe","practice_hours":5.7,"points":6.4,"labeled":"no","focus":"no"},{"player":"Diego","practice_hours":10.0,"points":18.5,"labeled":"yes","focus":"no"},{"player":"Emma","practice_hours":8.7,"points":10.9,"labeled":"no","focus":"no"},{"player":"Finn","practice_hours":3.8,"points":3.6,"labeled":"no","focus":"no"},{"player":"Grace","practice_hours":4.3,"points":8.1,"labeled":"no","focus":"no"},{"player":"Hiro","practice_hours":5.2,"points":7.9,"labeled":"no","focus":"no"},{"player":"Isla","practice_hours":5.5,"points":17.5,"labeled":"yes","focus":"yes"},{"player":"Jay","practice_hours":8.8,"points":14.1,"labeled":"no","focus":"no"},{"player":"Kai","practice_hours":2.0,"points":3.5,"labeled":"no","focus":"no"},{"player":"Leo","practice_hours":5.8,"points":10.9,"labeled":"yes","focus":"no"}],"activities":[{"activity":"Music","pct":13},{"activity":"Sports","pct":24},{"activity":"Volunteering","pct":4},{"activity":"Gaming","pct":21},{"activity":"Reading","pct":8},{"activity":"Art","pct":12},{"activity":"Part-time job","pct":6},{"activity":"Clubs","pct":9},{"activity":"Other","pct":3}],"phones":[{"month":"Sep","phones":12},{"month":"Oct","phones":15},{"month":"Nov","phones":14},{"month":"Dec","phones":19},{"month":"Jan","phones":22},{"month":"Feb","phones":24},{"month":"Mar","phones":27},{"month":"Apr","phones":31},{"month":"May","phones":36},{"month":"Jun","phones":40}],"fundraiser":[{"week":"Week 1","dollars":900},{"week":"Week 2","dollars":820},{"week":"Week 3","dollars":700},{"week":"Week 4","dollars":610},{"week":"Week 5","dollars":480},{"week":"Week 6","dollars":400},{"week":"Week 7","dollars":310},{"week":"Week 8","dollars":250}],"robotics":[{"year":2000,"members":10},{"year":2010,"members":40},{"year":2020,"members":70},{"year":2021,"members":73},{"year":2022,"members":76},{"year":2023,"members":79},{"year":2024,"members":82},{"year":2025,"members":85}],"temperature":[{"time":"8am","temp_f":98.8},{"time":"10am","temp_f":99.6},{"time":"12pm","temp_f":100.9},{"time":"2pm","temp_f":101.4},{"time":"4pm","temp_f":100.6},{"time":"6pm","temp_f":99.5},{"time":"8pm","temp_f":98.9}],"late":[{"school":"Lincoln High","students":2000,"late":120},{"school":"River Academy","students":800,"late":40},{"school":"Oak Middle","students":300,"late":45}],"membership":[{"month":"2023-01","members":20},{"month":"2023-02","members":21},{"month":"2023-03","members":23},{"month":"2023-04","members":24},{"month":"2023-05","members":25},{"month":"2023-06","members":26},{"month":"2023-07","members":28},{"month":"2023-08","members":29},{"month":"2023-09","members":30},{"month":"2023-10","members":32},{"month":"2023-11","members":33},{"month":"2023-12","members":34},{"month":"2024-01","members":35},{"month":"2024-02","members":37},{"month":"2024-03","members":38},{"month":"2024-04","members":39},{"month":"2024-05","members":41},{"month":"2024-06","members":42},{"month":"2024-07","members":43},{"month":"2024-08","members":45},{"month":"2024-09","members":46},{"month":"2024-10","members":47},{"month":"2024-11","members":48},{"month":"2024-12","members":50},{"month":"2025-01","members":51},{"month":"2025-02","members":52},{"month":"2025-03","members":54},{"month":"2025-04","members":55},{"month":"2025-05","members":56},{"month":"2025-06","members":57},{"month":"2025-07","members":59},{"month":"2025-08","members":60},{"month":"2025-09","members":58},{"month":"2025-10","members":56},{"month":"2025-11","members":55},{"month":"2025-12","members":54}]};
+window.DATA = {"catalog":[{"id":"E1","category":"Misleading","mistake":"Cutting off the bottom of a bar chart","why_it_hurts":"When bars don't start at zero, small differences look huge and big ones look small.","the_fix":"Start bars at zero so their lengths can be compared honestly.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E2","category":"Misleading","mistake":"Two y-axes stretched to match","why_it_hurts":"Each axis is stretched until the two lines overlap, so they look linked even when one changed much more.","the_fix":"Put both on one axis, or show them as % change from the same starting point.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E3","category":"Misleading","mistake":"Joining every poll with a line","why_it_hurts":"Polls bounce up and down by chance. Connecting them makes random noise look like real changes.","the_fix":"Show each poll as a dot and draw one smooth trend line through them.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E4","category":"Confusing","mistake":"Two charts squeezed into one","why_it_hurts":"One series goes below zero and the other above, with baselines at opposite edges. Nobody can read it.","the_fix":"Split it into two small charts side by side.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E5","category":"Confusing","mistake":"Color that suggests a group that isn't there","why_it_hurts":"Readers assume different colors mean different groups. Here it only meant \u201cthis one has a label\u201d.","the_fix":"Use one color. Make the less important points lighter instead.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E6","category":"Hides the point","mistake":"Too many colors","why_it_hurts":"Ten similar colors make it impossible to find the few things the story is about.","the_fix":"Color only what matters and group the rest as \u201cOthers\u201d in gray.","source":"The Economist (Sarah Leo, 2019)"},{"id":"E7","category":"Hides the point","mistake":"Too much data in too little space","why_it_hurts":"When everything is crammed in, the reader can't take in anything.","the_fix":"Leave things out, or show one summary number (like an average).","source":"The Economist (Sarah Leo, 2019)"},{"id":"O1","category":"Misleading","mistake":"Upside-down y-axis","why_it_hurts":"If 'up' means less, readers see a fall when there was really a rise.","the_fix":"Keep the normal direction: higher on the chart means more.","source":"Reuters graphic on Florida gun deaths, 2014"},{"id":"O2","category":"Misleading","mistake":"3D pie charts","why_it_hurts":"The tilt makes slices at the front look bigger than equal slices at the back.","the_fix":"Never use 3D. Use a flat bar chart.","source":"Edward Tufte; Claus Wilke"},{"id":"O3","category":"Hides the point","mistake":"Pie chart with lots of slices","why_it_hurts":"People are bad at comparing angles. With many slices, you can't tell which is bigger.","the_fix":"Use bars sorted from biggest to smallest, with labels on them.","source":"FT Visual Vocabulary; Datawrapper blog"},{"id":"O4","category":"Misleading","mistake":"Pictures that grow in two directions","why_it_hurts":"Making a picture twice as tall also makes it twice as wide, so it looks four times bigger.","the_fix":"Use simple bars, or grow the picture's area, not its height.","source":"Edward Tufte"},{"id":"O5","category":"Confusing","mistake":"Rainbow color scales","why_it_hurts":"Rainbow colors create sharp \u201cedges\u201d that aren't in the data, and there's no natural order to them.","the_fix":"Use shades of one color, light for low and dark for high.","source":"Borland & Taylor, 2007"},{"id":"O6","category":"Misleading","mistake":"Maps of totals","why_it_hurts":"A map of total counts mostly just shows where lots of people live.","the_fix":"Map rates instead, like \u201cper 1,000 people\u201d.","source":"xkcd comic #1138 \u201cHeatmap\u201d"},{"id":"O7","category":"Hides the point","mistake":"Spaghetti chart (too many lines)","why_it_hurts":"When many lines cross each other, you can't follow any of them.","the_fix":"Highlight one or two lines and make the rest gray, or draw several small charts.","source":"Storytelling with Data"},{"id":"O8","category":"Misleading","mistake":"Uneven gaps between dates","why_it_hurts":"If 1990, 2000, 2015 and 2016 are evenly spaced, the speed of change looks wrong.","the_fix":"Space the dates by how much time actually passed.","source":"Alberto Cairo, How Charts Lie"},{"id":"O9","category":"Confusing","mistake":"Red vs green only","why_it_hurts":"Many color-blind people can't tell red and green apart, so they miss the message.","the_fix":"Use blue and orange, and add labels too.","source":"Datawrapper blog"},{"id":"O10","category":"Misleading","mistake":"Running totals that hide a drop","why_it_hurts":"A running total always goes up, even when each new month is worse than the one before.","the_fix":"Show each month (or quarter) on its own, not the total so far.","source":"Apple iPhone sales chart, 2013"}],"exemplars":[{"name":"Napoleon's march to Moscow","creator":"Charles Joseph Minard","year":1869,"story":"Napoleon's huge army marched into Russia, and almost none of it came back.","why_it_works":"The thick band is the army. It gets thinner as soldiers die, so you can see the disaster without reading a single number.","url":"https://en.wikipedia.org/wiki/Charles_Joseph_Minard"},{"name":"Broad Street cholera map","creator":"John Snow","year":1854,"story":"The deaths cluster around one water pump, so the pump is spreading the disease.","why_it_works":"Putting each death on a map made the pattern impossible to miss. The city removed the pump's handle.","url":"https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"},{"name":"Data portraits for the 1900 Paris Exposition","creator":"W.E.B. Du Bois and his students","year":1900,"story":"In the decades after slavery, Black Americans in Georgia built schools, businesses and land ownership despite huge barriers.","why_it_works":"Bold shapes and colors grab attention, but each chart still makes just one clear point.","url":"https://en.wikipedia.org/wiki/W._E._B._Du_Bois"},{"name":"Gapminder bubble chart","creator":"Hans Rosling","year":2006,"story":"Almost every country got richer and healthier over the last 200 years, just at very different times.","why_it_works":"Each bubble is a country. Watching them move over time turns a giant table of numbers into a story you remember.","url":"https://www.gapminder.org/tools/"},{"name":"You Draw It","creator":"The New York Times","year":2015,"story":"Kids from richer families are much more likely to go to college.","why_it_works":"You draw your guess before seeing the real line. Being surprised by your own guess makes the point stick.","url":"https://www.nytimes.com/interactive/2015/05/28/upshot/you-draw-it-how-family-income-affects-childrens-college-chances.html"}],"resources":[{"name":"Over 75 New York Times graphs for students to analyze","author":"The New York Times Learning Network","kind":"Article / collection","url":"https://www.nytimes.com/2023/07/26/learning/over-75-new-york-times-graphs-for-students-to-analyze.html","use_it_for":"Real graphs on topics students care about, sorted by subject.","level":"Beginner"},{"name":"What's Going On in This Graph?","author":"The New York Times Learning Network & American Statistical Association","kind":"Weekly activity","url":"https://www.nytimes.com/column/whats-going-on-in-this-graph","use_it_for":"Notice, wonder and write a headline for a new real graph each week.","level":"Beginner"},{"name":"Mistakes, we've drawn a few","author":"Sarah Leo, The Economist","kind":"Article","url":"https://medium.com/the-economist/mistakes-weve-drawn-a-few-8cdd8a42d368","use_it_for":"Before/after redesigns; your starting point.","level":"Intermediate"},{"name":"Visual Vocabulary","author":"Financial Times","kind":"Poster / guide","url":"https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md","use_it_for":"Picking a chart type from the relationship you want to show.","level":"Intermediate"},{"name":"Y-axis rules of thumb","author":"Francis Gagnon","kind":"Article","url":"https://www.chezvoila.com/blog/yaxis","use_it_for":"When a non-zero axis is OK and how much space to leave.","level":"Advanced"},{"name":"Fundamentals of Data Visualization","author":"Claus O. Wilke","kind":"Free online book","url":"https://clauswilke.com/dataviz/","use_it_for":"Labelled 'bad', 'ugly' and 'good' figures throughout.","level":"Advanced"},{"name":"Datawrapper blog","author":"Lisa Charlotte Muth and team","kind":"Blog","url":"https://blog.datawrapper.de/","use_it_for":"Practical posts on color, labels and chart choice.","level":"Intermediate"},{"name":"From Data to Viz","author":"Yan Holtz & Conor Healy","kind":"Website","url":"https://www.data-to-viz.com/","use_it_for":"Decision tree plus a 'caveats' page of common mistakes.","level":"Intermediate"},{"name":"Junk Charts","author":"Kaiser Fung","kind":"Blog","url":"https://junkcharts.typepad.com/","use_it_for":"Critiques and redesigns of published charts.","level":"Advanced"},{"name":"Storytelling with Data","author":"Cole Nussbaumer Knaflic","kind":"Book / blog","url":"https://www.storytellingwithdata.com/","use_it_for":"Decluttering and focusing attention.","level":"Intermediate"},{"name":"Makeover Monday","author":"Andy Kriebel & Eva Murray","kind":"Community project","url":"https://makeovermonday.co.uk/","use_it_for":"Hundreds of redesigns of the same weekly chart.","level":"Advanced"},{"name":"WTF Visualizations","author":"Community gallery","kind":"Gallery","url":"https://viz.wtf/","use_it_for":"A steady supply of bad examples.","level":"Beginner"},{"name":"Calling Bullshit","author":"Carl Bergstrom & Jevin West","kind":"Course / book","url":"https://www.callingbullshit.org/","use_it_for":"Teaching material on misleading axes and proportional ink.","level":"Advanced"},{"name":"How Charts Lie","author":"Alberto Cairo","kind":"Book","url":"https://albertocairo.com/","use_it_for":"Reading charts critically; lots of misleading examples.","level":"Advanced"},{"name":"The Visual Display of Quantitative Information","author":"Edward Tufte","kind":"Book","url":"https://www.edwardtufte.com/","use_it_for":"Data-ink, chartjunk and the lie factor.","level":"Advanced"}],"election":[{"candidate":"Maya","votes":52},{"candidate":"Jordan","votes":48},{"candidate":"Sam","votes":41}],"screen_time":[{"year":2019,"screen_hours":5.0,"test_score":78.0},{"year":2020,"screen_hours":5.6,"test_score":77.5},{"year":2021,"screen_hours":6.4,"test_score":76.6},{"year":2022,"screen_hours":6.6,"test_score":76.2},{"year":2023,"screen_hours":6.9,"test_score":75.4},{"year":2024,"screen_hours":7.1,"test_score":74.8},{"year":2025,"screen_hours":7.4,"test_score":74.1}],"lunch":[{"week":"2025-09-08","pct_good":47},{"week":"2025-09-15","pct_good":54},{"week":"2025-09-22","pct_good":57},{"week":"2025-09-29","pct_good":51},{"week":"2025-10-06","pct_good":48},{"week":"2025-10-13","pct_good":53},{"week":"2025-10-20","pct_good":56},{"week":"2025-10-27","pct_good":59},{"week":"2025-11-03","pct_good":49},{"week":"2025-11-10","pct_good":49},{"week":"2025-11-17","pct_good":58},{"week":"2025-11-24","pct_good":57},{"week":"2025-12-01","pct_good":62},{"week":"2025-12-08","pct_good":60},{"week":"2025-12-15","pct_good":55},{"week":"2025-12-22","pct_good":55},{"week":"2025-12-29","pct_good":67},{"week":"2026-01-05","pct_good":55},{"week":"2026-01-12","pct_good":54},{"week":"2026-01-19","pct_good":52},{"week":"2026-01-26","pct_good":58},{"week":"2026-02-02","pct_good":58},{"week":"2026-02-09","pct_good":57},{"week":"2026-02-16","pct_good":58},{"week":"2026-02-23","pct_good":60},{"week":"2026-03-02","pct_good":62},{"week":"2026-03-09","pct_good":64},{"week":"2026-03-16","pct_good":60},{"week":"2026-03-23","pct_good":52},{"week":"2026-03-30","pct_good":63}],"team":[{"player":"Ava","practice_hours":6.2,"points":6.9,"labeled":"yes","focus":"no"},{"player":"Ben","practice_hours":7.3,"points":8.0,"labeled":"no","focus":"no"},{"player":"Chloe","practice_hours":5.7,"points":6.4,"labeled":"no","focus":"no"},{"player":"Diego","practice_hours":10.0,"points":18.5,"labeled":"yes","focus":"no"},{"player":"Emma","practice_hours":8.7,"points":10.9,"labeled":"no","focus":"no"},{"player":"Finn","practice_hours":3.8,"points":3.6,"labeled":"no","focus":"no"},{"player":"Grace","practice_hours":4.3,"points":8.1,"labeled":"no","focus":"no"},{"player":"Hiro","practice_hours":5.2,"points":7.9,"labeled":"no","focus":"no"},{"player":"Isla","practice_hours":5.5,"points":17.5,"labeled":"yes","focus":"yes"},{"player":"Jay","practice_hours":8.8,"points":14.1,"labeled":"no","focus":"no"},{"player":"Kai","practice_hours":2.0,"points":3.5,"labeled":"no","focus":"no"},{"player":"Leo","practice_hours":5.8,"points":10.9,"labeled":"yes","focus":"no"}],"activities":[{"activity":"Music","pct":13},{"activity":"Sports","pct":24},{"activity":"Volunteering","pct":4},{"activity":"Gaming","pct":21},{"activity":"Reading","pct":8},{"activity":"Art","pct":12},{"activity":"Part-time job","pct":6},{"activity":"Clubs","pct":9},{"activity":"Other","pct":3}],"phones":[{"month":"Sep","phones":12},{"month":"Oct","phones":15},{"month":"Nov","phones":14},{"month":"Dec","phones":19},{"month":"Jan","phones":22},{"month":"Feb","phones":24},{"month":"Mar","phones":27},{"month":"Apr","phones":31},{"month":"May","phones":36},{"month":"Jun","phones":40}],"fundraiser":[{"week":"Week 1","dollars":900},{"week":"Week 2","dollars":820},{"week":"Week 3","dollars":700},{"week":"Week 4","dollars":610},{"week":"Week 5","dollars":480},{"week":"Week 6","dollars":400},{"week":"Week 7","dollars":310},{"week":"Week 8","dollars":250}],"robotics":[{"year":2000,"members":10},{"year":2010,"members":40},{"year":2020,"members":70},{"year":2021,"members":73},{"year":2022,"members":76},{"year":2023,"members":79},{"year":2024,"members":82},{"year":2025,"members":85}],"temperature":[{"time":"8am","temp_f":98.8},{"time":"10am","temp_f":99.6},{"time":"12pm","temp_f":100.9},{"time":"2pm","temp_f":101.4},{"time":"4pm","temp_f":100.6},{"time":"6pm","temp_f":99.5},{"time":"8pm","temp_f":98.9}],"late":[{"school":"Lincoln High","students":2000,"late":120},{"school":"River Academy","students":800,"late":40},{"school":"Oak Middle","students":300,"late":45}],"membership":[{"month":"2023-01","members":20},{"month":"2023-02","members":21},{"month":"2023-03","members":23},{"month":"2023-04","members":24},{"month":"2023-05","members":25},{"month":"2023-06","members":26},{"month":"2023-07","members":28},{"month":"2023-08","members":29},{"month":"2023-09","members":30},{"month":"2023-10","members":32},{"month":"2023-11","members":33},{"month":"2023-12","members":34},{"month":"2024-01","members":35},{"month":"2024-02","members":37},{"month":"2024-03","members":38},{"month":"2024-04","members":39},{"month":"2024-05","members":41},{"month":"2024-06","members":42},{"month":"2024-07","members":43},{"month":"2024-08","members":45},{"month":"2024-09","members":46},{"month":"2024-10","members":47},{"month":"2024-11","members":48},{"month":"2024-12","members":50},{"month":"2025-01","members":51},{"month":"2025-02","members":52},{"month":"2025-03","members":54},{"month":"2025-04","members":55},{"month":"2025-05","members":56},{"month":"2025-06","members":57},{"month":"2025-07","members":59},{"month":"2025-08","members":60},{"month":"2025-09","members":58},{"month":"2025-10","members":56},{"month":"2025-11","members":55},{"month":"2025-12","members":54}],"followers":[{"month":"Jan","followers":10200},{"month":"Feb","followers":10400},{"month":"Mar","followers":10500},{"month":"Apr","followers":10900},{"month":"May","followers":11300},{"month":"Jun","followers":11800}],"survey":[{"answer":"Prefer FizzUp","people":9},{"answer":"Prefer something else","people":1}],"poll":[{"candidate":"Rivera","pct":48,"margin":3},{"candidate":"Chen","pct":46,"margin":3}],"steps":[{"day":"Mon","steps":8200},{"day":"Tue","steps":8450},{"day":"Wed","steps":8100},{"day":"Thu","steps":7900},{"day":"Fri","steps":8300},{"day":"Sat","steps":7800},{"day":"Sun","steps":7950}],"sales":[{"year":2024,"pairs_sold":50000},{"year":2025,"pairs_sold":100000}],"coin":[{"date":"2026-04-13","price":0.971},{"date":"2026-04-14","price":1.005},{"date":"2026-04-15","price":1.088},{"date":"2026-04-16","price":1.042},{"date":"2026-04-17","price":1.136},{"date":"2026-04-18","price":1.109},{"date":"2026-04-19","price":1.243},{"date":"2026-04-20","price":1.251},{"date":"2026-04-21","price":1.323},{"date":"2026-04-22","price":1.298},{"date":"2026-04-23","price":1.363},{"date":"2026-04-24","price":1.375},{"date":"2026-04-25","price":1.394},{"date":"2026-04-26","price":1.46},{"date":"2026-04-27","price":1.443},{"date":"2026-04-28","price":1.511},{"date":"2026-04-29","price":1.587},{"date":"2026-04-30","price":1.597},{"date":"2026-05-01","price":1.613},{"date":"2026-05-02","price":1.756},{"date":"2026-05-03","price":1.702},{"date":"2026-05-04","price":1.71},{"date":"2026-05-05","price":1.777},{"date":"2026-05-06","price":1.781},{"date":"2026-05-07","price":1.822},{"date":"2026-05-08","price":1.859},{"date":"2026-05-09","price":2.007},{"date":"2026-05-10","price":1.946},{"date":"2026-05-11","price":1.989},{"date":"2026-05-12","price":2.049},{"date":"2026-05-13","price":2.153},{"date":"2026-05-14","price":2.073},{"date":"2026-05-15","price":2.087},{"date":"2026-05-16","price":2.288},{"date":"2026-05-17","price":2.11},{"date":"2026-05-18","price":2.205},{"date":"2026-05-19","price":2.298},{"date":"2026-05-20","price":2.426},{"date":"2026-05-21","price":2.275},{"date":"2026-05-22","price":2.221},{"date":"2026-05-23","price":2.44},{"date":"2026-05-24","price":2.355},{"date":"2026-05-25","price":2.349},{"date":"2026-05-26","price":2.385},{"date":"2026-05-27","price":2.357},{"date":"2026-05-28","price":2.347},{"date":"2026-05-29","price":2.292},{"date":"2026-05-30","price":2.377},{"date":"2026-05-31","price":2.375},{"date":"2026-06-01","price":2.277},{"date":"2026-06-02","price":2.235},{"date":"2026-06-03","price":2.288},{"date":"2026-06-04","price":2.26},{"date":"2026-06-05","price":2.161},{"date":"2026-06-06","price":2.18},{"date":"2026-06-07","price":2.249},{"date":"2026-06-08","price":2.172},{"date":"2026-06-09","price":2.146},{"date":"2026-06-10","price":2.161},{"date":"2026-06-11","price":2.134},{"date":"2026-06-12","price":2.122},{"date":"2026-06-13","price":2.006},{"date":"2026-06-14","price":2.186},{"date":"2026-06-15","price":2.09},{"date":"2026-06-16","price":2.021},{"date":"2026-06-17","price":2.103},{"date":"2026-06-18","price":2.054},{"date":"2026-06-19","price":2.025},{"date":"2026-06-20","price":2.063},{"date":"2026-06-21","price":2.109},{"date":"2026-06-22","price":2.01},{"date":"2026-06-23","price":2.047},{"date":"2026-06-24","price":2.06},{"date":"2026-06-25","price":1.891},{"date":"2026-06-26","price":1.902},{"date":"2026-06-27","price":1.95},{"date":"2026-06-28","price":1.818},{"date":"2026-06-29","price":1.873},{"date":"2026-06-30","price":1.932},{"date":"2026-07-01","price":1.906},{"date":"2026-07-02","price":1.87},{"date":"2026-07-03","price":1.743},{"date":"2026-07-04","price":1.923},{"date":"2026-07-05","price":1.827},{"date":"2026-07-06","price":1.822},{"date":"2026-07-07","price":1.796},{"date":"2026-07-08","price":1.685},{"date":"2026-07-09","price":1.684},{"date":"2026-07-10","price":1.68},{"date":"2026-07-11","price":1.801},{"date":"2026-07-12","price":1.669},{"date":"2026-07-13","price":1.68},{"date":"2026-07-14","price":1.666},{"date":"2026-07-15","price":1.687},{"date":"2026-07-16","price":1.67},{"date":"2026-07-17","price":1.646},{"date":"2026-07-18","price":1.57},{"date":"2026-07-19","price":1.481},{"date":"2026-07-20","price":1.6},{"date":"2026-07-21","price":1.59},{"date":"2026-07-22","price":1.614},{"date":"2026-07-23","price":1.548},{"date":"2026-07-24","price":1.514},{"date":"2026-07-25","price":1.539},{"date":"2026-07-26","price":1.451},{"date":"2026-07-27","price":1.457},{"date":"2026-07-28","price":1.445},{"date":"2026-07-29","price":1.479},{"date":"2026-07-30","price":1.53},{"date":"2026-07-31","price":1.468},{"date":"2026-08-01","price":1.467},{"date":"2026-08-02","price":1.421},{"date":"2026-08-03","price":1.408},{"date":"2026-08-04","price":1.369},{"date":"2026-08-05","price":1.361},{"date":"2026-08-06","price":1.274},{"date":"2026-08-07","price":1.302},{"date":"2026-08-08","price":1.286},{"date":"2026-08-09","price":1.343},{"date":"2026-08-10","price":1.323},{"date":"2026-08-11","price":1.324},{"date":"2026-08-12","price":1.323},{"date":"2026-08-13","price":1.25},{"date":"2026-08-14","price":1.278},{"date":"2026-08-15","price":1.292},{"date":"2026-08-16","price":1.217},{"date":"2026-08-17","price":1.236},{"date":"2026-08-18","price":1.185},{"date":"2026-08-19","price":1.129},{"date":"2026-08-20","price":1.166},{"date":"2026-08-21","price":1.125},{"date":"2026-08-22","price":1.137},{"date":"2026-08-23","price":1.107},{"date":"2026-08-24","price":1.115},{"date":"2026-08-25","price":1.034},{"date":"2026-08-26","price":1.135},{"date":"2026-08-27","price":1.101},{"date":"2026-08-28","price":1.042},{"date":"2026-08-29","price":1.013},{"date":"2026-08-30","price":1.023},{"date":"2026-08-31","price":1.026},{"date":"2026-09-01","price":1.006},{"date":"2026-09-02","price":0.991},{"date":"2026-09-03","price":0.92},{"date":"2026-09-04","price":0.926},{"date":"2026-09-05","price":0.971},{"date":"2026-09-06","price":0.931},{"date":"2026-09-07","price":0.877},{"date":"2026-09-08","price":0.878},{"date":"2026-09-09","price":0.852},{"date":"2026-09-10","price":0.848},{"date":"2026-09-11","price":0.881},{"date":"2026-09-12","price":0.837},{"date":"2026-09-13","price":0.852},{"date":"2026-09-14","price":0.818},{"date":"2026-09-15","price":0.77},{"date":"2026-09-16","price":0.774},{"date":"2026-09-17","price":0.817},{"date":"2026-09-18","price":0.744},{"date":"2026-09-19","price":0.725},{"date":"2026-09-20","price":0.754},{"date":"2026-09-21","price":0.719},{"date":"2026-09-22","price":0.703},{"date":"2026-09-23","price":0.715},{"date":"2026-09-24","price":0.645},{"date":"2026-09-25","price":0.668},{"date":"2026-09-26","price":0.63},{"date":"2026-09-27","price":0.611},{"date":"2026-09-28","price":0.607},{"date":"2026-09-29","price":0.623},{"date":"2026-09-30","price":0.59},{"date":"2026-10-01","price":0.551},{"date":"2026-10-02","price":0.548},{"date":"2026-10-03","price":0.571},{"date":"2026-10-04","price":0.602},{"date":"2026-10-05","price":0.606},{"date":"2026-10-06","price":0.701},{"date":"2026-10-07","price":0.69},{"date":"2026-10-08","price":0.711},{"date":"2026-10-09","price":0.799}]};
 window.dash = (function () {
   const store = Object.assign({}, window.DATA), calcs = [], subs = [];
   return {
@@ -171,8 +218,11 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
     <nav class="gv-nav" aria-label="Sections">
       <button data-go="read">How to read a chart</button>
       <button data-go="pairs">Spot the mistake</button>
+      <button data-go="playground">Playground</button>
       <button data-go="quiz">Quiz</button>
+      <button data-go="field">Real-life guide</button>
       <button data-go="tell">Tell your story</button>
+      <button data-go="maker">Make a chart</button>
       <button data-go="your-turn">Your turn</button>
       <button data-go="catalog" data-min="i">All mistakes</button>
       <button data-go="good" data-min="i">Great charts</button>
@@ -295,6 +345,35 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
     </div>
   </section>
 
+  <section id="playground" class="gv-card">
+    <h2 class="gv-h2">Chart playground: try the tricks yourself</h2>
+    <p class="gv-sub">Same numbers every time. Move the controls and watch how the story changes.</p>
+    <div class="gv-fgrid">
+      <div class="gv-panel">
+        <div class="gv-badge">1 · Move the axis</div>
+        <p class="gv-says">The election again: Maya, Jordan and Sam. Slide where the bars start.</p>
+        <div class="gv-ctl"><label for="pg-axis">Bars start at <span id="pg-axis-v">0</span></label><input type="range" id="pg-axis" min="0" max="40" step="1" value="0"></div>
+        <div class="gv-chart" id="pg-c1" data-source="election"></div>
+        <p class="gv-readout" id="pg-r1"></p>
+      </div>
+      <div class="gv-panel">
+        <div class="gv-badge">2 · Pick the time range</div>
+        <p class="gv-says">Coding club members. Choose how many months to show.</p>
+        <div class="gv-ctl"><label for="pg-range">Show the last <span id="pg-range-v">36</span> months</label><input type="range" id="pg-range" min="3" max="36" step="1" value="36"></div>
+        <div class="gv-ctl"><label class="gv-check" style="font-weight:400"><input type="checkbox" id="pg-zoom"> Zoom in on the y-axis</label></div>
+        <div class="gv-chart" id="pg-c2" data-source="membership"></div>
+        <p class="gv-readout" id="pg-r2"></p>
+      </div>
+      <div class="gv-panel" data-min="i">
+        <div class="gv-badge">3 · Totals or rates?</div>
+        <p class="gv-says">Late arrivals at three schools of very different sizes.</p>
+        <div class="gv-seg" role="group" aria-label="Show"><button id="pg-tot" aria-pressed="true">Total late</button><button id="pg-rate" aria-pressed="false">Late per 100 students</button></div>
+        <div class="gv-chart" id="pg-c3" data-source="late late_rate"></div>
+        <p class="gv-readout" id="pg-r3"></p>
+      </div>
+    </div>
+  </section>
+
   <section id="quiz" class="gv-card">
     <h2 class="gv-h2">Quiz: which chart is misleading?</h2>
     <p class="gv-sub">Each question tells a short story and shows the same numbers drawn two ways. One chart tells a false or confusing story. Pick it, then see why.<span data-min="i"> Questions 6 to 8 are tricks you haven’t seen yet.</span><span data-min="a"> Advanced adds three questions where breaking a rule might be OK. Think carefully!</span></p>
@@ -314,6 +393,12 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
       <p class="gv-sub" id="qz-msg"></p>
       <button class="gv-btn" id="qz-restart">Try again</button>
     </div>
+  </section>
+
+  <section id="field">
+    <h2 class="gv-h2">Real-life field guide</h2>
+    <p class="gv-sub">This is how charts actually show up: in posts, ads, news and apps. For each one, read it like you would on your phone, then investigate step by step. All the posts, brands and people are made up.</p>
+    <div class="gv-field" id="field-list"></div>
   </section>
 
   <section id="tell" class="gv-card">
@@ -338,6 +423,31 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
     <div class="gv-deep" data-min="a"><b>🌳 Go deeper: one dataset, more than one honest story</b>The election numbers could honestly support “Maya wins” or “Sam finishes far behind.” Choosing which story to tell is a decision, not a lie, as long as the chart doesn’t distort the numbers. Strong chart-makers also <b>show uncertainty</b> (“about 1 in 4, give or take”), think about their <b>audience</b> (a principal and a 6th grader need different charts), and <b>name their sources</b> so readers can check the data.</div>
   </section>
 
+  <section id="maker" class="gv-card">
+    <h2 class="gv-h2">Make your own chart</h2>
+    <p class="gv-sub">For a class project, a club or a presentation. Type your data, write your headline, and the checklist tells you what to fix before you share it.</p>
+    <div class="gv-form">
+      <label>Your headline (the story in one sentence)<input type="text" id="mk-title" value="Pizza Friday wins our lunch vote"></label>
+      <label>What are the numbers? (units)<input type="text" id="mk-unit" value="votes"></label>
+      <label>Where is the data from? (source)<input type="text" id="mk-source" value="Class survey, 28 students"></label>
+      <label>Chart type<select id="mk-type"><option value="bar">Bar chart: compare amounts</option><option value="line">Line chart: change over time</option></select></label>
+      <label style="grid-column:1/-1">Your data: one row per line, written as <i>label, number</i><textarea id="mk-data" spellcheck="false">Pizza, 12
+Tacos, 7
+Pasta, 5
+Salad, 4</textarea></label>
+      <label>Highlight one thing<select id="mk-hl"></select></label>
+      <div style="display:flex;flex-direction:column;gap:6px;justify-content:end">
+        <label class="gv-check"><input type="checkbox" id="mk-sort" checked> Sort from biggest to smallest</label>
+        <label class="gv-check" id="mk-zero-wrap"><input type="checkbox" id="mk-zero" checked> Start the axis at zero</label>
+      </div>
+    </div>
+    <div class="gv-fgrid" style="margin-top:var(--cds-gap-lg)">
+      <div class="gv-panel"><div class="gv-badge">Preview</div><div class="gv-chart" id="mk-chart"></div>
+        <div class="gv-ctl" id="mk-dl-wrap" hidden><button class="gv-btn" id="mk-dl">Download as image (PNG)</button></div></div>
+      <div class="gv-panel"><div class="gv-badge">Honesty checklist</div><ul class="gv-checklist" id="mk-check"></ul></div>
+    </div>
+  </section>
+
   <section id="your-turn" class="gv-card">
     <h2 class="gv-h2">Your turn: find a chart in the real world</h2>
     <p class="gv-sub">Charts are everywhere: news sites, social media, ads, even textbooks. Find one and put it to the test.</p>
@@ -355,7 +465,7 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
       <li><b>Fix it.</b> Sketch a better version with an honest headline, then share it with the class.</li>
     </ol>
     <div class="gv-deep" data-min="a"><b>🌳 Advanced challenge</b>Pick a real graph from <i>What’s Going On in This Graph?</i> or the news. Write two headlines for it: one honest and one misleading. Then redesign the chart so the honest headline is impossible to miss, and write a short paragraph explaining every design choice (axis, colors, chart type, title). Bonus: find the original data source and check the chart against it.</div>
-    <p style="margin:var(--cds-gap-md) 0 0"><a class="gv-btn gv-link" id="ws-link" href="worksheet-intermediate.pdf" target="_blank" rel="noopener">Download the printable worksheet (PDF)</a></p>
+    <p style="margin:var(--cds-gap-md) 0 0;display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm)"><a class="gv-btn gv-link" href="pocket-card.pdf" target="_blank" rel="noopener">Download the pocket chart-check card (PDF)</a><a class="gv-btn gv-link" id="ws-link" href="worksheet-intermediate.pdf" target="_blank" rel="noopener">Download the printable worksheet (PDF)</a></p>
   </section>
 
   <section class="gv-more" data-only="b">Ready for more? Switch to <b>🌿 Intermediate</b> at the top to see two more stories, the full quiz, all 17 chart mistakes and famous great charts.</section>
@@ -892,6 +1002,325 @@ dash.calc('membership_recent', {
   $('#qz-next').addEventListener('click', () => { qz.i++; qz.picked = null; drawQuiz(); $('#quiz').scrollIntoView({behavior: 'smooth'}); });
   $('#qz-restart').addEventListener('click', () => { qz.i = 0; qz.score = 0; qz.picked = null; drawQuiz(); });
 
+  // ---------- Real-life field guide ----------
+  const pct = (a, b) => Math.round((b / a - 1) * 100);
+  function iconPerson(g, x, y, s, fill) {
+    g.append('circle').attr('cx', x).attr('cy', y - s * .55).attr('r', s * .22).attr('fill', fill);
+    g.append('path').attr('d', `M${x - s * .32},${y + s * .35} Q${x - s * .32},${y - s * .2} ${x},${y - s * .22} Q${x + s * .32},${y - s * .2} ${x + s * .32},${y + s * .35} Z`).attr('fill', fill);
+  }
+  function iconBag(g, x, y, w, h, fill) {   // shopping bag, bottom-left at (x, y)
+    g.append('rect').attr('x', x).attr('y', y - h * .8).attr('width', w).attr('height', h * .8).attr('rx', w * .06).attr('fill', fill);
+    g.append('path').attr('d', `M${x + w * .3},${y - h * .8} C${x + w * .3},${y - h} ${x + w * .7},${y - h} ${x + w * .7},${y - h * .8}`).attr('fill', 'none').attr('stroke', fill).attr('stroke-width', Math.max(2, w * .06));
+  }
+  function barsFrom(el, rows, xKey, yKey, lo, opts) {
+    const o = opts || {}, w = width(el), h = o.h || 200, svg = svgIn(el, w, h), tt = tip(el);
+    const mx = d3.max(rows, r => Number(r[yKey]));
+    const y = d3.scaleLinear([lo, o.hi || mx * (lo ? 1.02 : 1.12)], [h - 24, 10]).nice();
+    const lw = textW(svg, y.ticks(4).map(fmt)) + 8;
+    const x = d3.scaleBand(rows.map(r => r[xKey]), [lw + 4, w - 6]).padding(.3);
+    grid(svg, y, lw, w - 6, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(fmt).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${h - 24})`), d3.axisBottom(x).tickSize(0).tickPadding(6));
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r[xKey])).attr('width', x.bandwidth())
+      .attr('y', r => y(Number(r[yKey]))).attr('height', r => y(y.domain()[0]) - y(Number(r[yKey]))).attr('rx', 3).attr('fill', o.color || C[0])
+      .on('mousemove', (ev, r) => tt.show(ev, String(r[xKey]), [fmt(r[yKey]) + (o.unit ? ' ' + o.unit : '')])).on('mouseleave', () => tt.hide());
+    if (o.avg) {
+      const a = d3.mean(rows, r => Number(r[yKey]));
+      svg.append('line').attr('x1', lw).attr('x2', w - 6).attr('y1', y(a)).attr('y2', y(a)).attr('stroke', 'var(--color-fg)').attr('stroke-dasharray', '5 4');
+      label(svg, w - 6, y(a) - 6, 'average ' + fmt(Math.round(a)), 'end').style('fill', 'var(--color-fg)');
+    }
+    return svg;
+  }
+  const SCEN = [
+    {id: 'followers', min: 'b', kicker: 'On social media', ids: ['followers'],
+     frame: (f) => social(f, 'J', '#d6457a', 'Jaylen Creates', '@jaylen.creates · 2h', 'My followers EXPLODED this year 🚀📈 Thank you fam!! #grind', '❤ 2.1K', '💬 184', '↻ 96'),
+     bad: ([d], el) => barsFrom(el, d, 'month', 'followers', 10000, {unit: 'followers'}),
+     good: ([d], el) => barsFrom(el, d, 'month', 'followers', 0, {unit: 'followers'}),
+     steps: ([d]) => { const a = d[0].followers, b = d[d.length - 1].followers;
+       return [['Where does the axis start?', 'At 10,000, not zero. That cuts off most of every bar, so June looks about ' + Math.round((b - 10000) / (a - 10000)) + ' times taller than January.'],
+               ['How much did followers really grow?', 'From ' + fmt(a) + ' to ' + fmt(b) + ': up ' + pct(a, b) + '% in six months. Nice growth, but not an explosion.']]; },
+     verdict: ['mis', 'Misleading: the axis is cut off.'],
+     tip: 'Influencers, brands and campaigns use cut-off axes to look bigger. When you see words like \u201cexploded\u201d or \u201cskyrocketed,\u201d glance at the bottom of the axis first.'},
+    {id: 'survey', min: 'b', kicker: 'In an ad', ids: ['survey'],
+     frame: (f) => { const h = f.append('div').attr('class', 'gv-ad-head'); h.append('small').text('New! FizzUp Sparkling'); h.append('span').text('9 out of 10 students prefer FizzUp!*');
+       return () => f.append('div').attr('class', 'gv-fine').text('*Survey of 10 students at a FizzUp free-sample event.'); },
+     bad: ([d], el) => { const w = width(el), h = 190, svg = svgIn(el, w, h), tt = tip(el), R = 78;
+       const g = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
+       g.selectAll('path').data(d3.pie().sort(null).value(r => r.people)(d)).join('path').attr('d', d3.arc().innerRadius(0).outerRadius(R))
+         .attr('fill', (r, i) => i ? 'var(--cds-chart-muted)' : C[3]).attr('stroke', 'var(--color-bg)').attr('stroke-width', 2)
+         .on('mousemove', (ev, r) => tt.show(ev, r.data.answer, [r.data.people + ' people'])).on('mouseleave', () => tt.hide());
+       const tot = d3.sum(d, r => r.people);
+       g.append('text').attr('class', 'gv-lbl').attr('text-anchor', 'middle').attr('dy', '.35em').style('font-size', '1.6rem').style('font-weight', 800).style('fill', '#fff').text(Math.round(d[0].people / tot * 100) + '%'); },
+     good: ([d], el) => { const w = width(el), h = 190, svg = svgIn(el, w, h), tot = d3.sum(d, r => r.people);
+       const s = Math.min(46, (w - 20) / tot), x0 = (w - s * tot) / 2;
+       for (let i = 0; i < tot; i++) iconPerson(svg, x0 + s * i + s / 2, 92, s, i < d[0].people ? C[3] : 'var(--cds-chart-muted)');
+       label(svg, w / 2, 150, 'Each figure is one person. That\u2019s everyone who was asked.', 'middle');
+       label(svg, w / 2, 170, 'Not enough to say anything about \u201cstudents\u201d in general.', 'middle'); },
+     steps: ([d]) => [['How many people were asked?', 'Only ' + d3.sum(d, r => r.people) + '. Check the tiny print under the ad. A big percentage from a tiny group can swing wildly: one person changing their mind moves it by 10 points.'],
+                      ['Who was asked?', 'Students at a FizzUp free-sample event: people who showed up because they already like FizzUp. That\u2019s a biased sample.']],
+     verdict: ['mis', 'Misleading: tiny, one-sided sample.'], goodLabel: 'Who was really asked',
+     tip: 'In ads, always find the fine print (*). Ask two questions: how many people were asked, and who were they?'},
+    {id: 'poll', min: 'i', kicker: 'In the news', ids: ['poll'],
+     frame: (f) => { f.append('div').attr('class', 'gv-news-site').text('The Daily Ledger'); f.append('div').attr('class', 'gv-news-head').text('Rivera LEADS Chen in school board race, new poll shows');
+       f.append('div').attr('class', 'gv-news-dek').text('Poll of 600 local voters · margin of error ±3 points'); },
+     bad: ([d], el) => barsFrom(el, d, 'candidate', 'pct', 44, {unit: '%', hi: 49}),
+     good: ([d], el) => { const w = width(el), h = 190, svg = svgIn(el, w, h), tt = tip(el);
+       const lw = textW(svg, d.map(r => r.candidate), 'gv-lbl') + 12;
+       const x = d3.scaleLinear([35, 60], [lw, w - 14]), y = d3.scaleBand(d.map(r => r.candidate), [30, h - 30]).padding(.4);
+       grid(svg, d3.scaleLinear([35, 60], [lw, w - 14]), 0, 0, 5);
+       axis(svg.append('g').attr('transform', `translate(0,${h - 22})`), d3.axisBottom(x).ticks(5).tickFormat(v => v + '%').tickSize(0).tickPadding(4));
+       const lo = d3.max(d, r => r.pct - r.margin), hi = d3.min(d, r => r.pct + r.margin);
+       if (hi > lo) { svg.append('rect').attr('x', x(lo)).attr('width', x(hi) - x(lo)).attr('y', 18).attr('height', h - 46).attr('fill', 'var(--color-warn)').attr('opacity', .15);
+         label(svg, x((lo + hi) / 2), 14, 'ranges overlap: too close to call', 'middle').style('fill', 'var(--color-warn)'); }
+       d.forEach((r, i) => { const cy = y(r.candidate) + y.bandwidth() / 2, c = C[i];
+         svg.append('text').attr('class', 'gv-lbl').attr('x', lw - 8).attr('y', cy).attr('dy', '.35em').attr('text-anchor', 'end').text(r.candidate);
+         svg.append('line').attr('x1', x(r.pct - r.margin)).attr('x2', x(r.pct + r.margin)).attr('y1', cy).attr('y2', cy).attr('stroke', c).attr('stroke-width', 6).attr('stroke-linecap', 'round').attr('opacity', .45);
+         svg.append('circle').attr('cx', x(r.pct)).attr('cy', cy).attr('r', 7).attr('fill', c)
+           .on('mousemove', ev => tt.show(ev, r.candidate, [r.pct + '%, give or take ' + r.margin])).on('mouseleave', () => tt.hide()); }); },
+     steps: ([d]) => [['What\u2019s the margin of error?', '\u00b1' + d[0].margin + ' points. Each number could really be ' + d[0].margin + ' higher or lower, just because only some voters were asked.'],
+                      ['Do the ranges overlap?', 'Yes. ' + d[0].candidate + ' could really be as low as ' + (d[0].pct - d[0].margin) + '%, and ' + d[1].candidate + ' as high as ' + (d[1].pct + d[1].margin) + '%. Also notice the bars start at 44, which makes the gap look bigger.']],
+     verdict: ['mis', 'Misleading headline: it\u2019s a statistical tie.'], goodLabel: 'With the margin of error',
+     tip: 'When a poll \u201clead\u201d is smaller than about twice the margin of error, treat it as a tie. Good news sites say so; headlines often don\u2019t.'},
+    {id: 'steps', min: 'b', kicker: 'In an app', ids: ['steps'], app: true,
+     frame: (f) => { const b = f.append('div').attr('class', 'gv-app-bar'); b.append('span').text('Activity'); b.append('small').text('Your steps dropped this week 📉'); },
+     bad: ([d], el) => barsFrom(el, d, 'day', 'steps', 7700, {unit: 'steps', color: C[2]}),
+     good: ([d], el) => barsFrom(el, d, 'day', 'steps', 0, {unit: 'steps', color: C[2], avg: true}),
+     steps: ([d]) => { const a = d3.mean(d, r => r.steps), dev = Math.round(d3.max(d, r => Math.abs(r.steps - a)) / a * 100);
+       return [['Where does the axis start?', 'Around 7,700. The app zoomed in automatically to fill the screen, so small changes look huge.'],
+               ['How different were the days really?', 'Every day was within about ' + dev + '% of the week\u2019s average. That\u2019s a normal week, not a drop.']]; },
+     verdict: ['con', 'Confusing: the app zoomed in on the axis.'],
+     tip: 'Fitness, screen-time and money apps zoom their charts to fill your screen. Read the numbers on the axis before you worry about a \u201cdrop.\u201d'},
+    {id: 'sales', min: 'b', kicker: 'In an infographic', ids: ['sales'],
+     frame: (f) => { const h = f.append('div').attr('class', 'gv-info-head'); h.append('small').text('Sneakz Co. · 2025 year in review'); h.append('span').text('Sales DOUBLED! 👟'); },
+     bad: ([d], el) => { const w = width(el), h = 200, svg = svgIn(el, w, h), tt = tip(el), base = 52;
+       d.forEach((r, i) => { const s = r.pairs_sold / d[0].pairs_sold, bw = base * s, bh = base * 1.2 * s, x = w * (i ? .62 : .3) - bw / 2;
+         const g = svg.append('g'); iconBag(g, x, h - 26, bw, bh, C[i ? 1 : 0]);
+         g.on('mousemove', ev => tt.show(ev, String(r.year), [fmt(r.pairs_sold) + ' pairs sold'])).on('mouseleave', () => tt.hide());
+         label(svg, x + bw / 2, h - 8, String(r.year), 'middle'); }); },
+     good: ([d], el) => { const w = width(el), h = 200, svg = svgIn(el, w, h), unit = d[0].pairs_sold, s = 40;
+       d.forEach((r, i) => { const n = Math.round(r.pairs_sold / unit), y0 = 60 + i * 70;
+         svg.append('text').attr('class', 'gv-lbl').attr('x', 8).attr('y', y0 - 18).text(r.year);
+         for (let k = 0; k < n; k++) iconBag(svg, 60 + k * (s + 12), y0, s, s * 1.2, C[0]);
+         svg.append('text').attr('class', 'gv-lbl gv-num').attr('x', 60 + n * (s + 12) + 4).attr('y', y0 - 18).text(fmt(r.pairs_sold) + ' pairs'); });
+       label(svg, 8, h - 6, 'Each bag = ' + fmt(unit) + ' pairs'); },
+     steps: ([d]) => [['How much did sales grow?', 'From ' + fmt(d[0].pairs_sold) + ' to ' + fmt(d[1].pairs_sold) + ' pairs: they doubled (2\u00d7).'],
+                      ['How much bigger does the second bag look?', 'About 4\u00d7. It\u2019s twice as tall and twice as wide, and our eyes judge the whole area.']],
+     verdict: ['mis', 'Misleading: the picture grew in two directions.'], goodLabel: 'Count the bags instead',
+     tip: 'In infographics, compare heights or count icons. Don\u2019t trust the size of pictures, especially ones that grow both taller and wider.'},
+    {id: 'coin', min: 'i', kicker: 'In a money post', ids: ['coin'],
+     frame: (f) => social(f, 'M', '#2e9e6b', 'MoonBoi Trades', '@moonboi_trades · 5h', '$MOON is up 40% THIS WEEK 🚀🚀 get in before it\u2019s too late', '❤ 870', '💬 312', '↻ 205'),
+     bad: ([d], el) => coinChart(el, d.slice(-7), true),
+     good: ([d], el) => coinChart(el, d, false),
+     steps: ([d]) => { const wk = d.slice(-7), peak = d3.max(d, r => r.price);
+       return [['What time range does it show?', 'Only the last 7 days, on a zoomed-in axis.'],
+               ['What happened before that?', 'Over the last six months the price peaked, then fell. Even after this week\u2019s jump, it\u2019s about ' + Math.abs(pct(peak, wk[wk.length - 1].price)) + '% below its peak.']]; },
+     verdict: ['mis', 'Misleading: cherry-picked time range.'], goodLabel: 'Zoomed out to six months',
+     tip: 'On money and crypto posts, always zoom out. A big jump can be a small bounce after a big fall. And be wary of anyone rushing you to \u201cget in.\u201d'},
+  ];
+  function social(f, ini, col, name, handle, text, a, b, c) {
+    const t = f.append('div').attr('class', 'gv-frame-top');
+    t.append('div').attr('class', 'gv-avatar').style('background', col).text(ini);
+    const w = t.append('div').attr('class', 'gv-who'); w.append('span').text(name); w.append('small').text(handle);
+    f.append('div').attr('class', 'gv-post').text(text);
+    return () => { const r = f.append('div').attr('class', 'gv-react'); [a, b, c].forEach(s => r.append('span').text(s)); };
+  }
+  function coinChart(el, rows, zoom) {
+    const w = width(el), h = 190, svg = svgIn(el, w, h), tt = tip(el), pd = s => new Date(s + 'T00:00:00Z');
+    const ext = d3.extent(rows, r => r.price);
+    const y = d3.scaleLinear(zoom ? [ext[0] * .98, ext[1] * 1.02] : [0, ext[1] * 1.1], [h - 24, 12]).nice();
+    const lw = textW(svg, y.ticks(4).map(v => '$' + v.toFixed(2))) + 8;
+    const x = d3.scaleUtc(d3.extent(rows, r => pd(r.date)), [lw + 6, w - 12]);
+    grid(svg, y, lw, w - 12, 4);
+    axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(v => '$' + v.toFixed(2)).tickSize(0).tickPadding(6));
+    axis(svg.append('g').attr('transform', `translate(0,${h - 24})`), d3.axisBottom(x).ticks(zoom ? 4 : 5).tickFormat(d3.utcFormat(zoom ? '%a' : '%b')).tickSize(0).tickPadding(6));
+    if (!zoom) { const wk = rows.slice(-7); svg.append('rect').attr('x', x(pd(wk[0].date))).attr('width', x(pd(wk[6].date)) - x(pd(wk[0].date)) + 2).attr('y', 12).attr('height', h - 36).attr('fill', 'var(--color-warn)').attr('opacity', .18);
+      label(svg, x(pd(wk[0].date)) - 4, 22, 'the post\u2019s week \u2192', 'end').style('fill', 'var(--color-warn)'); }
+    line(svg, rows, r => x(pd(r.date)), r => y(r.price), C[2], zoom ? 3 : 2);
+    const step = (x.range()[1] - x.range()[0]) / Math.max(1, rows.length - 1);
+    hover(svg, rows, r => x(pd(r.date)), step, tt, r => d3.utcFormat('%b %-d')(pd(r.date)), r => ['$' + r.price.toFixed(2)]);
+  }
+  const fieldView = {};
+  function buildField() {
+    const list = d3.select('#field-list'); list.selectAll('*').remove();
+    SCEN.forEach(sc => {
+      const card = list.append('article').attr('class', 'gv-card').attr('id', 'irl-' + sc.id);
+      if (sc.min !== 'b') card.attr('data-min', sc.min);
+      card.append('div').attr('class', 'gv-kicker').text(sc.kicker);
+      const grid2 = card.append('div').attr('class', 'gv-fgrid');
+      const left = grid2.append('div');
+      const seg = left.append('div').attr('class', 'gv-seg').attr('role', 'group').attr('aria-label', 'Version');
+      seg.append('button').attr('data-v', 'bad').text('As posted');
+      seg.append('button').attr('data-v', 'good').text(sc.goodLabel || 'Fixed version');
+      const fr = left.append('div').attr('class', 'gv-frame' + (sc.app ? ' gv-app' : ''));
+      const after = sc.frame(fr);
+      fr.append('div').attr('class', 'gv-chart').attr('id', 'irl-c-' + sc.id).attr('data-source', sc.ids.join(' ')).style('min-height', '190px');
+      if (typeof after === 'function') after();
+      const right = grid2.append('div');
+      right.append('div').attr('class', 'gv-hint').style('margin', '0').html('<b>Investigate:</b> click each question.');
+      right.append('div').attr('class', 'gv-steps2').attr('id', 'irl-s-' + sc.id);
+      right.append('div').attr('class', 'gv-verdict ' + sc.verdict[0]).attr('id', 'irl-v-' + sc.id).style('display', 'none').text(sc.verdict[1]);
+      right.append('div').attr('class', 'gv-tipbox').attr('id', 'irl-t-' + sc.id).style('display', 'none').html('<b>Next time you see this:</b> ').append('span').text(sc.tip);
+      fieldView[sc.id] = 'bad';
+      seg.selectAll('button').on('click', function () { fieldView[sc.id] = this.dataset.v; drawScenario(sc); });
+    });
+  }
+  function drawScenario(sc) {
+    const el = $('#irl-c-' + sc.id), dss = sc.ids.map(id => dash.data(id)), nok = dss.find(d => d.status !== 'ok');
+    document.querySelectorAll('#irl-' + sc.id + ' .gv-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === fieldView[sc.id])));
+    if (nok) { ready(el, nok); return; }
+    el.classList.remove('dash-skeleton');
+    const data = dss.map(d => d.data);
+    (fieldView[sc.id] === 'bad' ? sc.bad : sc.good)(data, el);
+    a11y(el, sc.kicker + ': ' + (fieldView[sc.id] === 'bad' ? 'the chart as posted' : 'the fixed chart'));
+    const box = $('#irl-s-' + sc.id);
+    if (!box.childElementCount) {
+      const steps = sc.steps(data);
+      steps.forEach(([q, a], i) => {
+        const det = document.createElement('details'), sm = document.createElement('summary'), pp = document.createElement('p');
+        sm.textContent = (i + 1) + '. ' + q; pp.textContent = a; det.append(sm, pp); box.appendChild(det);
+        det.addEventListener('toggle', () => { if (det.open && i === steps.length - 1) { $('#irl-v-' + sc.id).style.display = 'block'; $('#irl-t-' + sc.id).style.display = 'block'; } });
+      });
+    }
+  }
+  buildField();
+
+  // ---------- Playground ----------
+  let pgRate = false;
+  function drawPlay() {
+    const el1 = $('#pg-c1'), e = dash.data('election');
+    const lo = Number($('#pg-axis').value); $('#pg-axis-v').textContent = lo;
+    if (ready(el1, e)) {
+      const rows = e.data, w = width(el1), svg = svgIn(el1, w, 200), tt = tip(el1);
+      const mx = d3.max(rows, r => r.votes), y = d3.scaleLinear([lo, mx * 1.1], [176, 8]);
+      const lw = textW(svg, y.ticks(4).map(String)) + 8, x = d3.scaleBand(rows.map(r => r.candidate), [lw + 6, w - 6]).padding(.35);
+      grid(svg, y, lw, w - 6, 4);
+      axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6));
+      axis(svg.append('g').attr('transform', 'translate(0,176)'), d3.axisBottom(x).tickSize(0).tickPadding(6));
+      svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.candidate)).attr('width', x.bandwidth()).attr('y', r => y(r.votes)).attr('height', r => 176 - y(r.votes)).attr('rx', 4).attr('fill', (r, i) => C[i])
+        .on('mousemove', (ev, r) => tt.show(ev, r.candidate, [r.votes + ' votes'])).on('mouseleave', () => tt.hide());
+      const top = rows[0], bot = rows[rows.length - 1];
+      const looks = (top.votes - lo) / (bot.votes - lo), real = top.votes / bot.votes, lie = looks / real;
+      const m = lie < 1.15 ? ['ok', 'Honest'] : lie < 2 ? ['warn', 'Stretched'] : ['bad', 'Misleading'];
+      const r1 = $('#pg-r1'); r1.replaceChildren();
+      r1.append(top.candidate + '\u2019s bar looks ' + looks.toFixed(1) + '\u00d7 as tall as ' + bot.candidate + '\u2019s. In real life, she got ' + real.toFixed(1) + '\u00d7 as many votes. ');
+      const s = document.createElement('span'); s.className = 'gv-meter ' + m[0]; s.textContent = m[1]; r1.append(s);
+      a11y(el1, 'Bar chart of votes with the axis starting at ' + lo);
+    }
+    const el2 = $('#pg-c2'), mm = dash.data('membership');
+    const n = Number($('#pg-range').value); $('#pg-range-v').textContent = n;
+    if (ready(el2, mm)) {
+      const rows = mm.data.slice(-n); memberChart(el2, rows, $('#pg-zoom').checked);
+      const a = rows[0].members, b = rows[rows.length - 1].members, ch = pct(a, b);
+      const head = ch > 25 ? 'Coding club is booming!' : ch > 0 ? 'Coding club is growing' : ch < -5 ? 'Coding club is shrinking!' : 'Coding club is holding steady';
+      const r2 = $('#pg-r2'); r2.replaceChildren(); const q = document.createElement('b'); q.textContent = '\u201c' + head + '\u201d';
+      r2.append('This chart\u2019s headline would be: ', q, ' (' + (ch > 0 ? '+' : '') + ch + '% over the months shown). Same club, same data: only the time range changed.');
+      a11y(el2, 'Line chart of coding club members for the last ' + n + ' months');
+    }
+    const el3 = $('#pg-c3'), lt = dash.data(pgRate ? 'late_rate' : 'late');
+    $('#pg-tot').setAttribute('aria-pressed', String(!pgRate)); $('#pg-rate').setAttribute('aria-pressed', String(pgRate));
+    if (ready(el3, lt)) {
+      lateChart(el3, lt.data, !pgRate);
+      const k = pgRate ? 'per_100' : 'late', worst = lt.data.reduce((m, r) => r[k] > m[k] ? r : m);
+      const r3 = $('#pg-r3'); r3.replaceChildren(); const q = document.createElement('b'); q.textContent = worst.school;
+      r3.append('Which school looks worst? ', q, pgRate ? '. Per 100 students, the small school has the biggest problem.' : '. But it\u2019s also the biggest school. Try \u201cLate per 100 students.\u201d');
+      a11y(el3, pgRate ? 'Bar chart of late arrivals per 100 students' : 'Bar chart of total late arrivals');
+    }
+  }
+  ['#pg-axis', '#pg-range'].forEach(s => $(s).addEventListener('input', drawPlay));
+  $('#pg-zoom').addEventListener('change', drawPlay);
+  $('#pg-tot').addEventListener('click', () => { pgRate = false; drawPlay(); });
+  $('#pg-rate').addEventListener('click', () => { pgRate = true; drawPlay(); });
+
+  // ---------- Make your own chart ----------
+  function parseRows(text) {
+    const rows = [], bad = [];
+    text.split('\n').map(s => s.trim()).filter(Boolean).forEach((line, i) => {
+      const m = line.match(/^(.*?)[,\t:]\s*(-?[\d.,]+)\s*%?$/);
+      const v = m ? Number(m[2].replace(/,/g, '')) : NaN;
+      if (m && m[1].trim() && isFinite(v)) rows.push({label: m[1].trim(), value: v}); else bad.push(i + 1);
+    });
+    return {rows, bad};
+  }
+  function drawMaker() {
+    const title = $('#mk-title').value.trim(), unit = $('#mk-unit').value.trim(), source = $('#mk-source').value.trim();
+    const type = $('#mk-type').value, sort = $('#mk-sort').checked, zero = $('#mk-zero').checked;
+    const {rows: raw, bad} = parseRows($('#mk-data').value);
+    const hlSel = $('#mk-hl'), prev = hlSel.value;
+    hlSel.replaceChildren(); [['', 'Nothing'], ...raw.map(r => [r.label, r.label])].forEach(([v, t]) => { const o = document.createElement('option'); o.value = v; o.textContent = t; hlSel.appendChild(o); });
+    if (!hlSel.dataset.init) { hlSel.dataset.init = '1'; hlSel.value = raw[0] ? raw[0].label : ''; }
+    else hlSel.value = raw.some(r => r.label === prev) ? prev : '';
+    const hl = hlSel.value;
+    $('#mk-sort').closest('label').style.display = type === 'bar' ? '' : 'none';
+    $('#mk-zero-wrap').style.display = type === 'line' ? '' : 'none';
+    const rows = type === 'bar' && sort ? raw.slice().sort((a, b) => b.value - a.value) : raw;
+    const el = $('#mk-chart'), w = width(el);
+    const titleLines = [];
+    { const words = (title || 'Add a headline').split(/\s+/); let cur = ''; const maxC = Math.max(20, Math.floor(w / 10));
+      words.forEach(wd => { if ((cur + ' ' + wd).trim().length > maxC) { titleLines.push(cur); cur = wd; } else cur = (cur + ' ' + wd).trim(); }); titleLines.push(cur); }
+    const top = 14 + titleLines.length * 22 + (unit ? 18 : 4), h = top + 210 + (source ? 22 : 6);
+    const svg = svgIn(el, w, h), tt = tip(el);
+    svg.append('rect').attr('class', 'mk-bg').attr('width', w).attr('height', h).attr('fill', 'var(--color-bg)');
+    titleLines.forEach((t, i) => svg.append('text').attr('x', 4).attr('y', 26 + i * 22).style('font-size', '18px').style('font-weight', 700).style('fill', title ? 'var(--color-fg)' : 'var(--color-fg-muted)').text(t));
+    if (unit) label(svg, 4, top - 4, '\u2191 ' + unit);
+    const cTop = top + 6, cBot = top + 186;
+    if (rows.length) {
+      const vmax = d3.max(rows, r => r.value), vmin = d3.min(rows, r => r.value);
+      const lo = type === 'bar' || zero ? Math.min(0, vmin) : vmin - (vmax - vmin) * .15;
+      const y = d3.scaleLinear([lo, vmax * (vmax > 0 ? 1.12 : .9)], [cBot, cTop]).nice();
+      const lw = textW(svg, y.ticks(4).map(fmt)) + 8;
+      const x = d3.scaleBand(rows.map(r => r.label), [lw + 4, w - 6]).padding(type === 'bar' ? .28 : 0);
+      grid(svg, y, lw, w - 6, 4);
+      axis(svg.append('g').attr('transform', `translate(${lw},0)`), d3.axisLeft(y).ticks(4).tickFormat(fmt).tickSize(0).tickPadding(6));
+      const every = Math.ceil(rows.length / Math.max(1, Math.floor((w - lw) / 64)));
+      axis(svg.append('g').attr('transform', `translate(0,${cBot})`), d3.axisBottom(x).tickValues(rows.map(r => r.label).filter((l, i) => i % every === 0)).tickSize(0).tickPadding(6));
+      const X = r => x(r.label) + x.bandwidth() / 2, col = r => !hl || r.label === hl ? C[0] : 'var(--cds-chart-muted)';
+      if (type === 'bar') {
+        svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.label)).attr('width', x.bandwidth()).attr('y', r => y(Math.max(0, r.value))).attr('height', r => Math.abs(y(r.value) - y(0))).attr('rx', 3).attr('fill', col)
+          .on('mousemove', (ev, r) => tt.show(ev, r.label, [fmt(r.value) + (unit ? ' ' + unit : '')])).on('mouseleave', () => tt.hide());
+        if (x.bandwidth() > 26) svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'gv-lbl gv-num').attr('text-anchor', 'middle').attr('x', X).attr('y', r => y(Math.max(0, r.value)) - 5).text(r => fmt(r.value));
+      } else {
+        line(svg, rows, X, r => y(r.value), C[0], 2.5);
+        svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', X).attr('cy', r => y(r.value)).attr('r', r => r.label === hl ? 6 : 3.5).attr('fill', col);
+        hover(svg, rows, X, x.step(), tt, r => r.label, r => [fmt(r.value) + (unit ? ' ' + unit : '')]);
+      }
+    } else label(svg, w / 2, (cTop + cBot) / 2, 'Type some data to see your chart', 'middle');
+    if (source) label(svg, 4, h - 6, 'Source: ' + source);
+    a11y(el, (type === 'bar' ? 'Bar chart' : 'Line chart') + ': ' + (title || 'untitled'));
+    // checklist
+    const words = title.split(/\s+/).filter(Boolean).length;
+    const items = [];
+    if (bad.length) items.push(['warn', 'Check line ' + bad.join(', ') + ' of your data. Write it as \u201clabel, number\u201d.']);
+    items.push(words >= 4 ? ['ok', 'Your headline tells a story.'] : ['warn', 'Write your headline as a full sentence that says what the chart shows, like \u201cPizza Friday wins our lunch vote.\u201d']);
+    items.push(unit ? ['ok', 'Readers know what the numbers mean (' + unit + ').'] : ['warn', 'Add units so readers know what the numbers mean: votes, %, dollars, students…']);
+    items.push(source ? ['ok', 'You named your source.'] : ['warn', 'Say where the data came from, so people can trust it and check it.']);
+    if (type === 'bar') items.push(['ok', 'Bars start at zero, so their lengths are honest. (This tool always does that.)']);
+    else items.push(zero ? ['ok', 'The axis starts at zero.'] : ['info', 'The axis doesn\u2019t start at zero. That\u2019s OK for a line chart if small changes really matter, but say so.']);
+    if (raw.length > 8) items.push(['warn', 'That\u2019s a lot of items (' + raw.length + '). Could you group some together, or show only the most important?']);
+    if (type === 'bar') items.push(sort ? ['ok', 'Sorted, so the ranking is easy to read.'] : ['info', 'Not sorted. Fine if the order matters, like days of the week; otherwise sort it.']);
+    if (type === 'line' && raw.length < 3) items.push(['warn', 'A line chart needs at least 3 points in time to show a trend.']);
+    items.push(hl ? ['ok', 'You highlighted ' + hl + ', so readers know where to look.'] : ['info', 'Try highlighting the one thing your headline is about.']);
+    const ul = $('#mk-check'); ul.replaceChildren();
+    items.forEach(([c, t]) => { const li = document.createElement('li'); li.className = c; li.textContent = t; ul.appendChild(li); });
+  }
+  ['#mk-title', '#mk-unit', '#mk-source', '#mk-data'].forEach(s => $(s).addEventListener('input', drawMaker));
+  ['#mk-type', '#mk-hl', '#mk-sort', '#mk-zero'].forEach(s => $(s).addEventListener('change', drawMaker));
+  if (window.DATA) {   // the standalone site can save files; the Claude preview cannot
+    $('#mk-dl-wrap').hidden = false;
+    $('#mk-dl').addEventListener('click', () => {
+      const src = $('#mk-chart svg'); if (!src) return;
+      const clone = src.cloneNode(true), a = src.querySelectorAll('*'), b = clone.querySelectorAll('*');
+      a.forEach((n, i) => { const cs = getComputedStyle(n), t = b[i];
+        ['fill', 'stroke', 'stroke-width', 'opacity', 'font-size', 'font-weight', 'font-family', 'stroke-dasharray'].forEach(k => t.style.setProperty(k, cs.getPropertyValue(k))); });
+      const vb = src.viewBox.baseVal, sc = 2;
+      clone.setAttribute('width', vb.width); clone.setAttribute('height', vb.height); clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      const img = new Image();
+      img.onload = () => { const cv = document.createElement('canvas'); cv.width = vb.width * sc; cv.height = vb.height * sc;
+        const cx = cv.getContext('2d'); cx.scale(sc, sc); cx.drawImage(img, 0, 0);
+        cv.toBlob(bl => { const u = URL.createObjectURL(bl), l = document.createElement('a'); l.href = u; l.download = 'my-chart.png'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 1000); }); };
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    });
+  }
+
   // Levels
   const root = $('#gv');
   const RANK = {b: 0, i: 1, a: 2}, LNAME = {Beginner: 0, Intermediate: 1, Advanced: 2};
@@ -982,6 +1411,9 @@ dash.calc('membership_recent', {
       a11y(el, desc);
     });
     drawQuiz();
+    SCEN.forEach(drawScenario);
+    drawPlay();
+    drawMaker();
     drawCatalog();
     const ex = dash.data('exemplars');
     const putEx = fillTable('#good-table', ex, 'name', ['name', 'creator', 'year', 'story', 'why_it_works'], (td, k, r) => {
