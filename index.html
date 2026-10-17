@@ -1492,21 +1492,32 @@ dash.calc('membership_recent', {
     });
   }
 
+  // Draw each part of the page only when it scrolls near the screen, so phones aren't busy drawing
+  // dozens of charts the student hasn't reached yet.
+  function drawPair([sel, ids, draw, desc]) {
+    const el = $(sel), dss = ids.map(id => dash.data(id)), bad = dss.find(d => d.status !== 'ok');
+    if (bad) { ready(el, bad); return; }
+    el.classList.remove('dash-skeleton');
+    draw(dss.map(d => d.data), el);
+    a11y(el, desc);
+  }
+  const UNITS = {playground: drawPlay, quiz: drawQuiz, maker: drawMaker};
+  PAIRS.forEach(pr => { const art = $(pr[0]).closest('article'); const prev = UNITS[art.id]; UNITS[art.id] = () => { prev && prev(); drawPair(pr); }; });
+  SCEN.forEach(sc => { UNITS['irl-' + sc.id] = () => drawScenario(sc); });
+  const seen = new Set();
+  if ('IntersectionObserver' in window) {
+    const unitIO = new IntersectionObserver(entries => entries.forEach(e => {
+      const id = e.target.id;
+      if (e.isIntersecting && !seen.has(id)) { seen.add(id); UNITS[id](); unitIO.unobserve(e.target); }
+    }), {rootMargin: '800px 0px'});
+    Object.keys(UNITS).forEach(id => { const el = document.getElementById(id); if (el) unitIO.observe(el); });
+  } else Object.keys(UNITS).forEach(id => seen.add(id));   // older browsers: just draw everything
+
   let linked = false;
   function drawAll() {
     fillValues();
-    PAIRS.forEach(([sel, ids, draw, desc]) => {
-      const el = $(sel), dss = ids.map(id => dash.data(id)), bad = dss.find(d => d.status !== 'ok');
-      if (bad) { ready(el, bad); return; }
-      el.classList.remove('dash-skeleton');
-      draw(dss.map(d => d.data), el);
-      a11y(el, desc);
-    });
-    drawQuiz();
-    SCEN.forEach(drawScenario);
+    seen.forEach(id => UNITS[id] && UNITS[id]());   // redraw only the parts the student has already scrolled to
     drawTables();
-    drawPlay();
-    drawMaker();
     drawCatalog();
     const ex = dash.data('exemplars');
     const putEx = fillTable('#good-table', ex, 'name', ['name', 'creator', 'year', 'story', 'why_it_works'], (td, k, r) => {
