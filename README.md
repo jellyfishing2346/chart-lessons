@@ -26,6 +26,7 @@ An interactive lesson that teaches students how to spot misleading, confusing an
 | `d3.min.js` | The charting library (D3 v7.8.5), stored here so the site doesn't depend on another server. |
 | `worksheet-beginner.pdf`, `worksheet-intermediate.pdf`, `worksheet-advanced.pdf` | Printable student worksheets, one per level, linked from the "Your turn" section. |
 | `pocket-card.pdf` | Printable "before you believe or share" checklist, three cards per page. |
+| `og-image.png` | The preview picture shown when the link is shared in Classroom, Slack, texts or social media. |
 | `README.md` | This file. |
 
 The teacher answer key is kept out of this repository on purpose, because anyone can see the files in a public repo.

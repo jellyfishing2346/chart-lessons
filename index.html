@@ -3,14 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Good Charts vs Bad Charts</title>
+<title>Good Charts vs Bad Charts: an interactive lesson on spotting misleading data</title>
+<meta name="description" content="A free, interactive lesson for students: spot misleading charts in ads, news and social media, practice with real-life examples, and make honest charts of your own. Beginner, intermediate and advanced levels.">
+<link rel="canonical" href="https://jellyfishing2346.github.io/chart-lessons/">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1b19" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jellyfishing2346.github.io/chart-lessons/">
+<meta property="og:title" content="Good Charts vs Bad Charts">
+<meta property="og:description" content="A free, interactive lesson for students: spot misleading charts in ads, news and social media, practice with real-life examples, and make honest charts of your own. Beginner, intermediate and advanced levels.">
+<meta property="og:image" content="https://jellyfishing2346.github.io/chart-lessons/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two bar charts of the same election: a misleading one saying Maya won in a landslide, and an honest one saying Maya won a close race.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Good Charts vs Bad Charts">
+<meta name="twitter:description" content="A free, interactive lesson for students: spot misleading charts in ads, news and social media, practice with real-life examples, and make honest charts of your own. Beginner, intermediate and advanced levels.">
+<meta name="twitter:image" content="https://jellyfishing2346.github.io/chart-lessons/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Good Charts vs Bad Charts", "description": "A free, interactive lesson for students: spot misleading charts in ads, news and social media, practice with real-life examples, and make honest charts of your own. Beginner, intermediate and advanced levels.", "url": "https://jellyfishing2346.github.io/chart-lessons/", "image": "https://jellyfishing2346.github.io/chart-lessons/og-image.png", "inLanguage": "en-US", "isAccessibleForFree": true, "learningResourceType": ["Interactive lesson", "Quiz", "Worksheet"], "educationalLevel": ["Beginner", "Intermediate", "Advanced"], "audience": {"@type": "EducationalAudience", "educationalRole": "student"}, "teaches": ["Data literacy", "Reading charts", "Spotting misleading data visualizations", "Making honest charts"]}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 <style>
 :root{
   --font-anthropic-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-anthropic-serif: Georgia, "Times New Roman", serif;
   --color-fg:#1f1e1c; --color-fg-muted:#6b6862; --color-bg:#ffffff; --color-panel:#f7f6f3; --color-border-line:#e3e0da;
-  --color-ok:#2e7d32; --color-warn:#b26a00; --color-bad:#c62828;
+  --color-ok:#2e7d32; --color-warn:#8a5000; --color-bad:#c62828;
   --s0:#2f6fdb; --s1:#e07a1f; --s2:#2e9e6b; --s3:#a24fc2; --s4:#d6457a; --s5:#1a9bb3; --s6:#8a7a1f; --s7:#6b6862;
   --cds-chart-axis:#c9c5bd; --cds-chart-grid:#ebe8e2; --cds-chart-muted:#c3bfb7; --cds-chart-reference:#8f8b84;
   --cds-surface-popover:#ffffff; --cds-border:#d9d5ce; --cds-shadow-popover:0 4px 14px rgba(0,0,0,.12); --cds-text-secondary:#6b6862;
@@ -35,6 +51,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 <script src="d3.min.js"></script>
 </head>
 <body>
+<noscript><p style="padding:1rem;font-family:system-ui,sans-serif">This lesson needs JavaScript to show its charts and quiz. Please turn JavaScript on, or ask your teacher for the printable worksheets.</p></noscript>
 <div id="dash-root">
 <style>
 #dash-root .gv{font-family:var(--font-anthropic-sans);color:var(--color-fg);display:flex;flex-direction:column;gap:var(--cds-gap-xl)}
@@ -170,6 +187,11 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg)}
 .gv-checklist li.ok::before{content:"\2713";color:var(--color-ok)}
 .gv-checklist li.warn::before{content:"!";color:var(--color-warn);left:.3rem}
 .gv-checklist li.info::before{content:"i";color:var(--color-fg-muted);left:.3rem;font-style:italic}
+.gv-data{margin-top:var(--cds-gap-sm);font-size:var(--cds-font-size-caption)}
+.gv-data summary{cursor:pointer;color:var(--color-fg-muted);font-weight:600}
+.gv-data table{border-collapse:collapse;margin-top:var(--cds-gap-xs);min-width:12rem}
+.gv-data th,.gv-data td{text-align:left;padding:3px 10px 3px 0;border-bottom:1px solid var(--color-border-line);font-variant-numeric:tabular-nums}
+.gv-data th{font-weight:600}
 .gv-kicker{font-size:var(--cds-font-size-caption);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-fg-muted);margin-bottom:var(--cds-gap-xs)}
 .gv-says{margin:var(--cds-gap-xs) 0 0;font-size:var(--cds-font-size-body);line-height:1.4}
 .gv-says q{font-family:var(--font-anthropic-serif);font-size:1.15em;font-weight:600;quotes:"\201C" "\201D"}
@@ -201,7 +223,7 @@ let _rt; window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setT
 </script>
 
 
-<div class="gv lv-i" id="gv">
+<main class="gv lv-i" id="gv">
   <header>
     <h1 class="gv-title" id="top">Good charts vs bad charts</h1>
     <p class="gv-intro">Every chart tells a story. A <b>good chart</b> tells a <b>true</b> story you can see at a glance. A <b>misleading chart</b> tells a story the numbers don’t actually support. Each example below is an everyday situation drawn two ways, using <b>exactly the same numbers</b>.</p>
@@ -535,8 +557,8 @@ Salad, 4</textarea></label>
       <div data-min="a"><dt>Cherry-picking</dt><dd>Showing only the part of the data that supports your story, like a few bad months out of three good years.</dd></div>
     </dl>
   </section>
-</div>
-<p class="gv-foot">Practice charts use made-up numbers. The mistake list draws on The Economist’s “Mistakes, we’ve drawn a few” (Sarah Leo, 2019) and the sources under “Where to learn more.” The reading approach is inspired by The New York Times Learning Network’s “What’s Going On in This Graph?”</p>
+</main>
+<footer><p class="gv-foot">Practice charts use made-up numbers. The mistake list draws on The Economist’s “Mistakes, we’ve drawn a few” (Sarah Leo, 2019) and the sources under “Where to learn more.” The reading approach is inspired by The New York Times Learning Network’s “What’s Going On in This Graph?”</p></footer>
 <script>
 dash.calc('catalog_counts', {
   inputs: ['catalog'], title: 'Mistakes by type',
@@ -1321,6 +1343,40 @@ dash.calc('membership_recent', {
     });
   }
 
+
+  // Text version of a chart's numbers, for screen readers and anyone who wants the exact values
+  const COLS = {
+    election: [['candidate', 'Candidate'], ['votes', 'Votes']],
+    screen_time: [['year', 'Year'], ['screen_hours', 'Screen time (hrs/day)'], ['test_score', 'Average test score']],
+    lunch: [['week', 'Week of'], ['pct_good', '% who said lunch was good']],
+    team: [['player', 'Player'], ['practice_hours', 'Practice hrs/week'], ['points', 'Points per game']],
+    activities: [['activity', 'Activity'], ['pct', '% of students']],
+    followers: [['month', 'Month'], ['followers', 'Followers']],
+    survey: [['answer', 'Answer'], ['people', 'People']],
+    poll: [['candidate', 'Candidate'], ['pct', 'Support (%)'], ['margin', 'Margin of error (\u00b1 points)']],
+    steps: [['day', 'Day'], ['steps', 'Steps']],
+    sales: [['year', 'Year'], ['pairs_sold', 'Pairs sold']],
+    coin: [['date', 'Date'], ['price', 'Price ($)']],
+  };
+  function dataTable(host, id) {
+    const ds = dash.data(id); if (ds.status !== 'ok' || !host || !COLS[id]) return;
+    let det = host.querySelector(':scope > .gv-data[data-for="' + id + '"]');
+    if (!det) { det = document.createElement('details'); det.className = 'gv-data'; det.dataset.for = id;
+      const s = document.createElement('summary'); s.textContent = 'Show the numbers'; det.appendChild(s); host.appendChild(det); }
+    det.querySelector('table')?.remove();
+    const t = document.createElement('table'); t.dataset.source = id; t.dataset.rowKey = COLS[id][0][0];
+    const th = t.createTHead().insertRow(); COLS[id].forEach(([k, l]) => { const c = document.createElement('th'); c.dataset.field = k; c.textContent = l; th.appendChild(c); });
+    const rows = id === 'coin' ? ds.data.filter((r, i) => i % 15 === 0 || i >= ds.data.length - 7) : ds.data;
+    const tb = t.createTBody();
+    rows.forEach(r => { const tr = tb.insertRow(); tr.dataset.key = r[COLS[id][0][0]]; COLS[id].forEach(([k]) => { tr.insertCell().textContent = typeof r[k] === 'number' && r[k] >= 1000 && k !== 'year' ? fmt(r[k]) : r[k]; }); });
+    if (id === 'coin') { const cap = t.createCaption(); cap.textContent = 'Every 15th day, plus the last 7 days'; cap.style.textAlign = 'left'; }
+    det.appendChild(t);
+  }
+  function drawTables() {
+    [['pair-election', 'election'], ['pair-screen', 'screen_time'], ['pair-lunch', 'lunch'], ['pair-team', 'team'], ['pair-activities', 'activities']]
+      .forEach(([art, id]) => { const a = document.getElementById(art); if (a) dataTable(a.querySelector('.gv-grid2').parentNode === a ? a : a, id); });
+    SCEN.forEach(sc => { const card = document.getElementById('irl-' + sc.id); if (card) dataTable(card.querySelector('.gv-fgrid > div'), sc.ids[0]); });
+  }
   // Levels
   const root = $('#gv');
   const RANK = {b: 0, i: 1, a: 2}, LNAME = {Beginner: 0, Intermediate: 1, Advanced: 2};
@@ -1412,6 +1468,7 @@ dash.calc('membership_recent', {
     });
     drawQuiz();
     SCEN.forEach(drawScenario);
+    drawTables();
     drawPlay();
     drawMaker();
     drawCatalog();
